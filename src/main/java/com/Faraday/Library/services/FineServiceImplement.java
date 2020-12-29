@@ -72,4 +72,10 @@ public class FineServiceImplement implements FineService{
 		return fineEntity;
 	}
 
+	@Override
+	public FineEntity getById(Integer id) {
+		FineEntity fineEntity = fineRepository.findById(id).get();
+		return fineEntity;
+	}
+
 }
