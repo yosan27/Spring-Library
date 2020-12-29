@@ -18,9 +18,11 @@ public class BookDetailsController {
     @Autowired
     private BookDetailsServiceImplement service;
 
-    private StatusMessageDto result = new StatusMessageDto();
+    @SuppressWarnings("rawtypes")
+	private StatusMessageDto result = new StatusMessageDto();
 
-    @GetMapping("/bookdetails")
+    @SuppressWarnings("unchecked")
+	@GetMapping("/bookdetails")
     public ResponseEntity<?> getAllDetails() {
         try {
             List<BookDetailsEntity> books = service.getAllDetailBooks();
@@ -36,12 +38,14 @@ public class BookDetailsController {
                 return ResponseEntity.ok(result);
             }
         } catch (Exception e) {
-            StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+            @SuppressWarnings("rawtypes")
+			StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
             return ResponseEntity.status(500).body(error);
         }
     }
 
-    @GetMapping("/bookdetails/{bookDetailCode}")
+    @SuppressWarnings("unchecked")
+	@GetMapping("/bookdetails/{bookDetailCode}")
     public ResponseEntity<?> getDetailBook(@PathVariable String bookDetailCode) {
         try {
             BookDetailsEntity books = service.getDetailBooks(bookDetailCode);
@@ -57,12 +61,14 @@ public class BookDetailsController {
                 return ResponseEntity.ok(result);
             }
         } catch (Exception e) {
-            StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+            @SuppressWarnings("rawtypes")
+			StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
             return ResponseEntity.status(500).body(error);
         }
     }
 
-    @PostMapping("/bookdetails")
+    @SuppressWarnings("unchecked")
+	@PostMapping("/bookdetails")
     public ResponseEntity<?> post(@RequestBody BookDetailsDto dto){
         try {
 
@@ -80,12 +86,14 @@ public class BookDetailsController {
                 return ResponseEntity.ok(result);
             }
         } catch (Exception e) {
-            StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+            @SuppressWarnings("rawtypes")
+			StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
             return ResponseEntity.status(500).body(error);
         }
     }
 
-    @PutMapping("/bookdetails/{BookDetailCode}")
+    @SuppressWarnings("unchecked")
+	@PutMapping("/bookdetails/{BookDetailCode}")
     public ResponseEntity<?> put(@PathVariable String BookDetailCode, @RequestBody BookDetailsDto dto){
         try {
 
@@ -103,13 +111,15 @@ public class BookDetailsController {
                 return ResponseEntity.ok(result);
             }
         } catch (Exception e) {
-            StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+            @SuppressWarnings("rawtypes")
+			StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
             return ResponseEntity.status(500).body(error);
         }
     }
 
     //Soft delete detail buku
-    @DeleteMapping("/bookdetails/{BookDetailCode}")
+    @SuppressWarnings("unchecked")
+	@DeleteMapping("/bookdetails/{BookDetailCode}")
     public ResponseEntity<?> deleteDetailbook(@PathVariable String BookDetailCode) {
         try {
             BookDetailsEntity books = service.delete(BookDetailCode);
@@ -128,7 +138,8 @@ public class BookDetailsController {
 
             return ResponseEntity.status(200).body(result);
         } catch (Exception e) {
-            StatusMessageDto error = new StatusMessageDto(500,e.getMessage(), null);
+            @SuppressWarnings("rawtypes")
+			StatusMessageDto error = new StatusMessageDto(500,e.getMessage(), null);
             return ResponseEntity.status(500).body(error);
         }
     }
