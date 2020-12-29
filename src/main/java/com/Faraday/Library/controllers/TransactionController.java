@@ -29,11 +29,19 @@ public class TransactionController {
 		return service.getAll();
 	}
 	
+	@GetMapping("/transaction/get-by-id/{id}")
+	List<TransactionEntity> getById(@PathVariable Integer id){
+		return service.getAll();
+	}
+	
+	@GetMapping("/transaction/get-by-rent-code/{rentCode}")
+	TransactionEntity getByRentCode(@PathVariable String rentCode){
+		return service.getByRentCode(rentCode);
+	}
+	
 	@GetMapping("/transaction/get-by-date")
 	List<TransactionEntity> getByDate(@PathVariable String date){
 		Date inputDate = Date.valueOf(date);
-//		LocalDate today = LocalDate.now();
-//		Date date = Date.valueOf(today);
 		return service.getByDate(inputDate);
 	}
 	

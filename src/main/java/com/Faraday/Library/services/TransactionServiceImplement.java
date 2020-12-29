@@ -90,4 +90,16 @@ public class TransactionServiceImplement implements TransactionService{
 		return transactionEntity;
 	}
 
+	@Override
+	public TransactionEntity getById(Integer id) {
+		TransactionEntity transactionEntity = repo.findById(id).get();
+		return transactionEntity;
+	}
+
+	@Override
+	public TransactionEntity getByRentCode(String rentCode) {
+		TransactionEntity transactionEntity = repo.findByRentCode(rentCode);
+		return transactionEntity;
+	}
+
 }

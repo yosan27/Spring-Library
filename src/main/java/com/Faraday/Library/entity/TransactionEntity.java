@@ -103,6 +103,4 @@ public class TransactionEntity implements Serializable{
 	public void setTransactionCode(String transactionCode) {
 		this.transactionCode = transactionCode;
 	}
-	
-	
 }
