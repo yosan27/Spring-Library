@@ -3,9 +3,6 @@ package com.Faraday.Library.dto;
 
 import java.util.Date;
 
-import lombok.Data;
-
-@Data
 public class UserDto {
 	private Integer id;
 	private String userCode;
@@ -152,3 +149,5 @@ public class UserDto {
 		this.status = status;
 	}
 }
+
+
