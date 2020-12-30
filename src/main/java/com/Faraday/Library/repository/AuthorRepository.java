@@ -8,4 +8,5 @@ import com.Faraday.Library.entity.AuthorEntity;
 @Repository
 public interface AuthorRepository extends JpaRepository<AuthorEntity, Integer>{
 
+    AuthorEntity findByAuthorCodeIgnoreCase(String authorCode);
 }

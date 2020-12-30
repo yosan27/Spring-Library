@@ -6,10 +6,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name="category_entity")
-public class CategoryEntity {
+public class CategoryEntity implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +19,10 @@ public class CategoryEntity {
 	private Integer id;
 	
 	@Column(name = "category_code", length = 255, unique = true, nullable = false)
-	private String category_code;
+	private String categoryCode;
 	
 	@Column(name = "category_name", length = 255, unique = true, nullable = false)
-	private String category_name;
+	private String categoryName;
 	
 	@Column(name = "status", length = 11)
 	private Integer status;
@@ -33,20 +35,20 @@ public class CategoryEntity {
 		this.id = id;
 	}
 
-	public String getCategory_code() {
-		return category_code;
+	public String getCategoryCode() {
+		return categoryCode;
 	}
 
-	public void setCategory_code(String category_code) {
-		this.category_code = category_code;
+	public void setCategoryCode(String categoryCode) {
+		this.categoryCode = categoryCode;
 	}
 
-	public String getCategory_name() {
-		return category_name;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setCategory_name(String category_name) {
-		this.category_name = category_name;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	public Integer getStatus() {
