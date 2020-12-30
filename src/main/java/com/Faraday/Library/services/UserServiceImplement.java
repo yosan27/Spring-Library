@@ -112,6 +112,15 @@ public class UserServiceImplement implements UserService {
 		userRepository.save(userEntity);
 		return userEntity;
 	}
+	
+	@Override
+	public UserEntity updateUserBalance(Integer id, UserDto dto) {
+		// TODO Auto-generated method stub
+		UserEntity userEntity = userRepository.findById(id).get();
+		userEntity.setBalance(dto.getBalance());
+		userRepository.save(userEntity);
+		return userEntity;
+	}
 
 	public UserEntity converToUserEntity(Integer role, UserDto dto) {
 		List<UserEntity> userEntities = userRepository.findAll();
