@@ -6,9 +6,9 @@ import com.Faraday.Library.entity.BookEntity;
 import java.util.List;
 
 public interface BookService {
-    List<BookEntity> getAllBooks();
+    List<BookEntity> getBooks();
 
-    BookEntity getDetailBooks(String bookCode);
+    BookEntity getBook(String bookCode);
 
     BookEntity post(BookDto dto);
 

@@ -8,4 +8,6 @@ import com.Faraday.Library.entity.PublisherEntity;
 @Repository
 public interface PublisherRepository extends JpaRepository<PublisherEntity, Integer> {
 
+    PublisherEntity findByPublisherCodeIgnoreCase(String publisherCode);
+
 }

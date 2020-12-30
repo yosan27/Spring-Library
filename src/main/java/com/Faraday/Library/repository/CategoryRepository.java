@@ -11,6 +11,9 @@ import com.Faraday.Library.entity.CategoryEntity;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Integer> {
+
+	CategoryEntity findByCategory_codeIgnoreCase(String category_code);
+
 	@Query(value = "select * from category_entity where status = 1", nativeQuery = true)
 	List<CategoryEntity> findId();
 }
