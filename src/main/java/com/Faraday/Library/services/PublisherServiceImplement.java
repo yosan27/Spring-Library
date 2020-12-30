@@ -22,10 +22,22 @@ public class PublisherServiceImplement implements PublisherService {
 		List<PublisherEntity> publisherEntities = publisherRepository.findAll();
 		return publisherEntities;
 	}
+
+	@Override
+	public List<PublisherEntity> getActiveId() {
+		List<PublisherEntity> publisherEntities = publisherRepository.findActiveId();
+		return publisherEntities;
+	}
 	
 	@Override
 	public PublisherEntity getById(Integer id) {
 		PublisherEntity publisherEntity = publisherRepository.findById(id).get();
+		return publisherEntity;
+	}
+	
+	@Override
+	public PublisherEntity getByPublisherCode(String publisherCode) {
+		PublisherEntity publisherEntity = publisherRepository.findByPublisherCode(publisherCode);
 		return publisherEntity;
 	}
 
@@ -38,6 +50,7 @@ public class PublisherServiceImplement implements PublisherService {
 		publisherEntity.setPublisherCode("");
 		publisherEntity.setPublisherName(dto.getPublisherName());
 		publisherEntity.setAddress(dto.getAddress());
+		publisherEntity.setStatus(1);
 		publisherRepository.save(publisherEntity);
 		
 		id = publisherEntity.getId();
@@ -53,7 +66,6 @@ public class PublisherServiceImplement implements PublisherService {
 	@Override
 	public PublisherEntity update(Integer id, PublisherDto dto) {
 		PublisherEntity publisherEntity = publisherRepository.findById(id).get();
-		publisherEntity.setPublisherCode(dto.getPublisherCode());
 		publisherEntity.setPublisherName(dto.getPublisherName());
 		publisherEntity.setAddress(dto.getAddress());
 		publisherRepository.save(publisherEntity);
@@ -63,7 +75,8 @@ public class PublisherServiceImplement implements PublisherService {
 	@Override
 	public PublisherEntity delete(Integer id) {
 		PublisherEntity publisherEntity = publisherRepository.findById(id).get();
-		publisherRepository.delete(publisherEntity);
+		publisherEntity.setStatus(0);
+		publisherRepository.save(publisherEntity);
 		return publisherEntity;
 	}
 }

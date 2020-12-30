@@ -2,12 +2,18 @@ package com.Faraday.Library.dto;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class FineDto {
 	private Integer id;
 	private String fineCode;
 	private String fineType;
 	private Double nominal;
+	
+	@JsonFormat(pattern ="dd/MM/yyy")
 	private Date validFrom;
+	
+	@JsonFormat(pattern ="dd/MM/yyy")
 	private Date validTo;
 	
 	
@@ -26,7 +32,7 @@ public class FineDto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 
 	public Integer getId() {
 		return id;

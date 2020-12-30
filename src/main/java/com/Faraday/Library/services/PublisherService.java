@@ -7,7 +7,9 @@ import com.Faraday.Library.entity.PublisherEntity;
 
 public interface PublisherService {
 	List<PublisherEntity> getAll();
+	List<PublisherEntity> getActiveId();
 	PublisherEntity getById(Integer id);
+	PublisherEntity getByPublisherCode(String publisherCode);
 	PublisherEntity insert(PublisherDto dto);
 	PublisherEntity update(Integer id, PublisherDto dto);
 	PublisherEntity delete(Integer id);

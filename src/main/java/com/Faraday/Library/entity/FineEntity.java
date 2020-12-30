@@ -1,7 +1,7 @@
 package com.Faraday.Library.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "fine_entity")
@@ -28,9 +30,11 @@ public class FineEntity implements Serializable{
 	private Double nominal;
 	
 	@Column(name = "valid_from", nullable = false)
+	@JsonFormat(pattern ="dd/MM/yyy")
 	private Date validFrom;
 	
 	@Column(name = "valid_to", nullable = false)
+	@JsonFormat(pattern ="dd/MM/yyy")
 	private Date validTo;
 
 	public Integer getId() {

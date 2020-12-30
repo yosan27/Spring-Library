@@ -20,24 +20,28 @@ public class PublisherEntity implements Serializable {
 	@Column(name = "publisher_code", unique = true, nullable = false)
 	private String publisherCode;
 	
-	@Column(name = "publisher_name", nullable = false)
+	@Column(name = "publisher_name")
 	private String publisherName;
 	
-	@Column(name = "address", nullable = false)
+	@Column(name = "address")
 	private String address;
+	
+	@Column(name = "status")
+	private Integer status;
 
 	public PublisherEntity() {
 		super();
 	}
-
-	public PublisherEntity(Integer id, String publisherCode, String publisherName, String address) {
+	
+	public PublisherEntity(Integer id, String publisherCode, String publisherName, String address, Integer status) {
 		super();
 		this.id = id;
 		this.publisherCode = publisherCode;
 		this.publisherName = publisherName;
 		this.address = address;
+		this.status = status;
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -68,5 +72,13 @@ public class PublisherEntity implements Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 }
