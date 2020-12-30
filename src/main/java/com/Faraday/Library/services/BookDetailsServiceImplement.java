@@ -45,8 +45,12 @@ public class BookDetailsServiceImplement implements BookDetailsService{
         books.setIsActive(1);
         bookDetailRepository.save(books);
 
-        String kodeDetailbuku = "BD" + books.getId();
-        books.setBookDetailCode(kodeDetailbuku);
+        String kodeDetailBuku = "";
+        Integer bookId = books.getId();
+        if(bookId.toString().length() == 1) kodeDetailBuku = "BD00" + bookId.toString();
+        else if (bookId.toString().length() == 2) kodeDetailBuku = "BD0" + bookId.toString();
+        else if (bookId.toString().length() == 3) kodeDetailBuku = "BD" + bookId.toString();
+        books.setBookDetailCode(kodeDetailBuku);
         bookDetailRepository.save(books);
         return books;
     }

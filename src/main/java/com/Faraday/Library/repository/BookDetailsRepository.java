@@ -12,6 +12,6 @@ public interface BookDetailsRepository extends JpaRepository<BookDetailsEntity, 
 
     BookDetailsEntity findByBookDetailCodeIgnoreCase(String bookDetailCode);
 
-    @Query(value = "SELECT * FROM book_detail WHERE is_active = 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM book_detail_entity WHERE is_active = 1", nativeQuery = true)
     List<BookDetailsEntity> findAllActive();
 }

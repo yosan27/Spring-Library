@@ -12,6 +12,6 @@ public interface BookRepository extends JpaRepository<BookEntity, Integer> {
 
     BookEntity findByBookCodeIgnoreCase(String bookCode);
 
-    @Query(value = "SELECT * FROM book WHERE status = 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM book_entity WHERE status = 1", nativeQuery = true)
     List<BookEntity> findAllActive();
 }
