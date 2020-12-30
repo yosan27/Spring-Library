@@ -1,6 +1,7 @@
 package com.Faraday.Library.controllers;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,8 @@ public class TransactionController {
 	}
 	
 	@GetMapping("/transaction/get-by-id/{id}")
-	List<TransactionEntity> getById(@PathVariable Integer id){
-		return service.getAll();
+	TransactionEntity getById(@PathVariable Integer id){
+		return service.getById(id);
 	}
 	
 	@GetMapping("/transaction/get-by-rent-code/{rentCode}")
@@ -40,7 +41,8 @@ public class TransactionController {
 	}
 	
 	@GetMapping("/transaction/get-by-date")
-	List<TransactionEntity> getByDate(@PathVariable String date){
+	List<TransactionEntity> getByDate(){
+		LocalDate date = LocalDate.of(2020, 12, 29);
 		Date inputDate = Date.valueOf(date);
 		return service.getByDate(inputDate);
 	}

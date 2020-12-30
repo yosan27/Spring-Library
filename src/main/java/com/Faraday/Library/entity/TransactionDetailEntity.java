@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -29,11 +30,11 @@ public class TransactionDetailEntity {
 	@Column(name = "kredit", nullable = false)
 	private Double kredit;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "transaction_code", nullable = false, unique = true, referencedColumnName = "transaction_code")
 	private TransactionEntity transactionEntity;
 	
-	
+	@OneToOne
 	@JoinColumn(name = "fine_code", unique = true, referencedColumnName = "fine_code")
 	private FineEntity fineEntity;
 

@@ -11,7 +11,7 @@ import com.Faraday.Library.entity.TransactionEntity;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<TransactionEntity, Integer>{
-	@Query(value = "select * from transaction_entity where date = ?", nativeQuery = true)
+	@Query(value = "select * from transaction_entity where transaction_date = ?", nativeQuery = true)
 	List<TransactionEntity> findByDate(Date date);
 	
 	@Query(value = "select * from transaction_entity where transaction_code = ?", nativeQuery = true)

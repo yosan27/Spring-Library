@@ -1,6 +1,7 @@
 package com.Faraday.Library.services;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,11 @@ public class TransactionServiceImplement implements TransactionService{
 		TransactionEntity transactionEntity = new TransactionEntity();
 		UserEntity userEntity = userRepository.findByUserCode(dto.getUserCode());
 		transactionEntity.setTransactionCode(dto.getTransactionCode());
-		transactionEntity.setDate(dto.getDate());
+		
+		LocalDate date = LocalDate.now();
+		Date inputDate = Date.valueOf(date);
+		transactionEntity.setDate(inputDate);
+		
 		transactionEntity.setNominal(dto.getNominal());
 		transactionEntity.setPaymentMethod(dto.getPaymentMethod());
 		transactionEntity.setPaymentStatus(dto.getPaymentStatus());
@@ -74,7 +79,6 @@ public class TransactionServiceImplement implements TransactionService{
 		TransactionEntity transactionEntity = repo.findById(id).get();
 		UserEntity userEntity = userRepository.findByUserCode(dto.getUserCode());
 		transactionEntity.setTransactionCode(dto.getTransactionCode());
-		transactionEntity.setDate(dto.getDate());
 		transactionEntity.setNominal(dto.getNominal());
 		transactionEntity.setPaymentMethod(dto.getPaymentMethod());
 		transactionEntity.setPaymentStatus(dto.getPaymentStatus());
