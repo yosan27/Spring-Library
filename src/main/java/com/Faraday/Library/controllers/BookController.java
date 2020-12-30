@@ -1,9 +1,9 @@
 package com.Faraday.Library.controllers;
 
-import com.Faraday.Library.dto.BookDetailsDto;
+import com.Faraday.Library.dto.BookDto;
 import com.Faraday.Library.dto.StatusMessageDto;
-import com.Faraday.Library.entity.BookDetailsEntity;
-import com.Faraday.Library.services.BookDetailsServiceImplement;
+import com.Faraday.Library.entity.BookEntity;
+import com.Faraday.Library.services.BookServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,19 +13,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class BookDetailsController {
+public class BookController {
 
     @Autowired
-    private BookDetailsServiceImplement service;
+    private BookServiceImplement service;
 
     @SuppressWarnings("rawtypes")
-	private StatusMessageDto result = new StatusMessageDto();
+    private StatusMessageDto result = new StatusMessageDto();
 
     @SuppressWarnings("unchecked")
-	@GetMapping("/bookdetails")
-    public ResponseEntity<?> getAllDetails() {
+    @GetMapping("/books")
+    public ResponseEntity<?> getAll() {
         try {
-            List<BookDetailsEntity> books = service.getAllDetailBooks();
+            List<BookEntity> books = service.getBooks();
             if (books.size() == 0) {
                 result.setStatus(HttpStatus.BAD_REQUEST.value());
                 result.setMessage("Data not found");
@@ -39,17 +39,17 @@ public class BookDetailsController {
             }
         } catch (Exception e) {
             @SuppressWarnings("rawtypes")
-			StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+            StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
             return ResponseEntity.status(500).body(error);
         }
     }
 
     @SuppressWarnings("unchecked")
-	@GetMapping("/bookdetails/{bookDetailCode}")
-    public ResponseEntity<?> getDetailBook(@PathVariable String bookDetailCode) {
+    @GetMapping("/book/{bookCode}")
+    public ResponseEntity<?> getBook(@PathVariable String bookCode) {
         try {
-            BookDetailsEntity books = service.getDetailBooks(bookDetailCode);
-            if (bookDetailCode == null) {
+            BookEntity books = service.getBook(bookCode);
+            if (bookCode == null) {
                 result.setStatus(HttpStatus.BAD_REQUEST.value());
                 result.setMessage("Data not found");
                 result.setData(null);
@@ -62,42 +62,17 @@ public class BookDetailsController {
             }
         } catch (Exception e) {
             @SuppressWarnings("rawtypes")
-			StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+            StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
             return ResponseEntity.status(500).body(error);
         }
     }
 
     @SuppressWarnings("unchecked")
-	@PostMapping("/bookdetails")
-    public ResponseEntity<?> post(@RequestBody BookDetailsDto dto){
+    @PostMapping("/book")
+    public ResponseEntity<?> post(@RequestBody BookDto dto){
         try {
 
-            BookDetailsEntity books = service.post(dto);
-
-            if (dto.getBookTitle() == null) {
-                result.setStatus(HttpStatus.BAD_REQUEST.value());
-                result.setMessage("Judul buku tidak boleh kosong");
-                result.setData(null);
-                return ResponseEntity.badRequest().body(result);
-            } else {
-                result.setStatus(200);
-                result.setMessage("Success");
-                result.setData(books);
-                return ResponseEntity.ok(result);
-            }
-        } catch (Exception e) {
-            @SuppressWarnings("rawtypes")
-			StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
-            return ResponseEntity.status(500).body(error);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-	@PutMapping("/bookdetails/{BookDetailCode}")
-    public ResponseEntity<?> put(@PathVariable String BookDetailCode, @RequestBody BookDetailsDto dto){
-        try {
-
-            BookDetailsEntity books = service.put(BookDetailCode, dto);
+            BookEntity books = service.post(dto);
 
             if (dto.getBookDetailCode() == null) {
                 result.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -112,17 +87,42 @@ public class BookDetailsController {
             }
         } catch (Exception e) {
             @SuppressWarnings("rawtypes")
-			StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+            StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+            return ResponseEntity.status(500).body(error);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    @PutMapping("/book/{BookCode}")
+    public ResponseEntity<?> put(@PathVariable String BookCode, @RequestBody BookDto dto){
+        try {
+
+            BookEntity books = service.put(BookCode, dto);
+
+            if (dto.getBookCode() == null) {
+                result.setStatus(HttpStatus.BAD_REQUEST.value());
+                result.setMessage("Kode buku tidak boleh kosong");
+                result.setData(null);
+                return ResponseEntity.badRequest().body(result);
+            } else {
+                result.setStatus(200);
+                result.setMessage("Success");
+                result.setData(books);
+                return ResponseEntity.ok(result);
+            }
+        } catch (Exception e) {
+            @SuppressWarnings("rawtypes")
+            StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
             return ResponseEntity.status(500).body(error);
         }
     }
 
     //Soft delete detail buku
     @SuppressWarnings("unchecked")
-	@DeleteMapping("/bookdetails/{BookDetailCode}")
-    public ResponseEntity<?> deleteDetailbook(@PathVariable String BookDetailCode) {
+    @DeleteMapping("/book/{BookCode}")
+    public ResponseEntity<?> deleteBook(@PathVariable String BookCode) {
         try {
-            BookDetailsEntity books = service.delete(BookDetailCode);
+            BookEntity books = service.delete(BookCode);
 
             if ( books == null) {
                 result.setStatus(400);
@@ -139,9 +139,8 @@ public class BookDetailsController {
             return ResponseEntity.status(200).body(result);
         } catch (Exception e) {
             @SuppressWarnings("rawtypes")
-			StatusMessageDto error = new StatusMessageDto(500,e.getMessage(), null);
+            StatusMessageDto error = new StatusMessageDto(500,e.getMessage(), null);
             return ResponseEntity.status(500).body(error);
         }
     }
-
 }

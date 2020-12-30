@@ -20,8 +20,8 @@ public class CategoryServiceImplement implements CategoryService {
 	public CategoryEntity convertToCategoryEntity(CategoryDto dto) {
 		CategoryEntity categoryEntity = new CategoryEntity();
 		
-		categoryEntity.setCategory_code(dto.getCategory_code());
-		categoryEntity.setCategory_name(dto.getCategory_name());
+		categoryEntity.setCategoryCode(dto.getCategoryCode());
+		categoryEntity.setCategoryName(dto.getCategoryName());
 		categoryEntity.setStatus(1);
 		return categoryEntity;
 	}
@@ -46,8 +46,8 @@ public class CategoryServiceImplement implements CategoryService {
 	public CategoryEntity update(Integer id, CategoryDto dto) {
 		// TODO Auto-generated method stub
 		CategoryEntity categoryEntity = categoryRepository.findById(id).get();
-		categoryEntity.setCategory_code(dto.getCategory_code());
-		categoryEntity.setCategory_name(dto.getCategory_name());
+		categoryEntity.setCategoryCode(dto.getCategoryCode());
+		categoryEntity.setCategoryName(dto.getCategoryName());
 		categoryRepository.save(categoryEntity);
 		return categoryEntity;
 	}
