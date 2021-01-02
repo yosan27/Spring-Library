@@ -2,23 +2,20 @@ package com.Faraday.Library.controllers;
 
 import java.util.List;
 
+import com.Faraday.Library.dto.AuthorDto;
+import com.Faraday.Library.dto.StatusMessageDto;
+import com.Faraday.Library.entity.AuthorEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import com.Faraday.Library.dto.CategoryDto;
 import com.Faraday.Library.entity.CategoryEntity;
 import com.Faraday.Library.services.CategoryServiceImplement;
 
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class CategoryController {
@@ -26,15 +23,43 @@ public class CategoryController {
 	
 	@Autowired
 	private CategoryServiceImplement service;
+
+	@SuppressWarnings("rawtypes")
+	private StatusMessageDto result = new StatusMessageDto();
 	
 	@GetMapping("/category")
 	List<CategoryEntity> getAll(){
 		return service.getAll();
 	}
 	
+//	@PostMapping("/category")
+//	CategoryEntity post(@PathVariable CategoryDto dto) {
+//		return service.post(dto);
+//	}
+
+	@SuppressWarnings("unchecked")
 	@PostMapping("/category")
-	CategoryEntity post(@PathVariable CategoryDto dto) {
-		return service.post(dto);
+	public ResponseEntity<?> post(@RequestBody CategoryDto dto){
+		try {
+
+			CategoryEntity category = service.post(dto);
+
+			if (dto.getCategoryName() == null) {
+				result.setStatus(HttpStatus.BAD_REQUEST.value());
+				result.setMessage("Nama kategori tidak boleh kosong");
+				result.setData(null);
+				return ResponseEntity.badRequest().body(result);
+			} else {
+				result.setStatus(200);
+				result.setMessage("Success");
+				result.setData(category);
+				return ResponseEntity.ok(result);
+			}
+		} catch (Exception e) {
+			@SuppressWarnings("rawtypes")
+			StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+			return ResponseEntity.status(500).body(error);
+		}
 	}
 	
 	@DeleteMapping("/delete-category/{id}")

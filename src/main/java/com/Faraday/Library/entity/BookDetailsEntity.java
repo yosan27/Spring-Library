@@ -25,7 +25,7 @@ public class BookDetailsEntity implements Serializable {
     @Column(name = "book_subtitle",length = 255, nullable = false)
     private String bookSubtitle;
 
-    @Column(name = "description",length = 255, nullable = false)
+    @Column(name = "description",length = 900, nullable = false)
     private String description;
 
     @Column(name = "cover",length = 255, nullable = false)
