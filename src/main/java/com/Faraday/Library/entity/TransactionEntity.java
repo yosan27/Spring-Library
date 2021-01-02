@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "transaction_entity")
 public class TransactionEntity implements Serializable{
@@ -43,11 +44,19 @@ public class TransactionEntity implements Serializable{
 	@JoinColumn(name = "user_code", nullable = false, referencedColumnName = "user_code")
 	private UserEntity userEntity;
 	
-//	@OneToOne
-//	@JoinColumn(name = "rent_code", nullable = false, referencedColumnName = "rent_code")
-//	private String rentCode;
+	@OneToOne
+	@JoinColumn(name = "rent_code", referencedColumnName = "rent_code")
+	private RentEntity rentEntity;
 	
-	
+
+	public RentEntity getRentEntity() {
+		return rentEntity;
+	}
+
+	public void setRentEntity(RentEntity rentEntity) {
+		this.rentEntity = rentEntity;
+	}
+
 	public UserEntity getUserEntity() {
 		return userEntity;
 	}

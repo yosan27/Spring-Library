@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "fine_entity")
 public class FineEntity implements Serializable{

@@ -16,5 +16,4 @@ public interface TransactionService {
 	TransactionEntity getByCode(String code);
 	TransactionEntity post(TransactionDto dto);
 	TransactionEntity update(TransactionDto dto, Integer id);
-	TransactionEntity delete(Integer id);
 }

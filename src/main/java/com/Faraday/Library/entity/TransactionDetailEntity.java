@@ -1,5 +1,7 @@
 package com.Faraday.Library.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "transaction_detail_entity")
-public class TransactionDetailEntity {
+public class TransactionDetailEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
@@ -31,11 +35,11 @@ public class TransactionDetailEntity {
 	private Double kredit;
 	
 	@ManyToOne
-	@JoinColumn(name = "transaction_code", nullable = false, unique = true, referencedColumnName = "transaction_code")
+	@JoinColumn(name = "transaction_code", nullable = false, referencedColumnName = "transaction_code")
 	private TransactionEntity transactionEntity;
 	
 	@OneToOne
-	@JoinColumn(name = "fine_code", unique = true, referencedColumnName = "fine_code")
+	@JoinColumn(name = "fine_code", referencedColumnName = "fine_code")
 	private FineEntity fineEntity;
 
 

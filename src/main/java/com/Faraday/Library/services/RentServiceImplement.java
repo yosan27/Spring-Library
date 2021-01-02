@@ -40,8 +40,8 @@ public class RentServiceImplement implements RentService {
 	}
 	
 	@Override
-	public List<RentEntity> getByRentCode(String rentCode) {
-		List<RentEntity> rentEntities = rentRepository.findByRentCode(rentCode);
+	public RentEntity getByRentCode(String rentCode) {
+		RentEntity rentEntities = rentRepository.findByRentCode(rentCode);
 		return rentEntities;
 	}
 	

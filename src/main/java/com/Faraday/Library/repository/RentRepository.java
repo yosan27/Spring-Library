@@ -9,7 +9,7 @@ import com.Faraday.Library.entity.RentEntity;
 
 @Repository
 public interface RentRepository extends JpaRepository<RentEntity, Integer> {
-	List<RentEntity> findByRentCode(String rentCode);
+	RentEntity findByRentCode(String rentCode);
 	
 	List<RentEntity> findByStatus(Integer status);
 }
