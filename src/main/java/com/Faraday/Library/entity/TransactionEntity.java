@@ -36,15 +36,15 @@ public class TransactionEntity implements Serializable{
 	@Column(name = "payment_status", nullable = false)
 	private Integer paymentStatus;
 	
-	@Column(name = "transaction_code", nullable = false, unique = true)
+	@Column(name = "transaction_code", unique = true, nullable = false)
 	private String transactionCode;
 
 	@ManyToOne
-	@JoinColumn(name = "user_code", nullable = false, unique = true, referencedColumnName = "user_code")
+	@JoinColumn(name = "user_code", nullable = false, referencedColumnName = "user_code")
 	private UserEntity userEntity;
 	
 //	@OneToOne
-//	@JoinColumn(name = "rent_code", nullable = false, unique = true, referencedColumnName = "rent_code")
+//	@JoinColumn(name = "rent_code", nullable = false, referencedColumnName = "rent_code")
 //	private String rentCode;
 	
 	
@@ -103,6 +103,4 @@ public class TransactionEntity implements Serializable{
 	public void setTransactionCode(String transactionCode) {
 		this.transactionCode = transactionCode;
 	}
-	
-	
 }

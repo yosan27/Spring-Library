@@ -31,7 +31,11 @@ public class FineServiceImplement implements FineService{
 		fineEntity.setFineCode(dto.getFineCode());
 		fineEntity.setFineType(dto.getFineType());
 		fineEntity.setNominal(dto.getNominal());
-		fineEntity.setValidFrom(dto.getValidFrom());
+		
+		LocalDate today = LocalDate.now();
+		Date date = Date.valueOf(today);
+		fineEntity.setValidFrom(date);
+		
 		fineEntity.setValidTo(dto.getValidTo());
 		fineRepository.save(fineEntity);
 		return fineEntity;
@@ -46,10 +50,8 @@ public class FineServiceImplement implements FineService{
 	@Override
 	public FineEntity update(FineDto dto, Integer id) {
 		FineEntity fineEntity = fineRepository.findById(id).get();
-		fineEntity.setFineCode(dto.getFineCode());
 		fineEntity.setFineType(dto.getFineType());
 		fineEntity.setNominal(dto.getNominal());
-		fineEntity.setValidFrom(dto.getValidFrom());
 		fineEntity.setValidTo(dto.getValidTo());
 		fineRepository.save(fineEntity);
 		return fineEntity;
@@ -69,6 +71,12 @@ public class FineServiceImplement implements FineService{
 	@Override
 	public List<FineEntity> getActive(Date date) {
 		List<FineEntity> fineEntity = fineRepository.findActive(date);
+		return fineEntity;
+	}
+
+	@Override
+	public FineEntity getById(Integer id) {
+		FineEntity fineEntity = fineRepository.findById(id).get();
 		return fineEntity;
 	}
 

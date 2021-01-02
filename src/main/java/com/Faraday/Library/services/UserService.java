@@ -19,5 +19,7 @@ public interface UserService {
 	public UserEntity updateUser(Integer id, UserDto dto);
 	public UserEntity updateUserPassword(Integer id, UserDto dto);
 	public UserEntity deleteUser(Integer id);
+	public UserEntity updateUserBalance(Integer id, UserDto dto);
+	
 
 }

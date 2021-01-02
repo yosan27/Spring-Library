@@ -11,7 +11,7 @@ import com.Faraday.Library.entity.TransactionEntity;
 
 @Repository
 public interface TransactionRepository extends JpaRepository<TransactionEntity, Integer>{
-	@Query(value = "select * from transaction_entity where date = ?", nativeQuery = true)
+	@Query(value = "select * from transaction_entity where transaction_date = ?", nativeQuery = true)
 	List<TransactionEntity> findByDate(Date date);
 	
 	@Query(value = "select * from transaction_entity where transaction_code = ?", nativeQuery = true)
@@ -19,6 +19,9 @@ public interface TransactionRepository extends JpaRepository<TransactionEntity, 
 	
 	@Query(value = "select * from transaction_entity where user_code = ?", nativeQuery = true)
 	List<TransactionEntity> findByUserCode(String userCode);
+	
+	@Query(value = "select * from transaction_entity where rent_code = ?", nativeQuery = true)
+	TransactionEntity findByRentCode(String rentCode);
 	
 	@Query(value = "select * from transaction_entity where payment_status = ?", nativeQuery = true)
 	List<TransactionEntity> findByStatus(Integer status);

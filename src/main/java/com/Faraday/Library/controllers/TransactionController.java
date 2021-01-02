@@ -1,9 +1,11 @@
 package com.Faraday.Library.controllers;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,7 @@ import com.Faraday.Library.services.TransactionServiceImplement;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class TransactionController {
 
 	@Autowired
@@ -29,11 +32,20 @@ public class TransactionController {
 		return service.getAll();
 	}
 	
+	@GetMapping("/transaction/get-by-id/{id}")
+	TransactionEntity getById(@PathVariable Integer id){
+		return service.getById(id);
+	}
+	
+	@GetMapping("/transaction/get-by-rent-code/{rentCode}")
+	TransactionEntity getByRentCode(@PathVariable String rentCode){
+		return service.getByRentCode(rentCode);
+	}
+	
 	@GetMapping("/transaction/get-by-date")
-	List<TransactionEntity> getByDate(@PathVariable String date){
+	List<TransactionEntity> getByDate(){
+		LocalDate date = LocalDate.of(2020, 12, 29);
 		Date inputDate = Date.valueOf(date);
-//		LocalDate today = LocalDate.now();
-//		Date date = Date.valueOf(today);
 		return service.getByDate(inputDate);
 	}
 	
