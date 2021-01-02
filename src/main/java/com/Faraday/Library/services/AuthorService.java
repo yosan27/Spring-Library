@@ -8,4 +8,5 @@ import com.Faraday.Library.entity.AuthorEntity;
 public interface AuthorService {
 	List<AuthorEntity> getAll();
 	AuthorEntity post(AuthorDto dto);
+	AuthorEntity put(String authorCode, AuthorDto dto);
 }
