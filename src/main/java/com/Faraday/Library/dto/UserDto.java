@@ -5,15 +5,18 @@ import java.util.Date;
 
 public class UserDto {
 	private Integer id;
+	private String userName;
 	private String userCode;
 	private String email;
 	private String password;
 	private String fullName;
 	private String profilePict;
 	private String phone;
+	private String address;
 	private Integer balance;
 	private Integer role;
 	private Date createdAt;
+	private Date unsuspendDate;
 	private Integer status;
 	
 	
@@ -23,21 +26,29 @@ public class UserDto {
 	}
 
 
-	public UserDto(Integer id, String userCode, String email, String password, String fullName, String profilePict,
-			String phone, Integer balance, Integer role, Date createdAt, Integer status) {
+	
+
+	public UserDto(Integer id, String userName, String userCode, String email, String password, String fullName,
+			String profilePict, String phone, String address, Integer balance, Integer role, Date createdAt,
+			Date unsuspendDate, Integer status) {
 		super();
 		this.id = id;
+		this.userName = userName;
 		this.userCode = userCode;
 		this.email = email;
 		this.password = password;
 		this.fullName = fullName;
 		this.profilePict = profilePict;
 		this.phone = phone;
+		this.address = address;
 		this.balance = balance;
 		this.role = role;
 		this.createdAt = createdAt;
+		this.unsuspendDate = unsuspendDate;
 		this.status = status;
 	}
+
+
 
 
 	public Integer getId() {
@@ -45,9 +56,27 @@ public class UserDto {
 	}
 
 
+
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
+
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
 
 
 	public String getUserCode() {
@@ -55,9 +84,13 @@ public class UserDto {
 	}
 
 
+
+
 	public void setUserCode(String userCode) {
 		this.userCode = userCode;
 	}
+
+
 
 
 	public String getEmail() {
@@ -65,9 +98,13 @@ public class UserDto {
 	}
 
 
+
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+
 
 
 	public String getPassword() {
@@ -75,9 +112,13 @@ public class UserDto {
 	}
 
 
+
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+
 
 
 	public String getFullName() {
@@ -85,9 +126,13 @@ public class UserDto {
 	}
 
 
+
+
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
+
+
 
 
 	public String getProfilePict() {
@@ -95,9 +140,13 @@ public class UserDto {
 	}
 
 
+
+
 	public void setProfilePict(String profilePict) {
 		this.profilePict = profilePict;
 	}
+
+
 
 
 	public String getPhone() {
@@ -105,9 +154,27 @@ public class UserDto {
 	}
 
 
+
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
 
 
 	public Integer getBalance() {
@@ -115,9 +182,13 @@ public class UserDto {
 	}
 
 
+
+
 	public void setBalance(Integer balance) {
 		this.balance = balance;
 	}
+
+
 
 
 	public Integer getRole() {
@@ -125,9 +196,13 @@ public class UserDto {
 	}
 
 
+
+
 	public void setRole(Integer role) {
 		this.role = role;
 	}
+
+
 
 
 	public Date getCreatedAt() {
@@ -135,9 +210,27 @@ public class UserDto {
 	}
 
 
+
+
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
+
+
+
+
+	public Date getUnsuspendDate() {
+		return unsuspendDate;
+	}
+
+
+
+
+	public void setUnsuspendDate(Date unsuspendDate) {
+		this.unsuspendDate = unsuspendDate;
+	}
+
+
 
 
 	public Integer getStatus() {
@@ -145,9 +238,13 @@ public class UserDto {
 	}
 
 
+
+
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
+
 }
 
 

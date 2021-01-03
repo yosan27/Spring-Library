@@ -25,6 +25,9 @@ public class UserEntity implements Serializable{
 	@Column(name = "id")
 	private Integer id;
 	
+	@Column(name = "username", length=255, nullable=false, unique=true)
+	private String userName;
+	
 	@Column(name = "user_code", length=255, nullable=false, unique=true)
 	private String userCode;
 	
@@ -43,6 +46,9 @@ public class UserEntity implements Serializable{
 	@Column(name = "phone", length=255, nullable=false)
 	private String phone;
 	
+	@Column(name = "address", length = 255, nullable = false)
+	private String address;
+	
 	@Column(name = "balance", length=11, nullable=false)
 	private Integer balance;
 	
@@ -54,8 +60,13 @@ public class UserEntity implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
 	
+	@Column(name = "unsuspend_date")
+	private Date unsuspendDate;
+	
 	@Column(name = "status", length=11, nullable=false)
 	private Integer status;
+	
+	
 
 	public Integer getId() {
 		return id;
@@ -144,4 +155,30 @@ public class UserEntity implements Serializable{
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	
+	public Date getUnsuspendDate() {
+		return unsuspendDate;
+	}
+
+	public void setUnsuspendDate(Date unsuspendDate) {
+		this.unsuspendDate = unsuspendDate;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	
 }
