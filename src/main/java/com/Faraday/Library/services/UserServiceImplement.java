@@ -1,5 +1,9 @@
 package com.Faraday.Library.services;
 
+
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +63,14 @@ public class UserServiceImplement implements UserService {
 		UserEntity userEntity = userRepository.findByUserCode(userCode);
 		return userEntity;
 	}
+	
+	@Override
+	public UserEntity getAllUserByUserName(String userName) {
+		// TODO Auto-generated method stub
+		UserEntity userEntity = userRepository.findByUserName(userName);
+		return userEntity;
+	}
+
 
 	@Override
 	public UserEntity getAllUserByStatus(Integer status) {
@@ -87,9 +99,9 @@ public class UserServiceImplement implements UserService {
 	public UserEntity updateUser(Integer id, UserDto dto) {
 		// TODO Auto-generated method stub
 		UserEntity userEntity = userRepository.findById(id).get();
-		userEntity.setFullName(dto.getFullName());
+		userEntity.setProfilePict(userEntity.getUserCode()+"_profile_"+dto.getProfilePict());
 		userEntity.setPhone(dto.getPhone());
-		userEntity.setProfilePict(dto.getProfilePict());
+		userEntity.setAddress(dto.getAddress());
 		userRepository.save(userEntity);
 		return userEntity;
 	}
@@ -108,7 +120,7 @@ public class UserServiceImplement implements UserService {
 	public UserEntity deleteUser(Integer id) {
 		// TODO Auto-generated method stub
 		UserEntity userEntity = userRepository.findById(id).get();
-		userEntity.setStatus(2);
+		userEntity.setStatus(0);
 		userRepository.save(userEntity);
 		return userEntity;
 	}
@@ -118,6 +130,16 @@ public class UserServiceImplement implements UserService {
 		// TODO Auto-generated method stub
 		UserEntity userEntity = userRepository.findById(id).get();
 		userEntity.setBalance(dto.getBalance());
+		userRepository.save(userEntity);
+		return userEntity;
+	}
+	
+	@Override
+	public UserEntity updateUserSuspend(Integer id, UserDto dto) {
+		// TODO Auto-generated method stub
+		UserEntity userEntity = userRepository.findById(id).get();
+		userEntity.setUnsuspendDate(dto.getUnsuspendDate());
+		userEntity.setStatus(2);
 		userRepository.save(userEntity);
 		return userEntity;
 	}
@@ -176,20 +198,19 @@ public class UserServiceImplement implements UserService {
 		
 			
 		userEntity.setUserCode(code+""+userCode);
+		userEntity.setUserName(dto.getUserName());
 		userEntity.setEmail(dto.getEmail());
 		userEntity.setPassword(dto.getPassword());
 		userEntity.setFullName(dto.getFullName());
 		userEntity.setPhone(dto.getPhone());
-		userEntity.setProfilePict(dto.getProfilePict());
+		userEntity.setAddress(dto.getAddress());
+		userEntity.setProfilePict(code+""+userCode+"_profile_"+dto.getProfilePict());
 		userEntity.setBalance(0);
 		userEntity.setRole(role);
 		userEntity.setStatus(1);
 		return userEntity;
 	}
 
-	
-
-	
 	
 
 }

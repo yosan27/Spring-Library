@@ -13,6 +13,7 @@ public interface UserService {
 	public List<UserEntity> getAllUserActiveByEmail(String email);
 	public UserEntity getAllUserByEmail(String email);
 	public UserEntity getAllUserByUserCode(String userCode);
+	public UserEntity getAllUserByUserName(String userName);
 	public UserEntity getAllUserByStatus(Integer status);
 	public UserEntity insertUser(UserDto dto);
 	public UserEntity insertAdmin(UserDto dto);
@@ -20,6 +21,6 @@ public interface UserService {
 	public UserEntity updateUserPassword(Integer id, UserDto dto);
 	public UserEntity deleteUser(Integer id);
 	public UserEntity updateUserBalance(Integer id, UserDto dto);
-	
+	public UserEntity updateUserSuspend(Integer id, UserDto dto);
 
 }
