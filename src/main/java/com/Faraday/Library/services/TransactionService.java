@@ -9,7 +9,6 @@ import com.Faraday.Library.entity.TransactionEntity;
 public interface TransactionService {
 	List<TransactionEntity> getAll();
 	TransactionEntity getById(Integer id);
-	TransactionEntity getByRentCode(String rentCode);
 	List<TransactionEntity> getByDate(Date date);
 	List<TransactionEntity> getByStatus(Integer status);
 	List<TransactionEntity> getByUserCode(String userCode);

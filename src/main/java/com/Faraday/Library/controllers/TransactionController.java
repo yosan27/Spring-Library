@@ -36,11 +36,6 @@ public class TransactionController {
 		return service.getById(id);
 	}
 	
-	@GetMapping("/transaction/get-by-rent-code/{rentCode}")
-	TransactionEntity getByRentCode(@PathVariable String rentCode){
-		return service.getByRentCode(rentCode);
-	}
-	
 	@GetMapping("/transaction/get-by-date")
 	List<TransactionEntity> getByDate(){
 		LocalDate date = LocalDate.of(2020, 12, 29);

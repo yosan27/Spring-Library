@@ -3,15 +3,17 @@ package com.Faraday.Library.dto;
 public class TransactionDetailDto {
 	private Integer id;
 	private String detailCode;
+	private String userCode;
 	private String transactionCode;
 	private String fineCode;
+	private String rentCode;
 	private String description;
 	private Double debet;
 	private Double kredit;
 	
 	
 	public TransactionDetailDto(Integer id, String detailCode, String transactionCode, String fineCode,
-			String description, Double debet, Double kredit) {
+			String description, Double debet, Double kredit, String rentCode, String userCode) {
 		super();
 		this.id = id;
 		this.detailCode = detailCode;
@@ -20,12 +22,34 @@ public class TransactionDetailDto {
 		this.description = description;
 		this.debet = debet;
 		this.kredit = kredit;
+		this.rentCode = rentCode;
+		this.userCode = userCode;
 	}
 
 
 	public TransactionDetailDto() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+
+	public String getUserCode() {
+		return userCode;
+	}
+
+
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+
+
+	public String getRentCode() {
+		return rentCode;
+	}
+
+
+	public void setRentCode(String rentCode) {
+		this.rentCode = rentCode;
 	}
 
 
