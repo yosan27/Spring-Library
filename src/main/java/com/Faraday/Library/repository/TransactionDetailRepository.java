@@ -25,7 +25,7 @@ public interface TransactionDetailRepository extends JpaRepository<TransactionDe
 	@Query(value = "select * from transaction_detail_entity where rent_code = ?", nativeQuery = true)
 	List<TransactionDetailEntity> findByRentCode(String code);
 	
-	@Query(value = "select ", nativeQuery = true)
+	@Query(value = "select * from transaction_detail_entity where kredit != 0", nativeQuery = true)
 	List<TransactionDetailEntity> findByBill(String userCode);
 	
 }

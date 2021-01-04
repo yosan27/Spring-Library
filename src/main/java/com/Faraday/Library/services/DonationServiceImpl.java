@@ -1,9 +1,9 @@
 package com.Faraday.Library.services;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.Faraday.Library.dto.DonationDto;
 import com.Faraday.Library.entity.CategoryEntity;
