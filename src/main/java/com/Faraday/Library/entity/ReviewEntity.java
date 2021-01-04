@@ -49,7 +49,7 @@ public class ReviewEntity implements Serializable {
 	}
 
 	public ReviewEntity(Integer id, UserEntity userEntity, BookEntity bookEntity, Integer rate, String review,
-			Date date, Integer status) {
+			String date, Integer status) {
 		super();
 		this.id = id;
 		this.userEntity = userEntity;
