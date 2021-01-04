@@ -9,6 +9,7 @@ public interface TransactionDetailService {
 	List<TransactionDetailEntity> getAll();
 	List<TransactionDetailEntity> getByRentCode(String code);
 	List<TransactionDetailEntity> getByUserCode(String code);
+	List<TransactionDetailEntity> getByBill(String userCode);
 	TransactionDetailEntity getById(Integer id);
 	List<TransactionDetailEntity> getByTransactionCode(String code);
 	TransactionDetailEntity getByCode(String code);

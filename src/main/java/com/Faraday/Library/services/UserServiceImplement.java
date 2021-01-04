@@ -30,16 +30,16 @@ public class UserServiceImplement implements UserService {
 	}
 	
 	@Override
-	public List<UserEntity> getAllUserActiveById(Integer id) {
+	public UserEntity getAllUserActiveById(Integer id) {
 		// TODO Auto-generated method stub
-		List<UserEntity> userEntities = userRepository.findAllUserActiveById(id);
+		UserEntity userEntities = userRepository.findAllUserActiveById(id);
 		return userEntities;
 	}
 
 	@Override
-	public List<UserEntity> getAllUserActiveByUserCode(String userCode) {
+	public UserEntity getAllUserActiveByUserCode(String userCode) {
 		// TODO Auto-generated method stub
-		List<UserEntity> userEntities = userRepository.findAllUserActiveByUserCode(userCode);
+		UserEntity userEntities = userRepository.findAllUserActiveByUserCode(userCode);
 		return userEntities;
 	}
 

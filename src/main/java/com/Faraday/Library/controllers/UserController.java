@@ -39,13 +39,13 @@ public class UserController {
 	
 	@GetMapping("/user-by-id/{id}")
 	public ResponseEntity<?> getAllUserById(@PathVariable Integer id){
-		List<UserEntity> userEntities = service.getAllUserActiveById(id);
+		UserEntity userEntities = service.getAllUserActiveById(id);
 		return ResponseEntity.ok(userEntities);
 	}
 	
 	@GetMapping("/user-by-code/{code}")
 	public ResponseEntity<?> getAllUserByCode(@PathVariable String code){
-		List<UserEntity> userEntities = service.getAllUserActiveByUserCode(code);
+		UserEntity userEntities = service.getAllUserActiveByUserCode(code);
 		return ResponseEntity.ok(userEntities);
 	}
 	

@@ -12,4 +12,5 @@ public interface RentService {
 	List<RentEntity> getByStatus(Integer status);
 	RentEntity insert(RentDto dto);
 	RentEntity updateStatus(Integer id, RentDto dto);
+	RentEntity updateStatusByRentCode(String rentCode, RentDto dto);
 }

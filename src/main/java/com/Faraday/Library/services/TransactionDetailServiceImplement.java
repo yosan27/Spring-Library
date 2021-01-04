@@ -110,4 +110,10 @@ public class TransactionDetailServiceImplement implements TransactionDetailServi
 		return transactionDetailEntity;
 	}
 
+	@Override
+	public List<TransactionDetailEntity> getByBill(String userCode) {
+		List<TransactionDetailEntity> transactionDetailEntity = repo.findByBill(userCode);
+		return transactionDetailEntity;
+	}
+
 }
