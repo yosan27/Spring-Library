@@ -5,13 +5,14 @@ public class TransactionDetailDto {
 	private String detailCode;
 	private String transactionCode;
 	private String fineCode;
+	private String rentCode;
 	private String description;
 	private Double debet;
 	private Double kredit;
 	
 	
 	public TransactionDetailDto(Integer id, String detailCode, String transactionCode, String fineCode,
-			String description, Double debet, Double kredit) {
+			String description, Double debet, Double kredit, String rentCode) {
 		super();
 		this.id = id;
 		this.detailCode = detailCode;
@@ -20,12 +21,23 @@ public class TransactionDetailDto {
 		this.description = description;
 		this.debet = debet;
 		this.kredit = kredit;
+		this.rentCode = rentCode;
 	}
 
 
 	public TransactionDetailDto() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+
+	public String getRentCode() {
+		return rentCode;
+	}
+
+
+	public void setRentCode(String rentCode) {
+		this.rentCode = rentCode;
 	}
 
 

@@ -44,6 +44,11 @@ public class TransactionDetailController {
 		return service.getByTransactionCode(code);
 	}
 	
+	@GetMapping("/transaction-detail/get-by-rent-code/{code}")
+	List<TransactionDetailEntity> getByRentCode(@PathVariable String code){
+		return service.getByRentCode(code);
+	}
+	
 	@GetMapping("/transaction-detail/get-by-fine-code/{code}")
 	List<TransactionDetailEntity> getByFineCode(@PathVariable String code){
 		return service.getByFineCode(code);

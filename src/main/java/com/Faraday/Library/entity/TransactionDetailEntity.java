@@ -11,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
@@ -41,6 +40,20 @@ public class TransactionDetailEntity implements Serializable{
 	@OneToOne
 	@JoinColumn(name = "fine_code", referencedColumnName = "fine_code")
 	private FineEntity fineEntity;
+	
+	@OneToOne
+	@JoinColumn(name = "rent_code", referencedColumnName = "rent_code")
+	private RentEntity rentEntity;
+
+
+	public RentEntity getRentEntity() {
+		return rentEntity;
+	}
+
+
+	public void setRentEntity(RentEntity rentEntity) {
+		this.rentEntity = rentEntity;
+	}
 
 
 	public Integer getId() {

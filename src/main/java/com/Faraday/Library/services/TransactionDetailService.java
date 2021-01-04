@@ -7,6 +7,7 @@ import com.Faraday.Library.entity.TransactionDetailEntity;
 
 public interface TransactionDetailService {
 	List<TransactionDetailEntity> getAll();
+	List<TransactionDetailEntity> getByRentCode(String code);
 	TransactionDetailEntity getById(Integer id);
 	List<TransactionDetailEntity> getByTransactionCode(String code);
 	TransactionDetailEntity getByCode(String code);

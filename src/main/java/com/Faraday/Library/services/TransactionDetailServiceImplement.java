@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.Faraday.Library.dto.TransactionDetailDto;
 import com.Faraday.Library.entity.FineEntity;
+import com.Faraday.Library.entity.RentEntity;
 import com.Faraday.Library.entity.TransactionDetailEntity;
 import com.Faraday.Library.entity.TransactionEntity;
 import com.Faraday.Library.repository.FineRepository;
+import com.Faraday.Library.repository.RentRepository;
 import com.Faraday.Library.repository.TransactionDetailRepository;
 import com.Faraday.Library.repository.TransactionRepository;
 
@@ -26,6 +28,9 @@ public class TransactionDetailServiceImplement implements TransactionDetailServi
 	
 	@Autowired
 	FineRepository fineRepository;
+	
+	@Autowired
+	RentRepository rentRepository;
 	
 	@Override
 	public List<TransactionDetailEntity> getAll() {
@@ -62,12 +67,14 @@ public class TransactionDetailServiceImplement implements TransactionDetailServi
 		TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
 		TransactionEntity transactionEntity = transactionRepository.findByCode(dto.getTransactionCode());
 		FineEntity fineEntity = fineRepository.findByCode(dto.getFineCode());
+		RentEntity rentEntity = rentRepository.findByRentCode(dto.getRentCode());
 		transactionDetailEntity.setDetailCode(dto.getDetailCode());
 		transactionDetailEntity.setDescription(dto.getDescription());
 		transactionDetailEntity.setDebet(dto.getDebet());
 		transactionDetailEntity.setKredit(dto.getKredit());
 		transactionDetailEntity.setTransactionEntity(transactionEntity);
 		transactionDetailEntity.setFineEntity(fineEntity);
+		transactionDetailEntity.setRentEntity(rentEntity);
 		repo.save(transactionDetailEntity);
 		return transactionDetailEntity;
 	}
@@ -81,6 +88,12 @@ public class TransactionDetailServiceImplement implements TransactionDetailServi
 		transactionDetailEntity.setKredit(dto.getKredit());
 		transactionDetailEntity.setFineEntity(fineEntity);
 		repo.save(transactionDetailEntity);
+		return transactionDetailEntity;
+	}
+
+	@Override
+	public List<TransactionDetailEntity> getByRentCode(String code) {
+		List<TransactionDetailEntity> transactionDetailEntity = repo.findByRentCode(code);
 		return transactionDetailEntity;
 	}
 
