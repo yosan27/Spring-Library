@@ -86,4 +86,12 @@ public class RentServiceImplement implements RentService {
 		rentRepository.save(rentEntity);
 		return rentEntity;
 	}
+
+	@Override
+	public RentEntity updateStatusByRentCode(String rentCode, RentDto dto) {
+		RentEntity rentEntity = rentRepository.findByRentCode(rentCode);
+		rentEntity.setStatus(dto.getStatus()); // 1=PENDING, 2=BORROW, 3=OVERDUE, 4=WAITING PAYMENT, 5=RETURN
+		rentRepository.save(rentEntity);
+		return rentEntity;
+	}
 }
