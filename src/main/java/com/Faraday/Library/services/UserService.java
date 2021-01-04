@@ -8,8 +8,8 @@ import com.Faraday.Library.entity.UserEntity;
 public interface UserService {
 	
 	public List<UserEntity> getAll();
-	public List<UserEntity> getAllUserActiveById(Integer id);
-	public List<UserEntity> getAllUserActiveByUserCode(String userCode);
+	public UserEntity getAllUserActiveById(Integer id);
+	public UserEntity getAllUserActiveByUserCode(String userCode);
 	public List<UserEntity> getAllUserActiveByEmail(String email);
 	public UserEntity getAllUserByEmail(String email);
 	public UserEntity getAllUserByUserCode(String userCode);

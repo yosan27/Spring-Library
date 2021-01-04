@@ -21,11 +21,11 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
 	// find all User active by id
 	@Query(value = "select * from user_entity where status = 1 and id = ?", nativeQuery = true)
-	List<UserEntity> findAllUserActiveById(Integer id);
+	UserEntity findAllUserActiveById(Integer id);
 
 	// find all User active by user code
 	@Query(value = "select * from user_entity where status = 1 and user_code = ?", nativeQuery = true)
-	List<UserEntity> findAllUserActiveByUserCode(String userCode);
+	UserEntity findAllUserActiveByUserCode(String userCode);
 
 	// find all User active by email
 	@Query(value = "select * from user_entity where status = 1 and email = ?", nativeQuery = true)
