@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,24 +20,25 @@ import com.Faraday.Library.services.WishlistServiceImplement;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class WishlistController {
 	
 	@Autowired
 	private WishlistServiceImplement service;
 	
-	@GetMapping("/wishlist-by-user/{userCode}")
+	@GetMapping("/wishlist/usercode/{userCode}")
 	public ResponseEntity<?> getWishlistByUserCode(@PathVariable String userCode){
 		List<WishlistEntity> wishEntities = service.getWishlistByUserCode(userCode);
 		return ResponseEntity.ok(wishEntities);
 	}
 	
-	@GetMapping("/wishlist-by-book/{bookCode}")
+	@GetMapping("/wishlist/bookcode/{bookCode}")
 	public ResponseEntity<?> getWishlistByBookCode(@PathVariable String bookCode){
 		List<WishlistEntity> wishEntities = service.getWishlistByBookCode(bookCode);
 		return ResponseEntity.ok(wishEntities);
 	}
 	
-	@GetMapping("/wishlist-by-id/{id}")
+	@GetMapping("/wishlist/id/{id}")
 	public ResponseEntity<?> getById(@PathVariable Integer id){
 		WishlistEntity wishEntities = service.getWishlistById(id);
 		return ResponseEntity.ok(wishEntities);
