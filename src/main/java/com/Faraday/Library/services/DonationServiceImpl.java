@@ -71,4 +71,19 @@ public class DonationServiceImpl implements DonationService{
 		donationRepository.save(donationEntity);
 		return donationEntity;
 	}
+	
+	@Override
+	public DonationEntity delete(Integer id) {
+		DonationEntity donationEntity = donationRepository.findById(id).get();
+		
+		if (donationEntity == null) {
+			donationEntity = null;
+			return donationEntity;
+		}
+		
+		donationEntity.setStatus(3);
+		donationRepository.save(donationEntity);
+		
+		return donationEntity;
+	}
 }
