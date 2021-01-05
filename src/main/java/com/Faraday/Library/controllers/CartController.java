@@ -26,19 +26,19 @@ public class CartController {
 	@Autowired
 	private CartServiceImplement service;
 
-	@GetMapping("/cart-by-user/{userCode}")
+	@GetMapping("/cart/usercode/{userCode}")
 	public ResponseEntity<?> getByUserCode(@PathVariable String userCode){
 		List<CartEntity> cartEntities = service.getByUserCode(userCode);
 		return ResponseEntity.ok(cartEntities);
 	}
 	
-	@GetMapping("/cart-by-book/{bookCode}")
+	@GetMapping("/cart/bookcode/{bookCode}")
 	public ResponseEntity<?> getByBookCode(@PathVariable String bookCode){
 		List<CartEntity> cartEntities = service.getByBookCode(bookCode);
 		return ResponseEntity.ok(cartEntities);
 	}
 	
-	@GetMapping("/cart-by-id/{id}")
+	@GetMapping("/cart/id/{id}")
 	public ResponseEntity<?> getById(@PathVariable Integer id){
 		CartEntity cartEntities = service.getById(id);
 		return ResponseEntity.ok(cartEntities);
