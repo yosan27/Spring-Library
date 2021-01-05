@@ -42,6 +42,11 @@ public class RentController {
 		return ResponseEntity.ok(service.getByStatus(status));
 	}
 	
+	@GetMapping("/rent/usercode/{userCode}")
+	public ResponseEntity<?> getByUserCode(@PathVariable String userCode) {
+		return ResponseEntity.ok(service.getByUserCode(userCode));
+	}
+	
 	@PostMapping("/rent")
 	public ResponseEntity<?> insert(@RequestBody RentDto dto) {
 		return ResponseEntity.ok(service.insert(dto));

@@ -24,6 +24,16 @@ public class AuthorServiceImplement implements AuthorService{
 		List<AuthorEntity> authorEntity = authorRepository.findAll();
 		return authorEntity;
 	}
+	
+	public List<AuthorEntity> getActiveId(){
+		List<AuthorEntity> authorEntities = authorRepository.findActiveId();
+		return authorEntities;
+	}
+	
+	public AuthorEntity getById(Integer id){
+		AuthorEntity authorEntity = authorRepository.findById(id).get();
+		return authorEntity;
+	}
 
 //	@Override
 //	public AuthorEntity post(AuthorDto dto) {
@@ -39,6 +49,7 @@ public class AuthorServiceImplement implements AuthorService{
 		AuthorEntity author = new AuthorEntity();
 		author.setAuthorCode("");
 		author.setAuthorName(dto.getAuthorName());
+		author.setStatus(1);
 		authorRepository.save(author);
 
 		String kodeAuthor = "";
@@ -62,6 +73,20 @@ public class AuthorServiceImplement implements AuthorService{
 
 		author.setAuthorCode(dto.getAuthorCode());
 		author.setAuthorName(dto.getAuthorName());
+		authorRepository.save(author);
+		return author;
+	}
+	
+	public AuthorEntity update(Integer id, AuthorDto dto) {
+		AuthorEntity author = authorRepository.findById(id).get();
+		author.setAuthorName(dto.getAuthorName());
+		authorRepository.save(author);
+		return author;
+	}
+	
+	public AuthorEntity delete(Integer id) {
+		AuthorEntity author = authorRepository.findById(id).get();
+		author.setStatus(0);
 		authorRepository.save(author);
 		return author;
 	}
