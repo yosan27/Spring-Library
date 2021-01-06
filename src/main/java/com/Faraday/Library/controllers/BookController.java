@@ -92,6 +92,13 @@ public class BookController {
             return ResponseEntity.status(500).body(error);
         }
     }
+    
+    @SuppressWarnings("unchecked")
+    @GetMapping("/detailBook/{id}")
+    public ResponseEntity<?> getBookDetails(@PathVariable Integer id) { 
+           BookEntity books = service.getBookDetails(id);
+            return ResponseEntity.ok(books);
+    }
 
     @SuppressWarnings("unchecked")
     @PostMapping("/book")

@@ -32,6 +32,13 @@ public class ReviewServiceImplement implements ReviewService {
 		// TODO Auto-generated method stub
 		return reviewRepository.findId();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ReviewEntity> getByBookCode(String bookCode) {
+		// TODO Auto-generated method stub
+		return reviewRepository.findByBookCode(bookCode);
+	}
 
 	@Override
 	public ReviewEntity post(ReviewDto dto) {

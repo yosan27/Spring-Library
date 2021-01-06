@@ -9,6 +9,8 @@ import java.util.List;
 public interface BookService {
     List<BookEntity> getBooks();
     List<BookEntity> getCatalog();
+    BookEntity getBookDetails(Integer id);
+    
 
     BookEntity getBook(String bookCode);
     
