@@ -49,6 +49,13 @@ public class BookServiceImplement implements BookService{
         List<BookEntity> books = bookRepository.findCatalog();
         return books;
     }
+    
+    @Override
+	public BookEntity getBookDetails(Integer id) {
+		// TODO Auto-generated method stub
+		BookEntity bookEntities = bookRepository.findBookDetails(id);
+    	return bookEntities;
+	}
 
     @Override
     public BookEntity post(BookDto dto) {
@@ -119,4 +126,6 @@ public class BookServiceImplement implements BookService{
 
         return books;
     }
+
+	
 }

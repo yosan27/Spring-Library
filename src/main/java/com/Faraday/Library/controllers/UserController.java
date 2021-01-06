@@ -43,7 +43,7 @@ public class UserController {
 		return ResponseEntity.ok(userEntities);
 	}
 	
-	@GetMapping("/user-by-code/{code}")
+	@GetMapping("/user/code/{code}")
 	public ResponseEntity<?> getAllUserByCode(@PathVariable String code){
 		UserEntity userEntities = service.getAllUserActiveByUserCode(code);
 		return ResponseEntity.ok(userEntities);
