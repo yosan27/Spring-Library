@@ -73,8 +73,7 @@ public class RentController {
 			result.setData(null);
 		}
 		return ResponseEntity.ok(result);
-	}
-	
+    
 	@PutMapping("/rent/code/{rentCode}")
 	public ResponseEntity<?> updateStatusByRentCode(@PathVariable String rentCode, @RequestBody RentDto dto) {
 		return ResponseEntity.ok(service.updateStatusByRentCode(rentCode, dto));
