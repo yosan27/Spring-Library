@@ -1,5 +1,6 @@
 package com.Faraday.Library.services;
 
+import com.Faraday.Library.dto.AddBookDto;
 import com.Faraday.Library.dto.BookDto;
 import com.Faraday.Library.entity.BookEntity;
 
@@ -12,6 +13,8 @@ public interface BookService {
     BookEntity getBook(String bookCode);
     
     BookEntity post(BookDto dto);
+
+    BookEntity postNew(AddBookDto dto);
 
     BookEntity put(String bookCode, BookDto dto);
 
