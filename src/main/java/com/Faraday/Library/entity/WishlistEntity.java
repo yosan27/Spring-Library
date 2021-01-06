@@ -25,44 +25,42 @@ public class WishlistEntity implements Serializable{
 	private UserEntity userEntity;
 
 	@ManyToOne
-	@JoinColumn(name = "book_code", referencedColumnName = "book_code")
-	private BookEntity bookEntity;
+	@JoinColumn(name = "book_detail_code", referencedColumnName = "book_detail_code")
+	private BookDetailsEntity bookDetailsEntity;
 	
 	public WishlistEntity() {
 		super();
 	}
-	
-	
-	public WishlistEntity(Integer id, UserEntity userEntity, BookEntity bookEntity) {
+
+	public WishlistEntity(Integer id, UserEntity userEntity, BookDetailsEntity bookDetailsEntity) {
 		super();
 		this.id = id;
 		this.userEntity = userEntity;
-		this.bookEntity = bookEntity;
+		this.bookDetailsEntity = bookDetailsEntity;
 	}
-
 
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public UserEntity getUserEntity() {
 		return userEntity;
 	}
+
 	public void setUserEntity(UserEntity userEntity) {
 		this.userEntity = userEntity;
 	}
 
-
-	public BookEntity getBookEntity() {
-		return bookEntity;
+	public BookDetailsEntity getBookDetailsEntity() {
+		return bookDetailsEntity;
 	}
 
-
-	public void setBookEntity(BookEntity bookEntity) {
-		this.bookEntity = bookEntity;
+	public void setBookDetailsEntity(BookDetailsEntity bookDetailsEntity) {
+		this.bookDetailsEntity = bookDetailsEntity;
 	}
-	
 	
 }

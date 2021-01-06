@@ -16,4 +16,5 @@ public interface TransactionDetailService {
 	List<TransactionDetailEntity> getByFineCode(String code);
 	TransactionDetailEntity post(TransactionDetailDto dto);
 	TransactionDetailEntity update(TransactionDetailDto dto, Integer id);
+	TransactionDetailEntity updateByCode(TransactionDetailDto dto, String code);
 }

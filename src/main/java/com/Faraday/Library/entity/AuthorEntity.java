@@ -22,6 +22,9 @@ public class AuthorEntity implements Serializable{
 	
 	@Column(name = "author_name", nullable = false)
 	private String authorName;
+	
+	@Column(name = "status")
+	private Integer status;
 
 	public Integer getId() {
 		return Id;
@@ -45,6 +48,14 @@ public class AuthorEntity implements Serializable{
 
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	
