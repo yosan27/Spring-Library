@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Faraday.Library.dto.CartDto;
+import com.Faraday.Library.entity.BookDetailsEntity;
 import com.Faraday.Library.entity.BookEntity;
 import com.Faraday.Library.entity.CartEntity;
 import com.Faraday.Library.entity.UserEntity;
+import com.Faraday.Library.repository.BookDetailsRepository;
 import com.Faraday.Library.repository.BookRepository;
 import com.Faraday.Library.repository.CartRepository;
 import com.Faraday.Library.repository.UserRepository;
@@ -27,6 +29,9 @@ public class CartServiceImplement implements CartService{
 	
 	@Autowired
 	private BookRepository bookRepository;
+	
+	@Autowired
+	private BookDetailsRepository bookDetailsRepository;
 
 	@Override
 	public List<CartEntity> getByUserCode(String userCode) {
@@ -36,9 +41,9 @@ public class CartServiceImplement implements CartService{
 	}
 	
 	@Override
-	public List<CartEntity> getByBookCode(String bookCode) {
+	public List<CartEntity> getByBookDetailsCode(String bookDetailsCode){
 		// TODO Auto-generated method stub
-		List<CartEntity> cartEntity = cartRepository.findByBookEntityBookCode(bookCode);
+		List<CartEntity> cartEntity = cartRepository.findByBookDetailsEntityBookDetailCode(bookDetailsCode);
 		return cartEntity;
 	}
 	
@@ -63,8 +68,8 @@ public class CartServiceImplement implements CartService{
 		CartEntity cartEntity = cartRepository.findById(id).get();
 		UserEntity userEntity = userRepository.findByUserCode(dto.getUserCode());
 		cartEntity.setUserEntity(userEntity);
-		BookEntity bookEntity = bookRepository.findByBookCodeIgnoreCase(dto.getBookCode());
-		cartEntity.setBookEntity(bookEntity);
+		BookDetailsEntity bookDetailsEntity =  bookDetailsRepository.findByBookDetailCodeIgnoreCase(dto.getBookDetailsCode());
+		cartEntity.setBookDetailsEntity(bookDetailsEntity);
 		cartRepository.save(cartEntity);
 		return cartEntity;
 	}
@@ -81,8 +86,8 @@ public class CartServiceImplement implements CartService{
 		CartEntity cartEntity = new CartEntity();
 		UserEntity userEntity = userRepository.findByUserCode(dto.getUserCode());
 		cartEntity.setUserEntity(userEntity);
-		BookEntity bookEntity = bookRepository.findByBookCodeIgnoreCase(dto.getBookCode());
-		cartEntity.setBookEntity(bookEntity);
+		BookDetailsEntity bookDetailsEntity =  bookDetailsRepository.findByBookDetailCodeIgnoreCase(dto.getBookDetailsCode());
+		cartEntity.setBookDetailsEntity(bookDetailsEntity);
 		return cartEntity;
 	}
 

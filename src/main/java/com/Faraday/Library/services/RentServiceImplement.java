@@ -125,4 +125,11 @@ public class RentServiceImplement implements RentService {
 		rentRepository.save(rentEntity);
 		return rentEntity;
 	}
+
+	@Override
+	public RentEntity getByBookCode(String bookCode) {
+		// TODO Auto-generated method stub
+		RentEntity rentEntity = rentRepository.findStatusBookLastRent(bookCode);
+		return rentEntity;
+	}
 }

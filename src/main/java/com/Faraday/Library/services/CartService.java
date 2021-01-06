@@ -9,7 +9,7 @@ public interface CartService {
 	
 	public CartEntity getById(Integer id);
 	public List<CartEntity> getByUserCode(String userCode);
-	public List<CartEntity> getByBookCode(String bookCode);
+	public List<CartEntity> getByBookDetailsCode(String bookDetailsCode);
 	public CartEntity insertCart(CartDto dto);
 	public CartEntity updateCart(Integer id, CartDto dto);
 	public CartEntity deleteCart(Integer id);
