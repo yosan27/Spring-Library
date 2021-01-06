@@ -45,6 +45,11 @@ public class RentController {
 		return ResponseEntity.ok(service.getByStatus(status));
 	}
 	
+	@GetMapping("/rent/usercode/{userCode}")
+	public ResponseEntity<?> getByUserCode(@PathVariable String userCode) {
+		return ResponseEntity.ok(service.getByUserCode(userCode));
+	}
+	
 	@PostMapping("/rent")
 	public ResponseEntity<?> insert(@RequestBody RentDto dto) {
 		return ResponseEntity.ok(service.insert(dto));
@@ -68,5 +73,9 @@ public class RentController {
 			result.setData(null);
 		}
 		return ResponseEntity.ok(result);			
+
+	@PutMapping("/rent/code/{rentCode}")
+	public ResponseEntity<?> updateStatusByRentCode(@PathVariable String rentCode, @RequestBody RentDto dto) {
+		return ResponseEntity.ok(service.updateStatusByRentCode(rentCode, dto));
 	}
 }

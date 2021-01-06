@@ -17,4 +17,8 @@ public interface RentRepository extends JpaRepository<RentEntity, Integer> {
 	//get last book status rent
 	@Query(value = "select * from rent_entity where book_code = ? order by id desc limit 1", nativeQuery = true)
 	RentEntity findStatusBookLastRent(String bookCode);
+
+	@Query(value = "select * from rent_entity where user_code = ?", nativeQuery = true)
+	List<RentEntity> findByUserCode(String userCode);
+
 }

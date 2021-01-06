@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -43,19 +42,6 @@ public class TransactionEntity implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "user_code", nullable = false, referencedColumnName = "user_code")
 	private UserEntity userEntity;
-	
-	@OneToOne
-	@JoinColumn(name = "rent_code", referencedColumnName = "rent_code")
-	private RentEntity rentEntity;
-	
-
-	public RentEntity getRentEntity() {
-		return rentEntity;
-	}
-
-	public void setRentEntity(RentEntity rentEntity) {
-		this.rentEntity = rentEntity;
-	}
 
 	public UserEntity getUserEntity() {
 		return userEntity;

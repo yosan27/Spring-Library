@@ -8,11 +8,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.Faraday.Library.dto.TransactionDetailDto;
 import com.Faraday.Library.entity.FineEntity;
+import com.Faraday.Library.entity.RentEntity;
 import com.Faraday.Library.entity.TransactionDetailEntity;
 import com.Faraday.Library.entity.TransactionEntity;
+import com.Faraday.Library.entity.UserEntity;
 import com.Faraday.Library.repository.FineRepository;
+import com.Faraday.Library.repository.RentRepository;
 import com.Faraday.Library.repository.TransactionDetailRepository;
 import com.Faraday.Library.repository.TransactionRepository;
+import com.Faraday.Library.repository.UserRepository;
 
 @Service
 @Transactional
@@ -26,6 +30,12 @@ public class TransactionDetailServiceImplement implements TransactionDetailServi
 	
 	@Autowired
 	FineRepository fineRepository;
+	
+	@Autowired
+	RentRepository rentRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	@Override
 	public List<TransactionDetailEntity> getAll() {
@@ -62,12 +72,16 @@ public class TransactionDetailServiceImplement implements TransactionDetailServi
 		TransactionDetailEntity transactionDetailEntity = new TransactionDetailEntity();
 		TransactionEntity transactionEntity = transactionRepository.findByCode(dto.getTransactionCode());
 		FineEntity fineEntity = fineRepository.findByCode(dto.getFineCode());
+		RentEntity rentEntity = rentRepository.findByRentCode(dto.getRentCode());
+		UserEntity userEntity = userRepository.findByUserCode(dto.getUserCode());
 		transactionDetailEntity.setDetailCode(dto.getDetailCode());
 		transactionDetailEntity.setDescription(dto.getDescription());
 		transactionDetailEntity.setDebet(dto.getDebet());
 		transactionDetailEntity.setKredit(dto.getKredit());
 		transactionDetailEntity.setTransactionEntity(transactionEntity);
 		transactionDetailEntity.setFineEntity(fineEntity);
+		transactionDetailEntity.setRentEntity(rentEntity);
+		transactionDetailEntity.setUserEntity(userEntity);
 		repo.save(transactionDetailEntity);
 		return transactionDetailEntity;
 	}
@@ -81,6 +95,24 @@ public class TransactionDetailServiceImplement implements TransactionDetailServi
 		transactionDetailEntity.setKredit(dto.getKredit());
 		transactionDetailEntity.setFineEntity(fineEntity);
 		repo.save(transactionDetailEntity);
+		return transactionDetailEntity;
+	}
+
+	@Override
+	public List<TransactionDetailEntity> getByRentCode(String code) {
+		List<TransactionDetailEntity> transactionDetailEntity = repo.findByRentCode(code);
+		return transactionDetailEntity;
+	}
+
+	@Override
+	public List<TransactionDetailEntity> getByUserCode(String code) {
+		List<TransactionDetailEntity> transactionDetailEntity = repo.findByUserCode(code);
+		return transactionDetailEntity;
+	}
+
+	@Override
+	public List<TransactionDetailEntity> getByBill(String userCode) {
+		List<TransactionDetailEntity> transactionDetailEntity = repo.findByBill(userCode);
 		return transactionDetailEntity;
 	}
 

@@ -29,6 +29,16 @@ public class AuthorController {
 	List<AuthorEntity> getAll(){
 		return service.getAll();
 	}
+	
+	@GetMapping("/author/active")
+	public ResponseEntity<?> getActiveId() {
+		return ResponseEntity.ok(service.getActiveId());
+	}
+	
+	@GetMapping("/author/id/{id}")
+	public ResponseEntity<?> getById(@PathVariable Integer id) {
+		return ResponseEntity.ok(service.getById(id));
+	}
 
 //	@PostMapping("/author")
 //	AuthorEntity post(@PathVariable AuthorDto dto) {
@@ -60,28 +70,38 @@ public class AuthorController {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
-	@PutMapping("/author/{authorCode}")
-	public ResponseEntity<?> put(@PathVariable String authorCode, @RequestBody AuthorDto dto){
-		try {
-
-			AuthorEntity author = service.put(authorCode, dto);
-
-			if (dto.getAuthorCode() == null) {
-				result.setStatus(HttpStatus.BAD_REQUEST.value());
-				result.setMessage("Kode autor tidak boleh kosong");
-				result.setData(null);
-				return ResponseEntity.badRequest().body(result);
-			} else {
-				result.setStatus(200);
-				result.setMessage("Success");
-				result.setData(author);
-				return ResponseEntity.ok(result);
-			}
-		} catch (Exception e) {
-			@SuppressWarnings("rawtypes")
-			StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
-			return ResponseEntity.status(500).body(error);
-		}
+//	@SuppressWarnings("unchecked")
+//	@PutMapping("/author/{authorCode}")
+//	public ResponseEntity<?> put(@PathVariable String authorCode, @RequestBody AuthorDto dto){
+//		try {
+//
+//			AuthorEntity author = service.put(authorCode, dto);
+//
+//			if (dto.getAuthorCode() == null) {
+//				result.setStatus(HttpStatus.BAD_REQUEST.value());
+//				result.setMessage("Kode autor tidak boleh kosong");
+//				result.setData(null);
+//				return ResponseEntity.badRequest().body(result);
+//			} else {
+//				result.setStatus(200);
+//				result.setMessage("Success");
+//				result.setData(author);
+//				return ResponseEntity.ok(result);
+//			}
+//		} catch (Exception e) {
+//			@SuppressWarnings("rawtypes")
+//			StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+//			return ResponseEntity.status(500).body(error);
+//		}
+//	}
+	
+	@PutMapping("/author/{id}")
+	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody AuthorDto dto) {
+		return ResponseEntity.ok(service.update(id, dto));
+	}
+	
+	@DeleteMapping("/author/{id}")
+	public ResponseEntity<?> delete(@PathVariable Integer id) {
+		return ResponseEntity.ok(service.delete(id));
 	}
 }

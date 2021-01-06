@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface BookService {
     List<BookEntity> getBooks();
+    List<BookEntity> getCatalog();
 
     BookEntity getBook(String bookCode);
     

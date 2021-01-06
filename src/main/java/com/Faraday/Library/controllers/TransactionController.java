@@ -1,7 +1,5 @@
 package com.Faraday.Library.controllers;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,34 +29,22 @@ public class TransactionController {
 		return service.getAll();
 	}
 	
-	@GetMapping("/transaction/get-by-id/{id}")
+	@GetMapping("/transaction/id/{id}")
 	TransactionEntity getById(@PathVariable Integer id){
 		return service.getById(id);
 	}
 	
-	@GetMapping("/transaction/get-by-rent-code/{rentCode}")
-	TransactionEntity getByRentCode(@PathVariable String rentCode){
-		return service.getByRentCode(rentCode);
-	}
-	
-	@GetMapping("/transaction/get-by-date")
-	List<TransactionEntity> getByDate(){
-		LocalDate date = LocalDate.of(2020, 12, 29);
-		Date inputDate = Date.valueOf(date);
-		return service.getByDate(inputDate);
-	}
-	
-	@GetMapping("/transaction/get-by-status/{status}")
+	@GetMapping("/transaction/status/{status}")
 	List<TransactionEntity> getByStatus(@PathVariable Integer status){
 		return service.getByStatus(status);
 	}
 	
-	@GetMapping("/transaction/get-by-code/{code}")
+	@GetMapping("/transaction/code/{code}")
 	TransactionEntity getByCode(@PathVariable String code){
 		return service.getByCode(code);
 	}
 	
-	@GetMapping("/transaction/get-by-user-code/{userCode}")
+	@GetMapping("/transaction/user/{userCode}")
 	List<TransactionEntity> getByUserCode(@PathVariable String userCode){
 		return service.getByUserCode(userCode);
 	}

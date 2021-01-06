@@ -43,6 +43,12 @@ public class BookServiceImplement implements BookService{
         }
         return book;
     }
+    
+    @Override
+    public List<BookEntity> getCatalog(){
+        List<BookEntity> books = bookRepository.findCatalog();
+        return books;
+    }
 
     @Override
     public BookEntity post(BookDto dto) {

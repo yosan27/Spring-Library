@@ -29,22 +29,37 @@ public class TransactionDetailController {
 		return service.getAll();
 	}
 	
-	@GetMapping("/transaction-detail/get-by-id/{id}")
+	@GetMapping("/transaction-detail/id/{id}")
 	TransactionDetailEntity getById(@PathVariable Integer id){
 		return service.getById(id);
 	}
 	
-	@GetMapping("/transaction-detail/get-by-code/{code}")
+	@GetMapping("/transaction-detail/code/{code}")
 	TransactionDetailEntity getByCode(@PathVariable String code){
 		return service.getByCode(code);
 	}
 	
-	@GetMapping("/transaction-detail/get-by-transaction-code/{code}")
+	@GetMapping("/transaction-detail/transaction/{code}")
 	List<TransactionDetailEntity> getByTransactionCode(@PathVariable String code){
 		return service.getByTransactionCode(code);
 	}
 	
-	@GetMapping("/transaction-detail/get-by-fine-code/{code}")
+	@GetMapping("/transaction-detail/user/{code}")
+	List<TransactionDetailEntity> getByUserCode(@PathVariable String code){
+		return service.getByUserCode(code);
+	}
+	
+	@GetMapping("/transaction-detail/bill/{userCode}")
+	List<TransactionDetailEntity> getByBill(@PathVariable String userCode){
+		return service.getByBill(userCode);
+	}
+	
+	@GetMapping("/transaction-detail/rent/{code}")
+	List<TransactionDetailEntity> getByRentCode(@PathVariable String code){
+		return service.getByRentCode(code);
+	}
+	
+	@GetMapping("/transaction-detail/fine/{code}")
 	List<TransactionDetailEntity> getByFineCode(@PathVariable String code){
 		return service.getByFineCode(code);
 	}
