@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Faraday.Library.dto.WishlistDto;
+import com.Faraday.Library.entity.BookDetailsEntity;
 import com.Faraday.Library.entity.BookEntity;
 import com.Faraday.Library.entity.UserEntity;
 import com.Faraday.Library.entity.WishlistEntity;
+import com.Faraday.Library.repository.BookDetailsRepository;
 import com.Faraday.Library.repository.BookRepository;
 import com.Faraday.Library.repository.UserRepository;
 import com.Faraday.Library.repository.WishlistRepository;
@@ -28,6 +30,9 @@ public class WishlistServiceImplement implements WishlistService {
 	@Autowired
 	private BookRepository bookRepository;
 	
+	@Autowired
+	private BookDetailsRepository bookDetailsRepository;
+	
 	@Override
 	public WishlistEntity getWishlistById(Integer id) {
 		// TODO Auto-generated method stub
@@ -43,9 +48,9 @@ public class WishlistServiceImplement implements WishlistService {
 	}
 	
 	@Override
-	public List<WishlistEntity> getWishlistByBookCode(String bookCode) {
+	public List<WishlistEntity> getByBookDetailsCode(String bookDetailsCode) {
 		// TODO Auto-generated method stub
-		List<WishlistEntity> wishlistEntities = wishRepository.findByBookEntityBookCode(bookCode);
+		List<WishlistEntity> wishlistEntities = wishRepository.findByBookDetailsEntityBookDetailCode(bookDetailsCode);
 		return wishlistEntities;
 	}
 
@@ -63,8 +68,8 @@ public class WishlistServiceImplement implements WishlistService {
 		WishlistEntity wishlistEntity = wishRepository.findById(id).get();
 		UserEntity userEntity = userRepository.findByUserCode(dto.getUserCode());
 		wishlistEntity.setUserEntity(userEntity);
-		BookEntity bookEntity = bookRepository.findByBookCodeIgnoreCase(dto.getBookCode());
-		wishlistEntity.setBookEntity(bookEntity);
+		BookDetailsEntity bookDetailsEntity =  bookDetailsRepository.findByBookDetailCodeIgnoreCase(dto.getBookDetailsCode());
+		wishlistEntity.setBookDetailsEntity(bookDetailsEntity);
 		wishRepository.save(wishlistEntity);
 		return wishlistEntity;
 	}
@@ -81,9 +86,8 @@ public class WishlistServiceImplement implements WishlistService {
 		WishlistEntity wishlistEntity = new WishlistEntity();
 		UserEntity userEntity = userRepository.findByUserCode(dto.getUserCode());
 		wishlistEntity.setUserEntity(userEntity);
-		
-		BookEntity bookEntity = bookRepository.findByBookCodeIgnoreCase(dto.getBookCode());
-		wishlistEntity.setBookEntity(bookEntity);
+		BookDetailsEntity bookDetailsEntity =  bookDetailsRepository.findByBookDetailCodeIgnoreCase(dto.getBookDetailsCode());
+		wishlistEntity.setBookDetailsEntity(bookDetailsEntity);
 		
 		return wishlistEntity;
 	}

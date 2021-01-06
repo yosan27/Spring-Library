@@ -10,5 +10,5 @@ import com.Faraday.Library.entity.WishlistEntity;
 @Repository
 public interface WishlistRepository extends JpaRepository<WishlistEntity, Integer>{
 	List<WishlistEntity> findByUserEntityUserCode(String userCode);
-	List<WishlistEntity> findByBookEntityBookCode(String bookCode);
+	List<WishlistEntity> findByBookDetailsEntityBookDetailCode(String bookDetailsCode);
 }

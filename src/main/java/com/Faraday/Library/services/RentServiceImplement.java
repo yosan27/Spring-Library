@@ -1,5 +1,7 @@
 package com.Faraday.Library.services;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +32,36 @@ public class RentServiceImplement implements RentService {
 	@Override
 	public List<RentEntity> getAll() {
 		List<RentEntity> rentEntities = rentRepository.findAll();
+		
+		for (RentEntity rentEntity : rentEntities) {
+			checkStatus(rentEntity.getId());
+		}
+		
 		return rentEntities;
 	}
 
 	@Override
 	public RentEntity getById(Integer id) {
 		RentEntity rentEntity = rentRepository.findById(id).get();
+		return rentEntity;
+	}
+	
+	public RentEntity checkStatus(Integer id) {
+		RentEntity rentEntity = getById(id);
+		LocalDate today = LocalDate.now();
+		LocalDate due = rentEntity.getDueDate().toLocalDate();
+		
+		if(rentEntity.getStatus() == 1 && today.isAfter(due)) {
+			rentEntity.setDateReturn(Date.valueOf(due));
+			rentEntity.setStatus(6); // 1=PENDING, 2=BORROW, 3=OVERDUE, 4=WAITING PAYMENT, 5=RETURN, 6=CANCEL
+			rentRepository.save(rentEntity);
+		}
+		
+		if(rentEntity.getStatus() == 2 && today.isAfter(due)) {
+			rentEntity.setStatus(3); // 1=PENDING, 2=BORROW, 3=OVERDUE, 4=WAITING PAYMENT, 5=RETURN, 6=CANCEL
+			rentRepository.save(rentEntity);
+		}
+		
 		return rentEntity;
 	}
 	
@@ -48,6 +74,11 @@ public class RentServiceImplement implements RentService {
 	@Override
 	public List<RentEntity> getByStatus(Integer status) {
 		List<RentEntity> rentEntities = rentRepository.findByStatus(status);
+		return rentEntities;
+	}
+	
+	public List<RentEntity> getByUserCode(String userCode) {
+		List<RentEntity> rentEntities = rentRepository.findByUserCode(userCode);
 		return rentEntities;
 	}
 
@@ -82,8 +113,23 @@ public class RentServiceImplement implements RentService {
 	@Override
 	public RentEntity updateStatus(Integer id, RentDto dto) {
 		RentEntity rentEntity = rentRepository.findById(id).get();
-		rentEntity.setStatus(dto.getStatus()); // 1=PENDING, 2=BORROW, 3=OVERDUE, 4=WAITING PAYMENT, 5=RETURN
+		rentEntity.setStatus(dto.getStatus()); // 1=PENDING, 2=BORROW, 3=OVERDUE, 4=WAITING PAYMENT, 5=RETURN, 6=CANCEL
 		rentRepository.save(rentEntity);
+		return rentEntity;
+	}
+
+	@Override
+	public RentEntity updateStatusByRentCode(String rentCode, RentDto dto) {
+		RentEntity rentEntity = rentRepository.findByRentCode(rentCode);
+		rentEntity.setStatus(dto.getStatus()); // 1=PENDING, 2=BORROW, 3=OVERDUE, 4=WAITING PAYMENT, 5=RETURN, 6=CANCEL
+		rentRepository.save(rentEntity);
+		return rentEntity;
+	}
+
+	@Override
+	public RentEntity getByBookCode(String bookCode) {
+		// TODO Auto-generated method stub
+		RentEntity rentEntity = rentRepository.findStatusBookLastRent(bookCode);
 		return rentEntity;
 	}
 }

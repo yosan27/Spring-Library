@@ -46,6 +46,12 @@ public class BookServiceImplement implements BookService{
     }
 
     @Override
+    public List<BookEntity> getCatalog(){
+        List<BookEntity> books = bookRepository.findCatalog();
+        return books;
+    }
+
+    @Override
     public BookEntity post(BookDto dto) {
         BookEntity books = new BookEntity();
         books.setBookCode("");
@@ -135,7 +141,7 @@ public class BookServiceImplement implements BookService{
         return bookEntity;
     }
 
-   // Method Convert
+    // Method Convert
     public AuthorEntity convertToAuthorEntity(AddBookDto dto) {
         AuthorEntity author = new AuthorEntity();
         author.setAuthorName(dto.getAuthorName());
@@ -236,4 +242,12 @@ public class BookServiceImplement implements BookService{
         bookEntity.setBookDetailsEntity(bookDetailsEntity);
         return bookEntity;
     }
+
+
+	@Override
+	public BookEntity getBookByBookDetailCode(String bookDetailCode) {
+		// TODO Auto-generated method stub
+		BookEntity bookEntity = bookRepository.findAllActiveByBookDetailCode(bookDetailCode);
+		return bookEntity;
+	}
 }

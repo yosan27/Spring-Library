@@ -9,9 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @SuppressWarnings("serial")
 @Entity
@@ -35,12 +33,40 @@ public class TransactionDetailEntity implements Serializable{
 	private Double kredit;
 	
 	@ManyToOne
-	@JoinColumn(name = "transaction_code", nullable = false, referencedColumnName = "transaction_code")
+	@JoinColumn(name = "transaction_code", referencedColumnName = "transaction_code")
 	private TransactionEntity transactionEntity;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "fine_code", referencedColumnName = "fine_code")
 	private FineEntity fineEntity;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_code", referencedColumnName = "user_code")
+	private UserEntity userEntity;
+	
+	@ManyToOne
+	@JoinColumn(name = "rent_code", referencedColumnName = "rent_code")
+	private RentEntity rentEntity;
+
+
+	public UserEntity getUserEntity() {
+		return userEntity;
+	}
+
+
+	public void setUserEntity(UserEntity userEntity) {
+		this.userEntity = userEntity;
+	}
+
+
+	public RentEntity getRentEntity() {
+		return rentEntity;
+	}
+
+
+	public void setRentEntity(RentEntity rentEntity) {
+		this.rentEntity = rentEntity;
+	}
 
 
 	public Integer getId() {

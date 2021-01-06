@@ -8,9 +8,10 @@ import java.util.List;
 
 public interface BookService {
     List<BookEntity> getBooks();
+    List<BookEntity> getCatalog();
 
     BookEntity getBook(String bookCode);
-
+    
     BookEntity post(BookDto dto);
 
     BookEntity postNew(AddBookDto dto);
@@ -18,4 +19,6 @@ public interface BookService {
     BookEntity put(String bookCode, BookDto dto);
 
     BookEntity delete(String bookCode);
+
+    BookEntity getBookByBookDetailCode(String bookDetailCode);
 }

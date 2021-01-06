@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Faraday.Library.dto.TransactionDto;
-import com.Faraday.Library.entity.RentEntity;
 import com.Faraday.Library.entity.TransactionEntity;
 import com.Faraday.Library.entity.UserEntity;
-import com.Faraday.Library.repository.RentRepository;
 import com.Faraday.Library.repository.TransactionRepository;
 import com.Faraday.Library.repository.UserRepository;
 
@@ -27,18 +25,9 @@ public class TransactionServiceImplement implements TransactionService{
 	@Autowired
 	UserRepository userRepository;
 	
-	@Autowired
-	RentRepository rentRepository;
-	
 	@Override
 	public List<TransactionEntity> getAll() {
 		List<TransactionEntity> transactionEntity = repo.findAll();
-		return transactionEntity;
-	}
-
-	@Override
-	public List<TransactionEntity> getByDate(Date date) {
-		List<TransactionEntity> transactionEntity = repo.findByDate(date);
 		return transactionEntity;
 	}
 
@@ -64,7 +53,6 @@ public class TransactionServiceImplement implements TransactionService{
 	public TransactionEntity post(TransactionDto dto) {
 		TransactionEntity transactionEntity = new TransactionEntity();
 		UserEntity userEntity = userRepository.findByUserCode(dto.getUserCode());
-		RentEntity rentEntity = rentRepository.findByRentCode(dto.getRentCode());
 		
 		LocalDate date = LocalDate.now();
 		Date inputDate = Date.valueOf(date);
@@ -75,7 +63,6 @@ public class TransactionServiceImplement implements TransactionService{
 		transactionEntity.setPaymentMethod(dto.getPaymentMethod());
 		transactionEntity.setPaymentStatus(dto.getPaymentStatus());
 		transactionEntity.setUserEntity(userEntity);
-		transactionEntity.setRentEntity(rentEntity);
 		
 		repo.save(transactionEntity);
 		return transactionEntity;
@@ -92,12 +79,6 @@ public class TransactionServiceImplement implements TransactionService{
 	@Override
 	public TransactionEntity getById(Integer id) {
 		TransactionEntity transactionEntity = repo.findById(id).get();
-		return transactionEntity;
-	}
-
-	@Override
-	public TransactionEntity getByRentCode(String rentCode) {
-		TransactionEntity transactionEntity = repo.findByRentCode(rentCode);
 		return transactionEntity;
 	}
 

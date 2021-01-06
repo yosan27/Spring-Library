@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class TransactionDto {
 	private Integer id;
 	private String userCode;
-	private String rentCode;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date date;
@@ -18,12 +17,11 @@ public class TransactionDto {
 	private String transactionCode;
 	
 	
-	public TransactionDto(Integer id, String userCode, String rentCode, Date date, Double nominal, String paymentMethod,
+	public TransactionDto(Integer id, String userCode, Date date, Double nominal, String paymentMethod,
 			Integer paymentStatus, String transactionCode) {
 		super();
 		this.id = id;
 		this.userCode = userCode;
-		this.rentCode = rentCode;
 		this.date = date;
 		this.nominal = nominal;
 		this.paymentMethod = paymentMethod;
@@ -64,16 +62,6 @@ public class TransactionDto {
 
 	public void setUserCode(String userCode) {
 		this.userCode = userCode;
-	}
-
-
-	public String getRentCode() {
-		return rentCode;
-	}
-
-
-	public void setRentCode(String rentCode) {
-		this.rentCode = rentCode;
 	}
 
 

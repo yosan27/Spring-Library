@@ -37,19 +37,19 @@ public class UserController {
 		return ResponseEntity.ok(userEntities);
 	}
 	
-	@GetMapping("/user-by-id/{id}")
+	@GetMapping("/user/id/{id}")
 	public ResponseEntity<?> getAllUserById(@PathVariable Integer id){
-		List<UserEntity> userEntities = service.getAllUserActiveById(id);
+		UserEntity userEntities = service.getAllUserActiveById(id);
 		return ResponseEntity.ok(userEntities);
 	}
 	
-	@GetMapping("/user-by-code/{code}")
+	@GetMapping("/user/code/{code}")
 	public ResponseEntity<?> getAllUserByCode(@PathVariable String code){
-		List<UserEntity> userEntities = service.getAllUserActiveByUserCode(code);
+		UserEntity userEntities = service.getAllUserActiveByUserCode(code);
 		return ResponseEntity.ok(userEntities);
 	}
 	
-	@GetMapping("/user-by-email/{email}")
+	@GetMapping("/user/email/{email}")
 	public ResponseEntity<?> getAllUserByEmail(@PathVariable String email){
 		List<UserEntity> userEntities = service.getAllUserActiveByEmail(email);
 		return ResponseEntity.ok(userEntities);
@@ -70,7 +70,7 @@ public class UserController {
 		}
 	}
 	
-	@PostMapping("/user-admin")
+	@PostMapping("/user/admin")
 	public ResponseEntity<?> insertAdmin(@RequestBody UserDto dto){
 		if(dto.getFullName().equals("") || dto.getEmail().equals("") || dto.getPassword().equals("")) {
 			return ResponseEntity.badRequest().body("tidak boleh kosong");				
@@ -85,9 +85,9 @@ public class UserController {
 		}
 	}
 	
-	@PutMapping("/user-profile/{id}")
+	@PutMapping("/user/profile/{id}")
 	public ResponseEntity<?> updateUserProfile(@PathVariable Integer id, @RequestBody UserDto dto){
-		if(dto.getFullName().equals("")) {
+		if(dto.getPhone().equals("") || dto.getAddress().equals("")) {
 			return ResponseEntity.badRequest().body("nama tidak boleh kosong");			
 		}else {
 			UserEntity userEntity = service.updateUser(id, dto);
@@ -95,7 +95,7 @@ public class UserController {
 		}
 	}
 	
-	@PutMapping("/user-password/{id}")
+	@PutMapping("/user/password/{id}")
 	public ResponseEntity<?> updateUserPassword(@PathVariable Integer id, @RequestBody UserDto dto){
 		if(dto.getPassword().equals("")) {
 			return ResponseEntity.badRequest().body("password tidak boleh kosong");			
@@ -126,7 +126,7 @@ public class UserController {
 		}
 	}
 	
-	@PutMapping("/user-balance/{id}")
+	@PutMapping("/user/balance/{id}")
 	public ResponseEntity<?> updateUserBalance(@PathVariable Integer id, @RequestBody UserDto dto){
 		if(dto.getBalance().equals("")) {
 			return ResponseEntity.badRequest().body("password tidak boleh kosong");			
