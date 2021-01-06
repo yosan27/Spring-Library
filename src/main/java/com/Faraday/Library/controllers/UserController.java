@@ -87,7 +87,7 @@ public class UserController {
 	
 	@PutMapping("/user/profile/{id}")
 	public ResponseEntity<?> updateUserProfile(@PathVariable Integer id, @RequestBody UserDto dto){
-		if(dto.getFullName().equals("")) {
+		if(dto.getPhone().equals("") || dto.getAddress().equals("")) {
 			return ResponseEntity.badRequest().body("nama tidak boleh kosong");			
 		}else {
 			UserEntity userEntity = service.updateUser(id, dto);

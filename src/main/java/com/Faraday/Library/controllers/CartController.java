@@ -3,6 +3,7 @@ package com.Faraday.Library.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Faraday.Library.dto.CartDto;
+import com.Faraday.Library.dto.StatusMessageDto;
 import com.Faraday.Library.entity.CartEntity;
+import com.Faraday.Library.entity.WishlistEntity;
 import com.Faraday.Library.services.CartServiceImplement;
 
 @RestController
@@ -25,16 +28,30 @@ public class CartController {
 	
 	@Autowired
 	private CartServiceImplement service;
-
+	
+	@SuppressWarnings("rawtypes")
+    private StatusMessageDto result = new StatusMessageDto();
+	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/cart/usercode/{userCode}")
 	public ResponseEntity<?> getByUserCode(@PathVariable String userCode){
 		List<CartEntity> cartEntities = service.getByUserCode(userCode);
-		return ResponseEntity.ok(cartEntities);
+		if (cartEntities.size() == 0) {
+            result.setStatus(HttpStatus.BAD_REQUEST.value());
+            result.setMessage("Data not found");
+            result.setData(null);
+            return ResponseEntity.badRequest().body(result);
+        } else {
+            result.setStatus(200);
+            result.setMessage("Success");
+            result.setData(cartEntities);
+            return ResponseEntity.ok(result);
+        }
 	}
 	
-	@GetMapping("/cart/bookcode/{bookCode}")
-	public ResponseEntity<?> getByBookCode(@PathVariable String bookCode){
-		List<CartEntity> cartEntities = service.getByBookCode(bookCode);
+	@GetMapping("/cart/bookdetailscode/{bookDetailsCode}")
+	public ResponseEntity<?> getByBookDetailsCode(@PathVariable String bookDetailsCode){
+		List<CartEntity> cartEntities = service.getByBookDetailsCode(bookDetailsCode);
 		return ResponseEntity.ok(cartEntities);
 	}
 	

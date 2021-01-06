@@ -1,6 +1,7 @@
 package com.Faraday.Library.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Faraday.Library.dto.RentDto;
+import com.Faraday.Library.dto.StatusMessageDto;
+import com.Faraday.Library.entity.RentEntity;
 import com.Faraday.Library.services.RentServiceImplement;
 
 @RestController
@@ -57,6 +60,21 @@ public class RentController {
 		return ResponseEntity.ok(service.updateStatus(id, dto));
 	}
 	
+	@GetMapping("/rent/bookcode/{bookCode}")
+	public ResponseEntity<?> getByBookCode(@PathVariable String bookCode) {
+		StatusMessageDto<RentEntity> result = new StatusMessageDto<>();
+		RentEntity rentEntity = service.getByBookCode(bookCode);
+		result.setStatus(HttpStatus.OK.value());
+		if(rentEntity != null) {
+			result.setMessage("Success!");
+			result.setData(rentEntity);
+		}else {
+			result.setMessage("Data Null");
+			result.setData(null);
+		}
+		return ResponseEntity.ok(result);	
+	}
+
 	@PutMapping("/rent/code/{rentCode}")
 	public ResponseEntity<?> updateStatusByRentCode(@PathVariable String rentCode, @RequestBody RentDto dto) {
 		return ResponseEntity.ok(service.updateStatusByRentCode(rentCode, dto));

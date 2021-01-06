@@ -3,6 +3,7 @@ package com.Faraday.Library.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.Faraday.Library.dto.StatusMessageDto;
 import com.Faraday.Library.dto.WishlistDto;
+import com.Faraday.Library.entity.RentEntity;
 import com.Faraday.Library.entity.WishlistEntity;
 import com.Faraday.Library.services.WishlistServiceImplement;
 
@@ -26,15 +29,29 @@ public class WishlistController {
 	@Autowired
 	private WishlistServiceImplement service;
 	
+	@SuppressWarnings("rawtypes")
+    private StatusMessageDto result = new StatusMessageDto();
+	
+	@SuppressWarnings("unchecked")
 	@GetMapping("/wishlist/usercode/{userCode}")
 	public ResponseEntity<?> getWishlistByUserCode(@PathVariable String userCode){
 		List<WishlistEntity> wishEntities = service.getWishlistByUserCode(userCode);
-		return ResponseEntity.ok(wishEntities);
+		if (wishEntities.size() == 0) {
+            result.setStatus(HttpStatus.BAD_REQUEST.value());
+            result.setMessage("Data not found");
+            result.setData(null);
+            return ResponseEntity.badRequest().body(result);
+        } else {
+            result.setStatus(200);
+            result.setMessage("Success");
+            result.setData(wishEntities);
+            return ResponseEntity.ok(result);
+        }
 	}
 	
-	@GetMapping("/wishlist/bookcode/{bookCode}")
-	public ResponseEntity<?> getWishlistByBookCode(@PathVariable String bookCode){
-		List<WishlistEntity> wishEntities = service.getWishlistByBookCode(bookCode);
+	@GetMapping("/wishlist/bookdetailscode/{bookDetailsCode}")
+	public ResponseEntity<?> getByBookDetailsCode(@PathVariable String bookDetailsCode){
+		List<WishlistEntity> wishEntities = service.getByBookDetailsCode(bookDetailsCode);
 		return ResponseEntity.ok(wishEntities);
 	}
 	

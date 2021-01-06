@@ -26,19 +26,19 @@ public class CartEntity implements Serializable {
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "book_code", referencedColumnName = "book_code")
-	private BookEntity bookEntity;
+	@JoinColumn(name = "book_detail_code", referencedColumnName = "book_detail_code")
+	private BookDetailsEntity bookDetailsEntity;
 	
 	public CartEntity() {
 		super();
 	}
 	
 	
-	public CartEntity(Integer id, UserEntity userEntity, BookEntity bookEntity) {
+	public CartEntity(Integer id, UserEntity userEntity, BookDetailsEntity bookDetailsEntity) {
 		super();
 		this.id = id;
 		this.userEntity = userEntity;
-		this.bookEntity = bookEntity;
+		this.bookDetailsEntity = bookDetailsEntity;
 	}
 
 
@@ -55,13 +55,17 @@ public class CartEntity implements Serializable {
 		this.userEntity = userEntity;
 	}
 
-	public BookEntity getBookEntity() {
-		return bookEntity;
+
+	public BookDetailsEntity getBookDetailsEntity() {
+		return bookDetailsEntity;
 	}
 
-	public void setBookEntity(BookEntity bookEntity) {
-		this.bookEntity = bookEntity;
+
+	public void setBookDetailsEntity(BookDetailsEntity bookDetailsEntity) {
+		this.bookDetailsEntity = bookDetailsEntity;
 	}
+
+
 	
 	
 }

@@ -116,4 +116,13 @@ public class TransactionDetailServiceImplement implements TransactionDetailServi
 		return transactionDetailEntity;
 	}
 
+	@Override
+	public TransactionDetailEntity updateByCode(TransactionDetailDto dto, String code) {
+		TransactionDetailEntity transactionDetailEntity = repo.findByCode(code);
+		TransactionEntity transactionEntity = transactionRepository.findByCode(dto.getTransactionCode());
+		transactionDetailEntity.setTransactionEntity(transactionEntity);
+		repo.save(transactionDetailEntity);
+		return transactionDetailEntity;
+	}
+
 }

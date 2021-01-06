@@ -31,11 +31,11 @@ public class FineEntity implements Serializable{
 	private Double nominal;
 	
 	@Column(name = "valid_from", nullable = false)
-	@JsonFormat(pattern ="dd/MM/yyy")
+	@JsonFormat(pattern ="dd/MM/yyyy")
 	private Date validFrom;
 	
 	@Column(name = "valid_to", nullable = false)
-	@JsonFormat(pattern ="dd/MM/yyy")
+	@JsonFormat(pattern ="dd/MM/yyyy")
 	private Date validTo;
 
 	public Integer getId() {
