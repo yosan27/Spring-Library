@@ -14,4 +14,8 @@ public interface BookRepository extends JpaRepository<BookEntity, Integer> {
 
     @Query(value = "SELECT * FROM book_entity WHERE status = 1", nativeQuery = true)
     List<BookEntity> findAllActive();
+
+    //get last code
+    @Query(value = "select book_code from book_entity order by id desc limit 1", nativeQuery = true)
+    String findLastCode();
 }
