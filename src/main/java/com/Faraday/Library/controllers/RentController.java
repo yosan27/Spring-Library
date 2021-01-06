@@ -72,7 +72,8 @@ public class RentController {
 			result.setMessage("Data Null");
 			result.setData(null);
 		}
-		return ResponseEntity.ok(result);			
+		return ResponseEntity.ok(result);	
+	}
 
 	@PutMapping("/rent/code/{rentCode}")
 	public ResponseEntity<?> updateStatusByRentCode(@PathVariable String rentCode, @RequestBody RentDto dto) {
