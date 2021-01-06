@@ -73,4 +73,9 @@ public class TransactionDetailController {
 	TransactionDetailEntity update(@RequestBody TransactionDetailDto dto, @PathVariable Integer id){
 		return service.update(dto, id);
 	}
+	
+	@PutMapping("/transaction-detail/code/{code}")
+	TransactionDetailEntity updateByCode(@RequestBody TransactionDetailDto dto, @PathVariable String code){
+		return service.updateByCode(dto, code);
+	}
 }
