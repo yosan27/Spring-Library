@@ -146,6 +146,7 @@ public class BookServiceImplement implements BookService{
         AuthorEntity author = new AuthorEntity();
         author.setAuthorName(dto.getAuthorName());
         author.setAuthorCode("");
+        author.setStatus(1);
         authorRepository.save(author);
 
         String kodeAuthor = "";
