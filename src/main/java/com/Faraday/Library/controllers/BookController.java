@@ -44,6 +44,29 @@ public class BookController {
             return ResponseEntity.status(500).body(error);
         }
     }
+    
+    @SuppressWarnings("unchecked")
+    @GetMapping("/book/detailcode/{detailcode}")
+    public ResponseEntity<?> getBookByDetailCode(@PathVariable String detailcode){
+    	 try {
+             BookEntity books = service.getBookByBookDetailCode(detailcode);
+             if (books == null) {
+                 result.setStatus(HttpStatus.BAD_REQUEST.value());
+                 result.setMessage("Data not found");
+                 result.setData(null);
+                 return ResponseEntity.badRequest().body(result);
+             } else {
+                 result.setStatus(200);
+                 result.setMessage("Success");
+                 result.setData(books);
+                 return ResponseEntity.ok(result);
+             }
+         } catch (Exception e) {
+             @SuppressWarnings("rawtypes")
+             StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+             return ResponseEntity.status(500).body(error);
+         }
+    }
 
     @SuppressWarnings("unchecked")
     @GetMapping("/book/{bookCode}")

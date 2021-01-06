@@ -14,4 +14,7 @@ public interface BookRepository extends JpaRepository<BookEntity, Integer> {
 
     @Query(value = "SELECT * FROM book_entity WHERE status = 1", nativeQuery = true)
     List<BookEntity> findAllActive();
+    
+    @Query(value = "SELECT * FROM book_entity WHERE status = 1 AND book_detail_code = ? order by id desc limit 1", nativeQuery = true)
+    BookEntity findAllActiveByBookDetailCode(String bookDetailCode);
 }

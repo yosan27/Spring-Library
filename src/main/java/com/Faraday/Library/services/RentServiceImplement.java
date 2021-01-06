@@ -39,6 +39,8 @@ public class RentServiceImplement implements RentService {
 		return rentEntity;
 	}
 	
+	
+	
 	@Override
 	public RentEntity getByRentCode(String rentCode) {
 		RentEntity rentEntities = rentRepository.findByRentCode(rentCode);
@@ -84,6 +86,13 @@ public class RentServiceImplement implements RentService {
 		RentEntity rentEntity = rentRepository.findById(id).get();
 		rentEntity.setStatus(dto.getStatus()); // 1=PENDING, 2=BORROW, 3=OVERDUE, 4=WAITING PAYMENT, 5=RETURN
 		rentRepository.save(rentEntity);
+		return rentEntity;
+	}
+
+	@Override
+	public RentEntity getByBookCode(String bookCode) {
+		// TODO Auto-generated method stub
+		RentEntity rentEntity = rentRepository.findStatusBookLastRent(bookCode);
 		return rentEntity;
 	}
 }

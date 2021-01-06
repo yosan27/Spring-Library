@@ -9,10 +9,12 @@ public interface BookService {
     List<BookEntity> getBooks();
 
     BookEntity getBook(String bookCode);
-
+    
     BookEntity post(BookDto dto);
 
     BookEntity put(String bookCode, BookDto dto);
 
     BookEntity delete(String bookCode);
+
+    BookEntity getBookByBookDetailCode(String bookDetailCode);
 }

@@ -3,39 +3,41 @@ package com.Faraday.Library.dto;
 public class WishlistDto {
 	private Integer id;
 	private String userCode;
-	private String bookCode;
+	private String bookDetailsCode;
 	
 	public WishlistDto() {
 		super();
 	}
-	
-	public WishlistDto(Integer id, String userCode, String bookCode) {
+
+	public WishlistDto(Integer id, String userCode, String bookDetailsCode) {
 		super();
 		this.id = id;
 		this.userCode = userCode;
-		this.bookCode = bookCode;
+		this.bookDetailsCode = bookDetailsCode;
 	}
 
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getUserCode() {
 		return userCode;
 	}
+
 	public void setUserCode(String userCode) {
 		this.userCode = userCode;
 	}
 
-	public String getBookCode() {
-		return bookCode;
+	public String getBookDetailsCode() {
+		return bookDetailsCode;
 	}
 
-	public void setBookCode(String bookCode) {
-		this.bookCode = bookCode;
+	public void setBookDetailsCode(String bookDetailsCode) {
+		this.bookDetailsCode = bookDetailsCode;
 	}
-	
 	
 }
