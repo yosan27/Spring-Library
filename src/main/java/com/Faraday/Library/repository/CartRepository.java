@@ -9,8 +9,6 @@ import com.Faraday.Library.entity.CartEntity;
 
 @Repository
 public interface CartRepository extends JpaRepository<CartEntity, Integer>{
-	
-	
 	List<CartEntity> findByUserEntityUserCode(String userCode);
-	List<CartEntity> findByBookEntityBookCode(String bookCode);
+	List<CartEntity> findByBookDetailsEntityBookDetailCode(String bookDetailsCode);
 }

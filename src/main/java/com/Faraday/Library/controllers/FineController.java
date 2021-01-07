@@ -32,17 +32,17 @@ public class FineController {
 		return service.getAll();
 	}
 	
-	@GetMapping("/fine/get-by-code/{code}")
+	@GetMapping("/fine/code/{code}")
 	FineEntity getByCode(@PathVariable String code) {
 		return service.getByCode(code);
 	}
 	
-	@GetMapping("/fine/get-by-id/{id}")
+	@GetMapping("/fine/id/{id}")
 	FineEntity getByCode(@PathVariable Integer id) {
 		return service.getById(id);
 	}
 	
-	@GetMapping("/fine/get-active")
+	@GetMapping("/fine/active")
 	List<FineEntity> getActive() {
 		LocalDate localDate = LocalDate.now();
 		Date date = Date.valueOf(localDate);

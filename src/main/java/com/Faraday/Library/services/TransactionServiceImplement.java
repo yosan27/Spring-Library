@@ -32,12 +32,6 @@ public class TransactionServiceImplement implements TransactionService{
 	}
 
 	@Override
-	public List<TransactionEntity> getByDate(Date date) {
-		List<TransactionEntity> transactionEntity = repo.findByDate(date);
-		return transactionEntity;
-	}
-
-	@Override
 	public List<TransactionEntity> getByStatus(Integer status) {
 		List<TransactionEntity> transactionEntity = repo.findByStatus(status);
 		return transactionEntity;

@@ -10,10 +10,10 @@ public class FineDto {
 	private String fineType;
 	private Double nominal;
 	
-	@JsonFormat(pattern ="dd/MM/yyy")
+	@JsonFormat(pattern ="dd/MM/yyyy")
 	private Date validFrom;
 	
-	@JsonFormat(pattern ="dd/MM/yyy")
+	@JsonFormat(pattern ="dd/MM/yyyy")
 	private Date validTo;
 	
 	
