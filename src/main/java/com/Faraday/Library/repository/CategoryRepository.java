@@ -16,4 +16,11 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, Intege
 
 	@Query(value = "select * from category_entity where status = 1", nativeQuery = true)
 	List<CategoryEntity> findId();
+
+	//get last code
+	@Query(value = "select category_code from category_entity order by id desc limit 1", nativeQuery = true)
+	String findLastCode();
+
+	@Query(value = "select category_code from category_entity where=?", nativeQuery = true)
+	CategoryEntity findLastCodeCategory(String categoryCode);
 }

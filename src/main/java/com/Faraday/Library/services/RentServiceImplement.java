@@ -132,4 +132,11 @@ public class RentServiceImplement implements RentService {
 		RentEntity rentEntity = rentRepository.findStatusBookLastRent(bookCode);
 		return rentEntity;
 	}
+	
+	public RentEntity updateStatusTakeBook(Integer id) {
+		RentEntity rentEntity = rentRepository.findById(id).get();
+		rentEntity.setStatus(2); // 1=PENDING, 2=BORROW, 3=OVERDUE, 4=WAITING PAYMENT, 5=RETURN, 6=CANCEL
+		rentRepository.save(rentEntity);
+		return rentEntity;
+	}
 }
