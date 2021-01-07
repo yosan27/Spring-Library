@@ -10,4 +10,5 @@ public interface CategoryService {
 	CategoryEntity post(CategoryDto dto);
 	CategoryEntity update(Integer id, CategoryDto dto);
 	CategoryEntity delete(Integer id);
+	CategoryEntity getById(Integer id);
 }
