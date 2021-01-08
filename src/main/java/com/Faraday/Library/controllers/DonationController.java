@@ -48,10 +48,18 @@ public class DonationController {
 		return ResponseEntity.ok(donation.insert(dto));
 	}
 
+//	updateStatus
 	@PutMapping("/donation/{id}")
 	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody DonationDto dto){
 		return ResponseEntity.ok(donation.updateStatus(id, dto));
 	}
+	
+//	update data
+	@PutMapping("/donation-detail/{id}")
+	public ResponseEntity<?> updateData(@PathVariable Integer id, @RequestBody DonationDto dto){
+		return ResponseEntity.ok(donation.updateData(dto, id));
+	}
+	
 	
 //	softdelete donation data
     @SuppressWarnings("unchecked")

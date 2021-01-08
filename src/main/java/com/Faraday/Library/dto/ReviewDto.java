@@ -3,27 +3,21 @@ package com.Faraday.Library.dto;
 import java.sql.Date;
 
 public class ReviewDto {
-	private String user_code;
-	private String book_code;
+	private String userCode;
+	private String bookCode;
 	private Integer rate;
 	private String review;
 	private String date;
 	
-	public ReviewDto(String user_code, String book_code, Integer rate, String review, String date) {
+	public ReviewDto(String userCode, String bookCode, Integer rate, String review, String date) {
 		super();
-		this.user_code = user_code;
-		this.book_code = book_code;
+		this.userCode = userCode;
+		this.bookCode = bookCode;
 		this.rate = rate;
 		this.review = review;
 		this.date = date;
 	}
-	
-	public String getBook_code() {
-		return book_code;
-	}
-	public void setBook_code(String book_code) {
-		this.book_code = book_code;
-	}
+
 	public Integer getRate() {
 		return rate;
 	}
@@ -42,12 +36,23 @@ public class ReviewDto {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getUser_code() {
-		return user_code;
+
+	public String getUserCode() {
+		return userCode;
 	}
-	public void setUser_code(String user_code) {
-		this.user_code = user_code;
+
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
 	}
+
+	public String getBookCode() {
+		return bookCode;
+	}
+
+	public void setBookCode(String bookCode) {
+		this.bookCode = bookCode;
+	}
+	
 }
 
 

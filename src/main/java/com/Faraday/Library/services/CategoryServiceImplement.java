@@ -34,6 +34,11 @@ public class CategoryServiceImplement implements CategoryService {
 		return categoryRepository.findId();
 	}
 
+	@Override 
+	public CategoryEntity getById(Integer id) {
+		CategoryEntity categoryEntity = categoryRepository.findById(id).get();
+		return categoryEntity;
+	}
 
 //	@Override
 //	public CategoryEntity post(CategoryDto dto) {

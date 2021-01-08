@@ -11,5 +11,6 @@ public interface DonationService {
 	DonationEntity getById(Integer id);
 	DonationEntity insert(DonationDto dto);
 	DonationEntity updateStatus(Integer id, DonationDto dto );
+	DonationEntity updateData(DonationDto dto, Integer id );
 	DonationEntity delete(Integer id);
 }

@@ -38,8 +38,14 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/id/{id}")
-	public ResponseEntity<?> getAllUserById(@PathVariable Integer id){
+	public ResponseEntity<?> getAllUserActiveById(@PathVariable Integer id){
 		UserEntity userEntities = service.getAllUserActiveById(id);
+		return ResponseEntity.ok(userEntities);
+	}
+	
+	@GetMapping("/user/id-all/{id}")
+	public ResponseEntity<?> getAllUserById(@PathVariable Integer id){
+		UserEntity userEntities = service.getALlUserById(id);
 		return ResponseEntity.ok(userEntities);
 	}
 	
@@ -101,6 +107,16 @@ public class UserController {
 			return ResponseEntity.badRequest().body("password tidak boleh kosong");			
 		}else {
 			UserEntity userEntity = service.updateUserPassword(id, dto);
+			return ResponseEntity.ok(userEntity);
+		}
+	}
+	
+	@PutMapping("/user/suspendate/{id}")
+	public ResponseEntity<?> updateUserSuspend(@PathVariable Integer id, @RequestBody UserDto dto){
+		if(dto.getStatus().equals("")) {
+			return ResponseEntity.badRequest().body("tanggal tidak boleh kosong");			
+		}else {
+			UserEntity userEntity = service.updateUserSuspend(id, dto);
 			return ResponseEntity.ok(userEntity);
 		}
 	}

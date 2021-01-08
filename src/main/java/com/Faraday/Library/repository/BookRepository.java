@@ -23,4 +23,6 @@ public interface BookRepository extends JpaRepository<BookEntity, Integer> {
     
     @Query(value = "SELECT book_entity.id, book_entity.book_code, book_entity.isbn, book_entity.published_date, book_entity.status, book_entity.book_detail_code, book_entity.author_code, book_entity.category_code, book_detail_entity.description, book_detail_entity.language, book_detail_entity.number_of_pages, book_detail_entity.book_subtitle, book_entity.publisher_code, publisher_entity.publisher_name FROM book_entity INNER JOIN book_detail_entity ON book_entity.book_detail_code = book_detail_entity.book_detail_code INNER JOIN publisher_entity ON book_entity.publisher_code = publisher_entity.publisher_code WHERE book_entity.id = ?", nativeQuery = true)
     BookEntity findBookDetails(Integer id);
+    
+   BookEntity findByBookCode(String bookCode);
 }
