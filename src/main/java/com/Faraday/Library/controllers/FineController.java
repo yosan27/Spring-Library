@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Faraday.Library.dto.FineDto;
 import com.Faraday.Library.entity.FineEntity;
+//import com.Faraday.Library.exception.APIException;
+import com.Faraday.Library.exception.ResourceNotFoundException;
 import com.Faraday.Library.services.FineServiceImplement;
 
 @RestController
@@ -33,13 +35,17 @@ public class FineController {
 	}
 	
 	@GetMapping("/fine/code/{code}")
-	FineEntity getByCode(@PathVariable String code) {
+	FineEntity getByCode(@PathVariable String code){
 		return service.getByCode(code);
 	}
 	
 	@GetMapping("/fine/id/{id}")
-	FineEntity getByCode(@PathVariable Integer id) {
-		return service.getById(id);
+	FineEntity getByCode(@PathVariable Integer id) throws ResourceNotFoundException {
+		try {
+			return service.getById(id);
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Data With ID : " + id + " Not Found!");
+		}
 	}
 	
 	@GetMapping("/fine/active")
