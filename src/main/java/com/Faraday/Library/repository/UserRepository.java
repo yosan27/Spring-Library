@@ -22,6 +22,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 	// find all User active by id
 	@Query(value = "select * from user_entity where status = 1 and id = ?", nativeQuery = true)
 	UserEntity findAllUserActiveById(Integer id);
+	
+	@Query(value = "select * from user_entity where id = ?", nativeQuery = true)
+	UserEntity findAllUserById(Integer id);
 
 	// find all User active by user code
 	@Query(value = "select * from user_entity where status = 1 and user_code = ?", nativeQuery = true)

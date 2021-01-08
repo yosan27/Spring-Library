@@ -48,8 +48,8 @@ public class ReviewServiceImplement implements ReviewService {
 		String formatted = date.format(formatter);
 		
 		ReviewEntity reviewEntity = new ReviewEntity();
-		UserEntity userEntity = userRepository.findByUserCode(dto.getUser_code());
-		BookEntity bookEntity = bookRepository.findByBookCodeIgnoreCase(dto.getBook_code());
+		UserEntity userEntity = userRepository.findByUserCode(dto.getUserCode());
+		BookEntity bookEntity = bookRepository.findByBookCodeIgnoreCase(dto.getBookCode());
 
 		reviewEntity.setUserEntity(userEntity);
 		reviewEntity.setBookEntity(bookEntity);
