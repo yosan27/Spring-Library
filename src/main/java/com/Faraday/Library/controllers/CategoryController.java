@@ -32,6 +32,11 @@ public class CategoryController {
 		return service.getAll();
 	}
 	
+	@GetMapping("/category/id/{id}")
+	public ResponseEntity<?> getById(@PathVariable Integer id){
+		return ResponseEntity.ok(service.getById(id));
+	}
+	
 //	@PostMapping("/category")
 //	CategoryEntity post(@PathVariable CategoryDto dto) {
 //		return service.post(dto);
@@ -71,7 +76,6 @@ public class CategoryController {
 	
 	@PutMapping("/update-category/{id}")
 	public ResponseEntity<?> updateCategory(@PathVariable Integer id, @RequestBody CategoryDto dto){
-		
 		CategoryEntity categoryEntity = service.update(id, dto);
 		return ResponseEntity.ok(categoryEntity);
 		

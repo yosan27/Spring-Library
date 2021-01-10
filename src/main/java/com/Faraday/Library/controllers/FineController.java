@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Faraday.Library.dto.FineDto;
 import com.Faraday.Library.entity.FineEntity;
+import com.Faraday.Library.exception.APIException;
+//import com.Faraday.Library.exception.APIException;
+import com.Faraday.Library.exception.ResourceNotFoundException;
 import com.Faraday.Library.services.FineServiceImplement;
 
 @RestController
@@ -28,39 +31,67 @@ public class FineController {
 	FineServiceImplement service;
 	
 	@GetMapping("/fine")
-	List<FineEntity> getAll() {
-		return service.getAll();
+	List<FineEntity> getAll() throws APIException {
+		try {
+			return service.getAll();
+		}catch(Exception e) {
+			throw new APIException ("Sorry! Cannot Connect To Database Server");
+		}
 	}
 	
 	@GetMapping("/fine/code/{code}")
-	FineEntity getByCode(@PathVariable String code) {
-		return service.getByCode(code);
+	FineEntity getByCode(@PathVariable String code) throws ResourceNotFoundException {
+		try {
+			return service.getByCode(code);
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Resource With Fine Code : " + code + " Not Found!");
+		}
 	}
 	
 	@GetMapping("/fine/id/{id}")
-	FineEntity getByCode(@PathVariable Integer id) {
-		return service.getById(id);
+	FineEntity getByCode(@PathVariable Integer id) throws ResourceNotFoundException {
+		try {
+			return service.getById(id);
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Resource With ID : " + id + " Not Found!");
+		}
 	}
 	
 	@GetMapping("/fine/active")
-	List<FineEntity> getActive() {
-		LocalDate localDate = LocalDate.now();
-		Date date = Date.valueOf(localDate);
-		return service.getActive(date);
+	List<FineEntity> getActive() throws APIException {
+		try {
+			LocalDate localDate = LocalDate.now();
+			Date date = Date.valueOf(localDate);
+			return service.getActive(date);
+		}catch(Exception e) {
+			throw new APIException ("Sorry! Cannot Connect To Database Server");
+		}
 	}
 	
 	@PostMapping("/fine")
-	FineEntity post(@RequestBody FineDto dto) {
-		return service.post(dto);
+	FineEntity post(@RequestBody FineDto dto) throws APIException {
+		try {
+			return service.post(dto);
+		}catch(Exception e) {
+			throw new APIException ("Sorry! Cannot Connect To Database Server");
+		}
 	}
 	
 	@PutMapping("/fine/{id}")
-	FineEntity post(@RequestBody FineDto dto, @PathVariable Integer id) {
-		return service.update(dto, id);
+	FineEntity post(@RequestBody FineDto dto, @PathVariable Integer id) throws ResourceNotFoundException {
+		try {
+			return service.update(dto, id);
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Resource With ID : " + id + " Not Found!");
+		}
 	}
 	
 	@DeleteMapping("/fine/{id}")
-	FineEntity post(@PathVariable Integer id) {
-		return service.delete(id);
+	FineEntity post(@PathVariable Integer id) throws ResourceNotFoundException {
+		try {
+			return service.delete(id);
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Resource With ID : " + id + " Not Found!");
+		}
 	}
 }
