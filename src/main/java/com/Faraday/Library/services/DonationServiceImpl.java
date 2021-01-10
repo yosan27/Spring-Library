@@ -90,10 +90,12 @@ public class DonationServiceImpl implements DonationService{
 	@Override 
 	public DonationEntity updateData(DonationDto dto, Integer id) {
 		DonationEntity donationEntity = donationRepository.findById(id).get();
+		CategoryEntity categoryEntity = categoryRepository.findByCategoryCodeIgnoreCase(dto.getCategoryCode());
 		donationEntity.setBookTitle(dto.getBookTitle());
 		donationEntity.setAuthor(dto.getAuthor());
 		donationEntity.setYear(dto.getYear());
 		donationEntity.setDescription(dto.getDescription());
+		donationEntity.setCategoryEntity(categoryEntity);
 		donationRepository.save(donationEntity);
 		return donationEntity;
 	}
