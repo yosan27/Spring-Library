@@ -1,6 +1,5 @@
 package com.Faraday.Library.services;
 
-
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,8 +7,13 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Calendar;
 
+import com.Faraday.Library.dto.StatusMessageDto;
+import com.Faraday.Library.security.jwt.JwtUtils;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +27,15 @@ public class UserServiceImplement implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private JwtUtils jwtUtils;
 	
 	@Override
 	public List<UserEntity> getAll() {
@@ -54,9 +67,15 @@ public class UserServiceImplement implements UserService {
 	}
 
 	@Override
-	public List<UserEntity> getAllUserActiveByEmail(String email) {
+	public UserEntity getAllUserActiveByUserName(String userName) {
+		UserEntity userEntities = userRepository.findAllUserActiveByUserName(userName);
+		return userEntities;
+	}
+
+	@Override
+	public UserEntity getAllUserActiveByEmail(String email) {
 		// TODO Auto-generated method stub
-		List<UserEntity> userEntities = userRepository.findAllUserActiveByEmail(email);
+		UserEntity userEntities = userRepository.findAllUserActiveByEmail(email);
 		return userEntities;
 	}
 
@@ -120,7 +139,7 @@ public class UserServiceImplement implements UserService {
 	public UserEntity updateUserPassword(Integer id, UserDto dto) {
 		// TODO Auto-generated method stub
 		UserEntity userEntity = userRepository.findById(id).get();
-		userEntity.setPassword(dto.getPassword());
+		userEntity.setPassword(passwordEncoder.encode(dto.getPassword()));
 		userRepository.save(userEntity);
 		return userEntity;
 	}
@@ -173,6 +192,7 @@ public class UserServiceImplement implements UserService {
 	}
 
 	public UserEntity converToUserEntity(Integer role, UserDto dto) {
+
 		List<UserEntity> userEntities = userRepository.findAll();
 		
 		String userCode = "";
@@ -228,7 +248,7 @@ public class UserServiceImplement implements UserService {
 		userEntity.setUserCode(code+""+userCode);
 		userEntity.setUserName(dto.getUserName());
 		userEntity.setEmail(dto.getEmail());
-		userEntity.setPassword(dto.getPassword());
+		userEntity.setPassword(passwordEncoder.encode(dto.getPassword()));
 		userEntity.setFullName(dto.getFullName());
 		userEntity.setPhone(dto.getPhone());
 		userEntity.setAddress(dto.getAddress());

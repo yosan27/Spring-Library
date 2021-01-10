@@ -1,10 +1,24 @@
 package com.Faraday.Library.controllers;
 
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
+import com.Faraday.Library.dto.JwtResponse;
+import com.Faraday.Library.dto.StatusMessageDto;
+import com.Faraday.Library.repository.UserRepository;
+import com.Faraday.Library.security.jwt.JwtUtils;
+import com.Faraday.Library.security.service.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +43,24 @@ public class UserController {
 	
 	@Autowired
 	private UserServiceImplement service;
-	
+
+	@Autowired
+	UserRepository userRepository;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	PasswordEncoder passwordEncoder;
+
+	@Autowired
+	private JwtUtils jwtUtils;
+
+	public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+			Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+	@SuppressWarnings("rawtypes")
+	private StatusMessageDto result = new StatusMessageDto();
 	
 	@GetMapping("/user")
 	public ResponseEntity<?> getAll(){
@@ -54,26 +85,94 @@ public class UserController {
 		UserEntity userEntities = service.getAllUserActiveByUserCode(code);
 		return ResponseEntity.ok(userEntities);
 	}
-	
-	@GetMapping("/user/email/{email}")
-	public ResponseEntity<?> getAllUserByEmail(@PathVariable String email){
-		List<UserEntity> userEntities = service.getAllUserActiveByEmail(email);
+
+	@GetMapping("/user/username/{userName}")
+	public ResponseEntity<?> getAllUserByUserName(@PathVariable String userName){
+		UserEntity userEntities = service.getAllUserActiveByUserName(userName);
 		return ResponseEntity.ok(userEntities);
 	}
 	
-	@PostMapping("/user")
+	@GetMapping("/user/email/{email}")
+	public ResponseEntity<?> getAllUserByEmail(@PathVariable String email){
+		UserEntity userEntities = service.getAllUserActiveByEmail(email);
+		return ResponseEntity.ok(userEntities);
+	}
+	
+	@PostMapping("/users/signup")
 	public ResponseEntity<?> insertUser(@RequestBody UserDto dto){
+		StatusMessageDto response = new StatusMessageDto();
 		if(dto.getFullName().equals("") || dto.getEmail().equals("") || dto.getPassword().equals("")) {
-			return ResponseEntity.badRequest().body("tidak boleh kosong");				
+			response.setMessage("Data cannot empty");
+			response.setData(null);
+			response.setStatus(HttpStatus.BAD_REQUEST.value());
+			return ResponseEntity.badRequest().body(response);
 		}else {
-			List<UserEntity> cekEmail = service.getAllUserActiveByEmail(dto.getEmail());
-			if(cekEmail.size() > 0) {
-				return ResponseEntity.badRequest().body("Email Sudah Terdaftar");	
-			}else {
-				UserEntity userEntity = service.insertUser(dto);
-				return ResponseEntity.ok(userEntity);				
+			UserEntity user = userRepository.findByUserName(dto.getUserName());
+			if (user != null) {
+				response.setMessage("Username has been used");
+				response.setData(null);
+				response.setStatus(HttpStatus.BAD_REQUEST.value());
+				return ResponseEntity.badRequest().body(response);
 			}
+			if(dto.getPassword().length() < 8){
+				response.setMessage("password at least 8 characters");
+				response.setData(null);
+				response.setStatus(HttpStatus.BAD_REQUEST.value());
+				return ResponseEntity.badRequest().body(response);
+			}
+			Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(dto.getEmail());
+			if(matcher.find()){
+				UserEntity cekEmail = userRepository.findByEmail(dto.getEmail());
+				if(cekEmail != null) {
+					response.setMessage("Email has been used");
+					response.setData(null);
+					response.setStatus(HttpStatus.BAD_REQUEST.value());
+					return ResponseEntity.badRequest().body(response);
+				}else {
+					UserEntity userEntity = service.insertUser(dto);
+					response.setStatus(HttpStatus.OK.value());
+					response.setMessage("User created!");
+					response.setData(userEntity);
+					return ResponseEntity.ok(response);
+				}
+			}else{
+				response.setMessage("Format email failed");
+				response.setData(null);
+				response.setStatus(HttpStatus.BAD_REQUEST.value());
+				return ResponseEntity.badRequest().body(response);
+			}
+
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@PostMapping("/users/signin")
+	public ResponseEntity<?> loginUser(@RequestBody UserEntity user){
+		UserEntity cekUsername = service.getAllUserActiveByUserName(user.getUserName());
+		StatusMessageDto response = new StatusMessageDto();
+		if(cekUsername != null){
+//			String pass = passwordEncoder.encode(user.getPassword());
+//			if(pass.equals(cekUsername.getPassword())){
+				Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
+				SecurityContextHolder.getContext().setAuthentication(authentication);
+				String jwt = jwtUtils.generateJwtToken(authentication);
+				UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+				Set<String> roles = userDetails.getAuthorities().stream().map(role -> role.getAuthority())
+						.collect(Collectors.toSet());
+				return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUserCode(),userDetails.getUsername(), userDetails.getEmail(), roles));
+//			}else{
+//				result.setStatus(HttpStatus.BAD_REQUEST.value());
+//				result.setMessage("Password not valid");
+//				result.setData(null);
+//				return ResponseEntity.badRequest().body(result);
+//			}
+		}else{
+			result.setStatus(HttpStatus.BAD_REQUEST.value());
+			result.setMessage("Username not found");
+			result.setData(null);
+			return ResponseEntity.badRequest().body(result);
+		}
+
 	}
 	
 	@PostMapping("/user/admin")
@@ -81,8 +180,8 @@ public class UserController {
 		if(dto.getFullName().equals("") || dto.getEmail().equals("") || dto.getPassword().equals("")) {
 			return ResponseEntity.badRequest().body("tidak boleh kosong");				
 		}else {
-			List<UserEntity> cekEmail = service.getAllUserActiveByEmail(dto.getEmail());
-			if(cekEmail.size() > 0) {
+			UserEntity cekEmail = service.getAllUserActiveByEmail(dto.getEmail());
+			if(cekEmail != null) {
 				return ResponseEntity.badRequest().body("Email Sudah Terdaftar");	
 			}else {
 				UserEntity userEntity = service.insertAdmin(dto);

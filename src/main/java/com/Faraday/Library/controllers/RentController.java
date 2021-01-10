@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Faraday.Library.dto.RentDto;
 import com.Faraday.Library.dto.StatusMessageDto;
 import com.Faraday.Library.entity.RentEntity;
+import com.Faraday.Library.exception.ResourceNotFoundException;
 import com.Faraday.Library.services.RentServiceImplement;
 
 @RestController
@@ -76,12 +77,20 @@ public class RentController {
 	}
     
 	@PutMapping("/rent/code/{rentCode}")
-	public ResponseEntity<?> updateStatusByRentCode(@PathVariable String rentCode, @RequestBody RentDto dto) {
-		return ResponseEntity.ok(service.updateStatusByRentCode(rentCode, dto));
+	public ResponseEntity<?> updateStatusByRentCode(@PathVariable String rentCode, @RequestBody RentDto dto) throws ResourceNotFoundException{
+		try {
+			return ResponseEntity.ok(service.updateStatusByRentCode(rentCode, dto));
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Resource With Rent Code : " + rentCode + " Not Found!");
+		}
 	}
 	
 	@PutMapping("/rent/status/{id}")
-	public ResponseEntity<?> updateStatusTakeBook(@PathVariable Integer id) {
-		return ResponseEntity.ok(service.updateStatusTakeBook(id));
+	public ResponseEntity<?> updateStatusTakeBook(@PathVariable Integer id) throws ResourceNotFoundException{
+		try {
+			return ResponseEntity.ok(service.updateStatusTakeBook(id));
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Resource With ID : " + id + " Not Found!");
+		}
 	}
 }

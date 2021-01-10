@@ -12,7 +12,8 @@ public interface UserService {
 	public UserEntity getAllUserActiveById(Integer id);
 	public UserEntity getALlUserById(Integer id);
 	public UserEntity getAllUserActiveByUserCode(String userCode);
-	public List<UserEntity> getAllUserActiveByEmail(String email);
+	public UserEntity getAllUserActiveByUserName(String userName);
+	public UserEntity getAllUserActiveByEmail(String email);
 	public UserEntity getAllUserByEmail(String email);
 	public UserEntity getAllUserByUserCode(String userCode);
 	public UserEntity getAllUserByUserName(String userName);
