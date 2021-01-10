@@ -1,18 +1,31 @@
 package com.Faraday.Library.services;
 
 import com.Faraday.Library.dto.BookDetailsDto;
+import com.Faraday.Library.dto.StatusMessageDto;
 import com.Faraday.Library.entity.BookDetailsEntity;
 import com.Faraday.Library.repository.BookDetailsRepository;
+import com.Faraday.Library.utils.CloudinaryConfig;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
 public class BookDetailsServiceImplement implements BookDetailsService{
 
+    @Autowired
+    private CloudinaryConfig cloudinaryConfig;
     @Autowired
     private BookDetailsRepository bookDetailRepository;
 
@@ -39,7 +52,26 @@ public class BookDetailsServiceImplement implements BookDetailsService{
         books.setBookTitle(dto.getBookTitle());
         books.setBookSubtitle(dto.getBookSubtitle());
         books.setDescription(dto.getDescription());
-        books.setCover(dto.getCover());
+
+        try {
+
+            Long unixTime = Instant.now().getEpochSecond();
+            System.out.println(unixTime);
+            byte[] bookImage = Base64.getMimeDecoder().decode(dto.getCover());
+            System.out.println(dto.getCover());
+            Map uploadResult = cloudinaryConfig.upload(bookImage,
+                    ObjectUtils.emptyMap());
+
+
+
+
+
+            books.setCover(uploadResult.get("url").toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
         books.setNumberOfPages(dto.getNumberOfPages());
         books.setLanguage(dto.getLanguage());
         books.setIsActive(1);
