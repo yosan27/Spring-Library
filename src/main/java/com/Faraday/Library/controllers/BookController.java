@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class BookController {
@@ -53,6 +53,29 @@ public class BookController {
     public ResponseEntity<?> getCatalog() {
         try {
             List<BookEntity> books = service.getCatalog();
+            if (books.size() == 0) {
+                result.setStatus(HttpStatus.BAD_REQUEST.value());
+                result.setMessage("Data not found");
+                result.setData(null);
+                return ResponseEntity.badRequest().body(result);
+            } else {
+                result.setStatus(200);
+                result.setMessage("Success");
+                result.setData(books);
+                return ResponseEntity.ok(result);
+            }
+        } catch (Exception e) {
+            @SuppressWarnings("rawtypes")
+            StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+            return ResponseEntity.status(500).body(error);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    @GetMapping("/popular/{categoryCode}")
+    public ResponseEntity<?> getPopular(@PathVariable String categoryCode) {
+        try {
+            List<BookEntity> books = service.getPopular(categoryCode);
             if (books.size() == 0) {
                 result.setStatus(HttpStatus.BAD_REQUEST.value());
                 result.setMessage("Data not found");

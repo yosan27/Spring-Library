@@ -2,15 +2,11 @@ package com.Faraday.Library.utils;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Singleton;
-import com.cloudinary.Transformation;
-import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.Map;
 
 @Component
