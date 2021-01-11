@@ -15,7 +15,7 @@ import com.Faraday.Library.dto.CategoryDto;
 import com.Faraday.Library.entity.CategoryEntity;
 import com.Faraday.Library.services.CategoryServiceImplement;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class CategoryController {
