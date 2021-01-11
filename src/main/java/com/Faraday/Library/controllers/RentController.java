@@ -110,6 +110,15 @@ public class RentController {
 		}
 	}
 	
+	@PutMapping("/rent/code/status/{rentCode}")
+	public ResponseEntity<?> updateOnlyStatusByRentCode(@PathVariable String rentCode, @RequestBody RentDto dto) throws ResourceNotFoundException{
+		try {
+			return ResponseEntity.ok(service.updateOnlyStatusByRentCode(rentCode, dto));
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Resource With Rent Code : " + rentCode + " Not Found!");
+		}
+	}
+	
 	@GetMapping("/rent/bookcode/{bookCode}")
 	public ResponseEntity<?> getByBookCode(@PathVariable String bookCode) {
 		StatusMessageDto<RentEntity> result = new StatusMessageDto<>();
