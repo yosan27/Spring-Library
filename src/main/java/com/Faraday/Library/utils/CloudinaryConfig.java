@@ -28,21 +28,13 @@ public class CloudinaryConfig {
         cloudinary.config.apiKey=clkey;
     }
 
-    public Map upload(Object file, Map options){
+    public Map upload(Object file, Map params){
         try {
-            return cloudinary.uploader().upload(file, options);
+            return cloudinary.uploader().upload(file, params);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public String createUrl(String name, int width,
-                            int height, String action){
-        return cloudinary.url()
-                .transformation(new Transformation()
-                .width(width).height(height)
-                .border("2px_solid_black").crop(action))
-                .imageTag(name);
-    }
 }

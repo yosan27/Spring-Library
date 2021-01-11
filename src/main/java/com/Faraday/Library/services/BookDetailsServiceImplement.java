@@ -5,6 +5,7 @@ import com.Faraday.Library.dto.StatusMessageDto;
 import com.Faraday.Library.entity.BookDetailsEntity;
 import com.Faraday.Library.repository.BookDetailsRepository;
 import com.Faraday.Library.utils.CloudinaryConfig;
+import com.cloudinary.Singleton;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ import java.util.Map;
 public class BookDetailsServiceImplement implements BookDetailsService{
 
     @Autowired
-    private CloudinaryConfig cloudinaryConfig;
+    private CloudinaryConfig cloudinary;
     @Autowired
     private BookDetailsRepository bookDetailRepository;
 
@@ -53,25 +54,29 @@ public class BookDetailsServiceImplement implements BookDetailsService{
         books.setBookSubtitle(dto.getBookSubtitle());
         books.setDescription(dto.getDescription());
 
-        try {
+//        try {
+//
+//            Long unixTime = Instant.now().getEpochSecond();
+//            System.out.println(unixTime);
+//            byte[] bookImage = Base64.getMimeDecoder().decode(dto.getCover());
+//            System.out.println(dto.getCover());
+//
+////            Map uploadResult=cloudinary.upload("../../../../../../../Todidewantoro/Downloads/image.png", ObjectUtils.emptyMap());
+////            System.out.println(uploadResult);
+//
+//            Map uploadResult = cloudinary.upload(bookImage,
+//                    ObjectUtils.asMap(
+//                            "publicId", "Book",
+//                            "timestamp", unixTime.toString()));
+//
+//            books.setCover(uploadResult.get("url").toString());
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
 
-            Long unixTime = Instant.now().getEpochSecond();
-            System.out.println(unixTime);
-            byte[] bookImage = Base64.getMimeDecoder().decode(dto.getCover());
-            System.out.println(dto.getCover());
-            Map uploadResult = cloudinaryConfig.upload(bookImage,
-                    ObjectUtils.emptyMap());
-
-
-
-
-
-            books.setCover(uploadResult.get("url").toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-
+        books.setCover(dto.getCover());
         books.setNumberOfPages(dto.getNumberOfPages());
         books.setLanguage(dto.getLanguage());
         books.setIsActive(1);
