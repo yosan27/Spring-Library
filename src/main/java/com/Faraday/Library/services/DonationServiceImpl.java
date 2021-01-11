@@ -1,5 +1,7 @@
 package com.Faraday.Library.services;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +52,11 @@ public class DonationServiceImpl implements DonationService{
 		DonationEntity donationEntity = new DonationEntity();
 		CategoryEntity categoryEntity = categoryRepository.findByCategoryCodeIgnoreCase(dto.getCategoryCode());
 		UserEntity userEntity = userRepository.findByUserCode(dto.getUserCode());
+		
+		LocalDate date = LocalDate.now();
+		Date inputDate = Date.valueOf(date);
+		donationEntity.setDate(inputDate);
+		
 		
 		donationEntity.setAuthor(dto.getAuthor());
 		donationEntity.setBookTitle(dto.getBookTitle());

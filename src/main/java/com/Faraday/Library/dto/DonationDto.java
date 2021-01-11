@@ -1,5 +1,9 @@
 package com.Faraday.Library.dto;
 
+import java.sql.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class DonationDto {
 	private String bookTitle;
 	private String author;
@@ -9,12 +13,14 @@ public class DonationDto {
 	private Integer status;
 	private String categoryCode;
 	private String userCode;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Date date;
 	
 	public DonationDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public DonationDto(String bookTitle, String author, String year, String description, String photo, Integer status,
+	public DonationDto(String bookTitle, Date date, String author, String year, String description, String photo, Integer status,
 			String categoryCode, String userCode) {
 		super();
 		this.bookTitle = bookTitle;
@@ -25,6 +31,7 @@ public class DonationDto {
 		this.status = status;
 		this.categoryCode = categoryCode;
 		this.userCode = userCode;
+		this.date = date;
 	}
 	public String getBookTitle() {
 		return bookTitle;
@@ -40,6 +47,12 @@ public class DonationDto {
 	}
 	public String getYear() {
 		return year;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	public void setYear(String year) {
 		this.year = year;
