@@ -7,6 +7,9 @@ import com.Faraday.Library.entity.AuthorEntity;
 
 public interface AuthorService {
 	List<AuthorEntity> getAll();
+	List<AuthorEntity> getActiveId();
+	AuthorEntity getById(Integer id);
 	AuthorEntity post(AuthorDto dto);
-	AuthorEntity put(String authorCode, AuthorDto dto);
+	AuthorEntity update(Integer id, AuthorDto dto);
+	AuthorEntity delete(Integer id);
 }
