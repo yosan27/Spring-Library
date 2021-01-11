@@ -1,10 +1,9 @@
 package com.Faraday.Library.controllers;
 
-import java.util.List;
-
-import com.Faraday.Library.dto.BookDetailsDto;
 import com.Faraday.Library.dto.StatusMessageDto;
-import com.Faraday.Library.entity.BookDetailsEntity;
+import com.Faraday.Library.exception.APIException;
+import com.Faraday.Library.exception.ResourceNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,7 @@ import com.Faraday.Library.services.AuthorServiceImplement;
 import com.Faraday.Library.dto.AuthorDto;
 import com.Faraday.Library.entity.AuthorEntity;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class AuthorController {
@@ -26,38 +25,44 @@ public class AuthorController {
 	private StatusMessageDto result = new StatusMessageDto();
 
 	@GetMapping("/author")
-	List<AuthorEntity> getAll(){
-		return service.getAll();
+	public ResponseEntity<?> getAll() throws APIException {
+		try {
+			return ResponseEntity.ok(service.getAll());
+		} catch (Exception e) {
+			throw new APIException("Sorry! Cannot Connect To Database Server");
+		}
 	}
 	
 	@GetMapping("/author/active")
-	public ResponseEntity<?> getActiveId() {
-		return ResponseEntity.ok(service.getActiveId());
+	public ResponseEntity<?> getActiveId() throws APIException {
+		try {
+			return ResponseEntity.ok(service.getActiveId());
+		} catch (Exception e) {
+			throw new APIException("Sorry! Cannot Connect To Database Server");
+		}
 	}
 	
 	@GetMapping("/author/id/{id}")
-	public ResponseEntity<?> getById(@PathVariable Integer id) {
-		return ResponseEntity.ok(service.getById(id));
+	public ResponseEntity<?> getById(@PathVariable Integer id) throws ResourceNotFoundException {
+		try {
+			return ResponseEntity.ok(service.getById(id));
+		} catch (Exception e) {
+			throw new ResourceNotFoundException("Resource With ID : \" + id + \" Not Found!");
+		}
 	}
-
-//	@PostMapping("/author")
-//	AuthorEntity post(@PathVariable AuthorDto dto) {
-//		return service.post(dto);
-//	}
-
+	
 	@SuppressWarnings("unchecked")
 	@PostMapping("/author")
 	public ResponseEntity<?> post(@RequestBody AuthorDto dto){
 		try {
-
-			AuthorEntity author = service.post(dto);
-
-			if (dto.getAuthorName() == null) {
+			if (dto.getAuthorName().equals("") || dto.getAuthorName().substring(0, 1).equals(" ")) {
 				result.setStatus(HttpStatus.BAD_REQUEST.value());
-				result.setMessage("Nama penulis tidak boleh kosong");
+				result.setMessage("Author Name Is Blank!");
 				result.setData(null);
 				return ResponseEntity.badRequest().body(result);
 			} else {
+				AuthorEntity author = service.post(dto);
+				
 				result.setStatus(200);
 				result.setMessage("Success");
 				result.setData(author);
@@ -70,38 +75,36 @@ public class AuthorController {
 		}
 	}
 
-//	@SuppressWarnings("unchecked")
-//	@PutMapping("/author/{authorCode}")
-//	public ResponseEntity<?> put(@PathVariable String authorCode, @RequestBody AuthorDto dto){
-//		try {
-//
-//			AuthorEntity author = service.put(authorCode, dto);
-//
-//			if (dto.getAuthorCode() == null) {
-//				result.setStatus(HttpStatus.BAD_REQUEST.value());
-//				result.setMessage("Kode autor tidak boleh kosong");
-//				result.setData(null);
-//				return ResponseEntity.badRequest().body(result);
-//			} else {
-//				result.setStatus(200);
-//				result.setMessage("Success");
-//				result.setData(author);
-//				return ResponseEntity.ok(result);
-//			}
-//		} catch (Exception e) {
-//			@SuppressWarnings("rawtypes")
-//			StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
-//			return ResponseEntity.status(500).body(error);
-//		}
-//	}
-	
+	@SuppressWarnings("unchecked")
 	@PutMapping("/author/{id}")
-	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody AuthorDto dto) {
-		return ResponseEntity.ok(service.update(id, dto));
+	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody AuthorDto dto){
+		try {
+			if (dto.getAuthorName().equals("") || dto.getAuthorName().substring(0, 1).equals(" ")) {
+				result.setStatus(HttpStatus.BAD_REQUEST.value());
+				result.setMessage("Author Name Is Blank!");
+				result.setData(null);
+				return ResponseEntity.badRequest().body(result);
+			} else {
+				AuthorEntity author = service.update(id, dto);
+				
+				result.setStatus(200);
+				result.setMessage("Success");
+				result.setData(author);
+				return ResponseEntity.ok(result);
+			}
+		} catch (Exception e) {
+			@SuppressWarnings("rawtypes")
+			StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+			return ResponseEntity.status(500).body(error);
+		}
 	}
 	
 	@DeleteMapping("/author/{id}")
-	public ResponseEntity<?> delete(@PathVariable Integer id) {
-		return ResponseEntity.ok(service.delete(id));
+	public ResponseEntity<?> delete(@PathVariable Integer id) throws ResourceNotFoundException {
+		try {
+			return ResponseEntity.ok(service.delete(id));
+		} catch (Exception e) {
+			throw new ResourceNotFoundException("Resource With ID : " + id + " Not Found!");
+		}
 	}
 }

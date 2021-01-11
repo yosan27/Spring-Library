@@ -15,49 +15,108 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Faraday.Library.dto.RentDto;
 import com.Faraday.Library.dto.StatusMessageDto;
 import com.Faraday.Library.entity.RentEntity;
+import com.Faraday.Library.exception.APIException;
+import com.Faraday.Library.exception.ResourceNotFoundException;
 import com.Faraday.Library.services.RentServiceImplement;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class RentController {
 	
 	@Autowired
 	private RentServiceImplement service;
 	
 	@GetMapping("/rent")
-	public ResponseEntity<?> getAll() {
-		return ResponseEntity.ok(service.getAll());
+	public ResponseEntity<?> getAll() throws APIException {
+		try {
+			return ResponseEntity.ok(service.getAll());
+		} catch (Exception e) {
+			throw new APIException ("Sorry! Cannot Connect To Database Server");
+		}
 	}
 	
 	@GetMapping("/rent/id/{id}")
-	public ResponseEntity<?> getById(@PathVariable Integer id) {
-		return ResponseEntity.ok(service.getById(id));
+	public ResponseEntity<?> getById(@PathVariable Integer id) throws ResourceNotFoundException {
+		try {
+			return ResponseEntity.ok(service.getById(id));
+		} catch (Exception e) {
+			throw new ResourceNotFoundException("Resource With ID : " + id + " Not Found!");
+		}
 	}
 	
 	@GetMapping("/rent/code/{rentCode}")
-	public ResponseEntity<?> getByRentCode(@PathVariable String rentCode) {
-		return ResponseEntity.ok(service.getByRentCode(rentCode));
+	public ResponseEntity<?> getByRentCode(@PathVariable String rentCode) throws ResourceNotFoundException {
+		try {
+			return ResponseEntity.ok(service.getByRentCode(rentCode));
+		} catch (Exception e) {
+			throw new ResourceNotFoundException("Resource With Rent Code : " + rentCode + " Not Found!");
+		}
 	}
 	
 	@GetMapping("/rent/status/{status}")
-	public ResponseEntity<?> getByStatus(@PathVariable Integer status) {
-		return ResponseEntity.ok(service.getByStatus(status));
+	public ResponseEntity<?> getByStatus(@PathVariable Integer status) throws ResourceNotFoundException {
+		try {
+			return ResponseEntity.ok(service.getByStatus(status));
+		} catch (Exception e) {
+			throw new ResourceNotFoundException("Resource With Status : " + status + " Not Found!");
+		}
+		
 	}
 	
-	@GetMapping("/rent/user-code/{userCode}")
-	public ResponseEntity<?> getByUserCode(@PathVariable String userCode) {
-		return ResponseEntity.ok(service.getByUserCode(userCode));
+	@GetMapping("/rent/usercode/{userCode}")
+	public ResponseEntity<?> getByUserCode(@PathVariable String userCode) throws ResourceNotFoundException {
+		try {
+			return ResponseEntity.ok(service.getByUserCode(userCode));
+		} catch (Exception e) {
+			throw new ResourceNotFoundException("Resource With User Code : " + userCode + " Not Found!");
+		}
+		
+	}
+	
+	@GetMapping("/rent/userstatus/{userCode}")
+	public ResponseEntity<?> getByUserCodeStatus(@PathVariable String userCode) throws ResourceNotFoundException {
+		try {
+			return ResponseEntity.ok(service.getByUserCodeStatus(userCode));
+		} catch (Exception e) {
+			throw new ResourceNotFoundException("Resource With User Code : " + userCode + " Not Found!");
+		}
 	}
 	
 	@PostMapping("/rent")
-	public ResponseEntity<?> insert(@RequestBody RentDto dto) {
-		return ResponseEntity.ok(service.insert(dto));
+	public ResponseEntity<?> insert(@RequestBody RentDto dto) throws APIException {
+		try {
+			return ResponseEntity.ok(service.insert(dto));
+		} catch (Exception e) {
+			throw new APIException ("Sorry! Cannot Connect To Database Server");
+		}
 	}
 	
 	@PutMapping("/rent/{id}")
-	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody RentDto dto) {
-		return ResponseEntity.ok(service.updateStatus(id, dto));
+	public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody RentDto dto) throws ResourceNotFoundException {
+		try {
+			return ResponseEntity.ok(service.updateStatus(id, dto));
+		} catch (Exception e) {
+			throw new ResourceNotFoundException("Resource With ID : " + id + " Not Found!");
+		}
+	}
+	
+	@PutMapping("/rent/code/{rentCode}")
+	public ResponseEntity<?> updateStatusByRentCode(@PathVariable String rentCode, @RequestBody RentDto dto) throws ResourceNotFoundException{
+		try {
+			return ResponseEntity.ok(service.updateStatusByRentCode(rentCode, dto));
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Resource With Rent Code : " + rentCode + " Not Found!");
+		}
+	}
+	
+	@PutMapping("/rent/code/status/{rentCode}")
+	public ResponseEntity<?> updateOnlyStatusByRentCode(@PathVariable String rentCode, @RequestBody RentDto dto) throws ResourceNotFoundException{
+		try {
+			return ResponseEntity.ok(service.updateOnlyStatusByRentCode(rentCode, dto));
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Resource With Rent Code : " + rentCode + " Not Found!");
+		}
 	}
 	
 	@GetMapping("/rent/bookcode/{bookCode}")
@@ -73,15 +132,5 @@ public class RentController {
 			result.setData(null);
 		}
 		return ResponseEntity.ok(result);
-	}
-    
-	@PutMapping("/rent/code/{rentCode}")
-	public ResponseEntity<?> updateStatusByRentCode(@PathVariable String rentCode, @RequestBody RentDto dto) {
-		return ResponseEntity.ok(service.updateStatusByRentCode(rentCode, dto));
-	}
-	
-	@PutMapping("/rent/status/{id}")
-	public ResponseEntity<?> updateStatusTakeBook(@PathVariable Integer id) {
-		return ResponseEntity.ok(service.updateStatusTakeBook(id));
 	}
 }

@@ -14,48 +14,78 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Faraday.Library.dto.TransactionDto;
 import com.Faraday.Library.entity.TransactionEntity;
+import com.Faraday.Library.exception.APIException;
+import com.Faraday.Library.exception.ResourceNotFoundException;
 import com.Faraday.Library.services.TransactionServiceImplement;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class TransactionController {
 
 	@Autowired
 	TransactionServiceImplement service;
 	
 	@GetMapping("/transaction")
-	List<TransactionEntity> getAll(){
-		return service.getAll();
+	List<TransactionEntity> getAll() throws APIException {
+		try {
+			return service.getAll();
+		}catch(Exception e) {
+			throw new APIException ("Sorry! Cannot Connect To Database Server");
+		}
 	}
 	
 	@GetMapping("/transaction/id/{id}")
-	TransactionEntity getById(@PathVariable Integer id){
-		return service.getById(id);
+	TransactionEntity getById(@PathVariable Integer id) throws ResourceNotFoundException {
+		try {
+			return service.getById(id);
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Resource With ID : " + id + " Not Found!");
+		}
 	}
 	
 	@GetMapping("/transaction/status/{status}")
-	List<TransactionEntity> getByStatus(@PathVariable Integer status){
-		return service.getByStatus(status);
+	List<TransactionEntity> getByStatus(@PathVariable Integer status) throws ResourceNotFoundException {
+		try {
+			return service.getByStatus(status);
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Resource With Status : " + status + " Not Found!");
+		}
 	}
 	
 	@GetMapping("/transaction/code/{code}")
-	TransactionEntity getByCode(@PathVariable String code){
-		return service.getByCode(code);
+	TransactionEntity getByCode(@PathVariable String code) throws ResourceNotFoundException {
+		try {
+			return service.getByCode(code);
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Resource With Transaction Code : " + code + " Not Found!");
+		}
 	}
 	
 	@GetMapping("/transaction/user/{userCode}")
-	List<TransactionEntity> getByUserCode(@PathVariable String userCode){
-		return service.getByUserCode(userCode);
+	List<TransactionEntity> getByUserCode(@PathVariable String userCode) throws ResourceNotFoundException {
+		try {
+			return service.getByUserCode(userCode);
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Resource With User Code : " + userCode + " Not Found!");
+		}
 	}
 	
 	@PostMapping("/transaction")
-	TransactionEntity post(@RequestBody TransactionDto dto) {
-		return service.post(dto);
+	TransactionEntity post(@RequestBody TransactionDto dto) throws APIException {
+		try {
+			return service.post(dto);
+		}catch(Exception e) {
+			throw new APIException ("Sorry! Cannot Connect To Database Server");
+		}
 	}
 	
 	@PutMapping("/transaction/{id}")
-	TransactionEntity update(@RequestBody TransactionDto dto, @PathVariable Integer id) {
-		return service.update(dto, id);
+	TransactionEntity update(@RequestBody TransactionDto dto, @PathVariable Integer id) throws ResourceNotFoundException {
+		try {
+			return service.update(dto, id);
+		}catch(Exception e) {
+			throw new ResourceNotFoundException("Resource With ID : " + id + " Not Found!");
+		}
 	}
 }
