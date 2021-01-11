@@ -5,6 +5,7 @@ import com.Faraday.Library.dto.BookDto;
 import com.Faraday.Library.dto.FineDto;
 import com.Faraday.Library.dto.StatusMessageDto;
 import com.Faraday.Library.entity.*;
+import com.Faraday.Library.exception.ResourceNotFoundException;
 import com.Faraday.Library.services.BookServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -203,6 +204,15 @@ public class BookController {
             StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
             return ResponseEntity.status(500).body(error);
         }
+    }
+    
+    @PutMapping("/book/status/{bookCode}")
+    public ResponseEntity<?> updateStatus(@PathVariable String bookCode, @RequestBody BookDto dto) throws ResourceNotFoundException {
+    	try {
+    		return ResponseEntity.ok(service.updateStatus(bookCode, dto));
+		} catch (Exception e) {
+			throw new ResourceNotFoundException("Resource With Book Code : " + bookCode + " Not Found!");
+		}
     }
 
     //Soft delete detail buku
