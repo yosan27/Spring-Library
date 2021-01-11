@@ -19,7 +19,7 @@ import com.Faraday.Library.repository.UserRepository;
 @Service
 @Transactional
 public class RentServiceImplement implements RentService {
-
+	
 	@Autowired
 	private RentRepository rentRepository;
 	
@@ -39,13 +39,14 @@ public class RentServiceImplement implements RentService {
 		
 		return rentEntities;
 	}
-
+	
 	@Override
 	public RentEntity getById(Integer id) {
 		RentEntity rentEntity = rentRepository.findById(id).get();
 		return rentEntity;
 	}
 	
+	@Override
 	public RentEntity checkStatus(Integer id) {
 		RentEntity rentEntity = getById(id);
 		LocalDate today = LocalDate.now();
@@ -77,11 +78,18 @@ public class RentServiceImplement implements RentService {
 		return rentEntities;
 	}
 	
+	@Override
 	public List<RentEntity> getByUserCode(String userCode) {
-		List<RentEntity> rentEntities = rentRepository.findByUserCode(userCode);
+		List<RentEntity> rentEntities = rentRepository.findByUserEntityUserCode(userCode);
 		return rentEntities;
 	}
-
+	
+	@Override
+	public List<RentEntity> getByUserCodeStatus(String userCode) {
+		List<RentEntity> rentEntities = rentRepository.findByUserCodeStatus(userCode);
+		return rentEntities;
+	}
+	
 	@Override
 	public RentEntity insert(RentDto dto) {
 		Integer id = 0;
@@ -129,15 +137,7 @@ public class RentServiceImplement implements RentService {
 
 	@Override
 	public RentEntity getByBookCode(String bookCode) {
-		// TODO Auto-generated method stub
 		RentEntity rentEntity = rentRepository.findStatusBookLastRent(bookCode);
-		return rentEntity;
-	}
-	
-	public RentEntity updateStatusTakeBook(Integer id) {
-		RentEntity rentEntity = rentRepository.findById(id).get();
-		rentEntity.setStatus(2); // 1=PENDING, 2=BORROW, 3=OVERDUE, 4=WAITING PAYMENT, 5=RETURN, 6=CANCEL
-		rentRepository.save(rentEntity);
 		return rentEntity;
 	}
 }
