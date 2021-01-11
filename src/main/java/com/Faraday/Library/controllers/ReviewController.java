@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Faraday.Library.dto.ReviewDto;
 import com.Faraday.Library.services.ReviewServiceImplement;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class ReviewController {

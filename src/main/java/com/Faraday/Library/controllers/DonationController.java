@@ -19,7 +19,7 @@ import com.Faraday.Library.dto.StatusMessageDto;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class DonationController {
 	@Autowired
 	private DonationServiceImpl donation;

@@ -38,7 +38,7 @@ import lombok.Data;
 @Data
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 	
 	@Autowired
