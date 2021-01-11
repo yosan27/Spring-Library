@@ -251,11 +251,18 @@ public class BookServiceImplement implements BookService{
         return bookEntity;
     }
 
-
 	@Override
 	public BookEntity getBookByBookDetailCode(String bookDetailCode) {
 		// TODO Auto-generated method stub
 		BookEntity bookEntity = bookRepository.findAllActiveByBookDetailCode(bookDetailCode);
+		return bookEntity;
+	}
+	
+	@Override
+	public BookEntity updateStatus(String bookCode, BookDto dto) {
+		BookEntity bookEntity = bookRepository.findByBookCodeIgnoreCase(bookCode);
+		bookEntity.setStatus(dto.getStatus());
+		bookRepository.save(bookEntity);
 		return bookEntity;
 	}
 }
