@@ -20,7 +20,7 @@ import com.Faraday.Library.services.TransactionDetailService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class TransactionDetailController {
 	
 	@Autowired
