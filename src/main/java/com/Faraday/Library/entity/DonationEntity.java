@@ -1,6 +1,7 @@
 package com.Faraday.Library.entity;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "donation_entity")
@@ -18,6 +21,10 @@ public class DonationEntity implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name = "donation_date")
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Date date;
 	
 	@Column(name = "book_title", nullable = false)
 	private String bookTitle;
@@ -136,7 +143,13 @@ public class DonationEntity implements Serializable{
 		this.userEntity = userEntity;
 	}
 	
-	
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
 	
 	
 }

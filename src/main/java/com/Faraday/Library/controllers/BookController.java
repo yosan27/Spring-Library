@@ -5,6 +5,7 @@ import com.Faraday.Library.dto.BookDto;
 import com.Faraday.Library.dto.FineDto;
 import com.Faraday.Library.dto.StatusMessageDto;
 import com.Faraday.Library.entity.*;
+import com.Faraday.Library.exception.ResourceNotFoundException;
 import com.Faraday.Library.services.BookServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,6 +53,29 @@ public class BookController {
     public ResponseEntity<?> getCatalog() {
         try {
             List<BookEntity> books = service.getCatalog();
+            if (books.size() == 0) {
+                result.setStatus(HttpStatus.BAD_REQUEST.value());
+                result.setMessage("Data not found");
+                result.setData(null);
+                return ResponseEntity.badRequest().body(result);
+            } else {
+                result.setStatus(200);
+                result.setMessage("Success");
+                result.setData(books);
+                return ResponseEntity.ok(result);
+            }
+        } catch (Exception e) {
+            @SuppressWarnings("rawtypes")
+            StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+            return ResponseEntity.status(500).body(error);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    @GetMapping("/popular/{categoryCode}")
+    public ResponseEntity<?> getPopular(@PathVariable String categoryCode) {
+        try {
+            List<BookEntity> books = service.getPopular(categoryCode);
             if (books.size() == 0) {
                 result.setStatus(HttpStatus.BAD_REQUEST.value());
                 result.setMessage("Data not found");
@@ -203,6 +227,15 @@ public class BookController {
             StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
             return ResponseEntity.status(500).body(error);
         }
+    }
+    
+    @PutMapping("/book/status/{bookCode}")
+    public ResponseEntity<?> updateStatus(@PathVariable String bookCode, @RequestBody BookDto dto) throws ResourceNotFoundException {
+    	try {
+    		return ResponseEntity.ok(service.updateStatus(bookCode, dto));
+		} catch (Exception e) {
+			throw new ResourceNotFoundException("Resource With Book Code : " + bookCode + " Not Found!");
+		}
     }
 
     //Soft delete detail buku

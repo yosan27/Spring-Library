@@ -9,5 +9,5 @@ public interface ReviewService {
 	List<ReviewEntity> getAll();
 	List<ReviewEntity> getByBookDetailCode(String bookDetailCode);
 	ReviewEntity post(ReviewDto dto);
-	
+	List<ReviewEntity> getRate(String bookCode);
 }
