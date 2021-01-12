@@ -50,6 +50,12 @@ public class BookServiceImplement implements BookService{
         List<BookEntity> books = bookRepository.findCatalog();
         return books;
     }
+
+    @Override
+    public List<BookEntity> getPopular(String categoryCode){
+        List<BookEntity> books = bookRepository.findPopular(categoryCode);
+        return books;
+    }
     
     @Override
 	public BookEntity getBookDetails(Integer id) {
