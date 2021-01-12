@@ -172,7 +172,6 @@ public class UserController {
 			result.setData(null);
 			return ResponseEntity.badRequest().body(result);
 		}
-
 	}
 	
 	@PostMapping("/user/admin")
