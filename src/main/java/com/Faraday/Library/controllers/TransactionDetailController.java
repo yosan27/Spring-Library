@@ -73,11 +73,12 @@ public class TransactionDetailController {
 	
 	@GetMapping("/transaction-detail/bill/{userCode}")
 	List<TransactionDetailEntity> getByBill(@PathVariable String userCode) throws ResourceNotFoundException {
-		try {
-			return service.getByBill(userCode);
-		}catch(Exception e) {
-			throw new ResourceNotFoundException("Resource With User Code : " + userCode + " Not Found!");
-		}
+	return service.getByBill(userCode);
+//		try {
+//			return service.getByBill(userCode);
+//		}catch(Exception e) {
+//			throw new ResourceNotFoundException("Resource With User Code : " + userCode + " Not Found!");
+//		}
 	}
 	
 	@GetMapping("/transaction-detail/rent/{code}")
