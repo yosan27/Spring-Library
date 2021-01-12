@@ -141,7 +141,6 @@ public class UserController {
 				response.setStatus(HttpStatus.BAD_REQUEST.value());
 				return ResponseEntity.badRequest().body(response);
 			}
-
 		}
 	}
 
@@ -151,8 +150,6 @@ public class UserController {
 		UserEntity cekUsername = service.getAllUserActiveByUserName(user.getUserName());
 		StatusMessageDto response = new StatusMessageDto();
 		if(cekUsername != null){
-//			String pass = passwordEncoder.encode(user.getPassword());
-//			if(pass.equals(cekUsername.getPassword())){
 				Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 				String jwt = jwtUtils.generateJwtToken(authentication);
@@ -160,12 +157,6 @@ public class UserController {
 				Set<String> roles = userDetails.getAuthorities().stream().map(role -> role.getAuthority())
 						.collect(Collectors.toSet());
 				return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUserCode(),userDetails.getUsername(), userDetails.getEmail(), roles));
-//			}else{
-//				result.setStatus(HttpStatus.BAD_REQUEST.value());
-//				result.setMessage("Password not valid");
-//				result.setData(null);
-//				return ResponseEntity.badRequest().body(result);
-//			}
 		}else{
 			result.setStatus(HttpStatus.BAD_REQUEST.value());
 			result.setMessage("Username not found");
@@ -174,18 +165,50 @@ public class UserController {
 		}
 	}
 	
-	@PostMapping("/user/admin")
+	@PostMapping("/admin")
 	public ResponseEntity<?> insertAdmin(@RequestBody UserDto dto){
+		StatusMessageDto response = new StatusMessageDto();
 		if(dto.getFullName().equals("") || dto.getEmail().equals("") || dto.getPassword().equals("")) {
-			return ResponseEntity.badRequest().body("tidak boleh kosong");				
+			response.setMessage("Data cannot empty");
+			response.setData(null);
+			response.setStatus(HttpStatus.BAD_REQUEST.value());
+			return ResponseEntity.badRequest().body(response);
 		}else {
-			UserEntity cekEmail = service.getAllUserActiveByEmail(dto.getEmail());
-			if(cekEmail != null) {
-				return ResponseEntity.badRequest().body("Email Sudah Terdaftar");	
-			}else {
-				UserEntity userEntity = service.insertAdmin(dto);
-				return ResponseEntity.ok(userEntity);				
+			UserEntity user = userRepository.findByUserName(dto.getUserName());
+			if (user != null) {
+				response.setMessage("Username has been used");
+				response.setData(null);
+				response.setStatus(HttpStatus.BAD_REQUEST.value());
+				return ResponseEntity.badRequest().body(response);
 			}
+			if(dto.getPassword().length() < 8){
+				response.setMessage("password at least 8 characters");
+				response.setData(null);
+				response.setStatus(HttpStatus.BAD_REQUEST.value());
+				return ResponseEntity.badRequest().body(response);
+			}
+			Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(dto.getEmail());
+			if(matcher.find()){
+				UserEntity cekEmail = userRepository.findByEmail(dto.getEmail());
+				if(cekEmail != null) {
+					response.setMessage("Email has been used");
+					response.setData(null);
+					response.setStatus(HttpStatus.BAD_REQUEST.value());
+					return ResponseEntity.badRequest().body(response);
+				}else {
+					UserEntity userEntity = service.insertAdmin(dto);
+					response.setStatus(HttpStatus.OK.value());
+					response.setMessage("User created!");
+					response.setData(userEntity);
+					return ResponseEntity.ok(response);
+				}
+			}else{
+				response.setMessage("Format email failed");
+				response.setData(null);
+				response.setStatus(HttpStatus.BAD_REQUEST.value());
+				return ResponseEntity.badRequest().body(response);
+			}
+
 		}
 	}
 	

@@ -33,10 +33,11 @@ public class UploadServiceImpl implements UploadService{
     }
 
     @Override
-    public String storeFile(MultipartFile file) {
+    public String storeFile(MultipartFile file, String newFileName) {
         //Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-
+        String fileNameOri = StringUtils.cleanPath(file.getOriginalFilename());
+        String typeFile = fileNameOri.replace(file.getName(),"");
+        String fileName = newFileName + typeFile;
         try{
             if (fileName.contains("..")){
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);

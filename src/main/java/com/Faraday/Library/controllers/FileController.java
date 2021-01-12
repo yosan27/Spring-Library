@@ -2,7 +2,6 @@ package com.Faraday.Library.controllers;
 
 import com.Faraday.Library.dto.UploadFileResponse;
 import com.Faraday.Library.services.UploadService;
-import com.Faraday.Library.services.UploadServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -15,41 +14,38 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.*;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 
     private final UploadService uploadService;
-    private Path fileStorageLocation;
 
     public FileController(UploadService uploadService) {
         this.uploadService = uploadService;
     }
 
-    @PostMapping("/uploadFile")
-    public UploadFileResponse uploadFileResponse (@RequestParam("file") MultipartFile file){
-        String fileName = uploadService.storeFile(file);
+    @PostMapping("/uploadFile/{newFileName}")
+    public UploadFileResponse uploadFileResponse (@RequestParam("file") MultipartFile file, @PathVariable String newFileName){
+        String fileName = uploadService.storeFile(file, newFileName);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/getFile/")
                 .path(fileName)
                 .toUriString();
-
-        return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
+        String message = "Success upload file";
+        return new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize(), message);
     }
 
-    @PostMapping("/uploadMultipleFiles")
-    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        return Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFileResponse(file))
-                .collect(Collectors.toList());
-    }
+//    @PostMapping("/uploadMultipleFiles")
+//    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+//        return Arrays.asList(files)
+//                .stream()
+//                .map(file -> uploadFileResponse(file))
+//                .collect(Collectors.toList());
+//    }
 
     @GetMapping("/getFile/{fileName:.+}")
     public ResponseEntity<?> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
@@ -77,22 +73,17 @@ public class FileController {
     @DeleteMapping("/deleteFile/{fileName:.+}")
     public ResponseEntity<?> deleteFile(@PathVariable String fileName) {
         // Load file as Resource
-//        Path path = this.fileStorageLocation.resolve(fileName).normalize();
-//        String filePath = Paths.get(path.toUri()).toString();
-
-//        Path fileToDeletePath = Paths.get(String.valueOf(resource));
         Resource resource = uploadService.loadFileAsResource(fileName);
-//        String path = resource.toString().substring(11,resource.toString().length()-1);
         try {
             // Delete file or directory
-            Files.deleteIfExists(Paths.get(resource.toString()));
-            return ResponseEntity.ok("File or directory deleted successfully");
+            Files.deleteIfExists(Paths.get(resource.getURI()));
+            return ResponseEntity.ok("File "+fileName+" deleted successfully");
         } catch (NoSuchFileException ex) {
-            return ResponseEntity.badRequest().body("No such file or directory: "+ resource.toString());
+            return ResponseEntity.badRequest().body("No such file or directory: "+ fileName);
         } catch (DirectoryNotEmptyException ex) {
-            return ResponseEntity.badRequest().body("Directory is not empty: "+ resource.toString());
+            return ResponseEntity.badRequest().body("Directory is not empty: "+ fileName);
         } catch (IOException ex) {
-            return ResponseEntity.badRequest().body(ex + resource.toString());
+            return ResponseEntity.badRequest().body(ex);
         }
     }
 }
