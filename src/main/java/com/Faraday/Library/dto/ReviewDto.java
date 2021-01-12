@@ -2,57 +2,32 @@ package com.Faraday.Library.dto;
 
 import java.sql.Date;
 
+import lombok.Data;
+
+@Data
 public class ReviewDto {
 	private String userCode;
-	private String bookCode;
+	private String bookDetailCode;
 	private Integer rate;
 	private String review;
-	private String date;
+	private Date date;
 	
-	public ReviewDto(String userCode, String bookCode, Integer rate, String review, String date) {
+	public ReviewDto(String userCode, String bookDetailCode, Integer rate, String review, Date date) {
 		super();
 		this.userCode = userCode;
-		this.bookCode = bookCode;
+		this.bookDetailCode = bookDetailCode;
 		this.rate = rate;
 		this.review = review;
 		this.date = date;
 	}
 
-	public Integer getRate() {
-		return rate;
-	}
-	public void setRate(Integer rate) {
-		this.rate = rate;
-	}
-	public String getReview() {
-		return review;
-	}
-	public void setReview(String review) {
-		this.review = review;
-	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	public String getUserCode() {
-		return userCode;
-	}
-
-	public void setUserCode(String userCode) {
-		this.userCode = userCode;
-	}
-
-	public String getBookCode() {
-		return bookCode;
-	}
-
-	public void setBookCode(String bookCode) {
-		this.bookCode = bookCode;
+	public ReviewDto() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
+	
+
 }
 
 

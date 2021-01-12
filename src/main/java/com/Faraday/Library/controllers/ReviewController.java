@@ -11,12 +11,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Faraday.Library.dto.ReviewDto;
+import com.Faraday.Library.dto.StatusMessageDto;
+import com.Faraday.Library.security.jwt.JwtUtils;
 import com.Faraday.Library.services.ReviewServiceImplement;
 
+import lombok.Data;
+
+@Data
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class ReviewController {
+	
+	@Autowired
+	private JwtUtils jwtUtils;
+	
+	@SuppressWarnings("rawtypes")
+	private StatusMessageDto result = new StatusMessageDto();
 
 	@Autowired
 	private ReviewServiceImplement service;
@@ -26,9 +37,9 @@ public class ReviewController {
 		return ResponseEntity.ok(service.getAll());
 	}
 	
-	@GetMapping("/reviewLook/{bookCode}")
-	public ResponseEntity<?> getByBookCode(@PathVariable String bookCode) {
-		return ResponseEntity.ok(service.getByBookCode(bookCode));
+	@GetMapping("/reviewLook/{bookDetailCode}")
+	public ResponseEntity<?> getByBookDetailCode(@PathVariable String bookDetailCode) {
+		return ResponseEntity.ok(service.getByBookDetailCode(bookDetailCode));
 	}
 	
 	@GetMapping("/review/rate/{bookCode}")
