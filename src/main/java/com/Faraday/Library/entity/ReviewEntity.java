@@ -63,6 +63,62 @@ public class ReviewEntity implements Serializable {
 		this.status = status;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public UserEntity getUserEntity() {
+		return userEntity;
+	}
+
+	public void setUserEntity(UserEntity userEntity) {
+		this.userEntity = userEntity;
+	}
+
+	public BookDetailsEntity getBookDetailsEntity() {
+		return bookDetailsEntity;
+	}
+
+	public void setBookDetailsEntity(BookDetailsEntity bookDetailsEntity) {
+		this.bookDetailsEntity = bookDetailsEntity;
+	}
+
+	public Integer getRate() {
+		return rate;
+	}
+
+	public void setRate(Integer rate) {
+		this.rate = rate;
+	}
+
+	public String getReview() {
+		return review;
+	}
+
+	public void setReview(String review) {
+		this.review = review;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	
 	
 }
