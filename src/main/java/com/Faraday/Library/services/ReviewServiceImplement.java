@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.Faraday.Library.dto.ReviewDto;
 import com.Faraday.Library.entity.BookEntity;
@@ -58,6 +59,12 @@ public class ReviewServiceImplement implements ReviewService {
 		reviewEntity.setDate(formatted);
 		reviewEntity.setStatus(1);
 		reviewRepository.save(reviewEntity);
+		return reviewEntity;
+	}
+
+	@Override
+	public List<ReviewEntity> getRate(String bookCode) {
+		List<ReviewEntity> reviewEntity = reviewRepository.findRate(bookCode);
 		return reviewEntity;
 	}
 	

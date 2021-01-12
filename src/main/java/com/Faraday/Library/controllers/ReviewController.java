@@ -31,6 +31,12 @@ public class ReviewController {
 		return ResponseEntity.ok(service.getByBookCode(bookCode));
 	}
 	
+	@GetMapping("/review/rate/{bookCode}")
+	public ResponseEntity<?> getRateByBookCode(@PathVariable String bookCode) {
+		return ResponseEntity.ok(service.getRate(bookCode));
+	}
+	
+	
 	@PostMapping("/review")
 	public ResponseEntity<?> post(@RequestBody ReviewDto dto){
 		return ResponseEntity.ok(service.post(dto));

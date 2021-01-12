@@ -16,4 +16,7 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Integer> {
 	
 	@Query(value = "select review_entity.id, review_entity.user_code, review_entity.book_code, review_entity.rate, review_entity.review, review_entity.date, review_entity.status, user_entity.full_name FROM review_entity INNER JOIN user_entity ON review_entity.user_code = user_entity.user_code WHERE review_entity.book_code = ?", nativeQuery = true)
 	List<ReviewEntity> findByBookCode(String bookCode);
+	
+	@Query(value = "select review_entity.rate from review_entity where book_code = ?", nativeQuery = true)
+	List<ReviewEntity> findRate(String bookCode);
 }
