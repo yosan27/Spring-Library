@@ -1,5 +1,7 @@
 package com.Faraday.Library.services;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,11 @@ public class DonationServiceImpl implements DonationService{
 		CategoryEntity categoryEntity = categoryRepository.findByCategoryCodeIgnoreCase(dto.getCategoryCode());
 		UserEntity userEntity = userRepository.findByUserCode(dto.getUserCode());
 		
+		LocalDate date = LocalDate.now();
+		Date inputDate = Date.valueOf(date);
+		donationEntity.setDate(inputDate);
+		
+		
 		donationEntity.setAuthor(dto.getAuthor());
 		donationEntity.setBookTitle(dto.getBookTitle());
 		donationEntity.setDescription(dto.getDescription());
@@ -87,13 +94,30 @@ public class DonationServiceImpl implements DonationService{
 		return donationEntity;
 	}
 	
+	@Override
+	public DonationEntity accept(Integer id) {
+DonationEntity donationEntity = donationRepository.findById(id).get();
+		
+		if (donationEntity == null) {
+			donationEntity = null;
+			return donationEntity;
+		}
+		
+		donationEntity.setStatus(2);
+		donationRepository.save(donationEntity);
+		
+		return donationEntity;
+	}
+	
 	@Override 
 	public DonationEntity updateData(DonationDto dto, Integer id) {
 		DonationEntity donationEntity = donationRepository.findById(id).get();
+		CategoryEntity categoryEntity = categoryRepository.findByCategoryCodeIgnoreCase(dto.getCategoryCode());
 		donationEntity.setBookTitle(dto.getBookTitle());
 		donationEntity.setAuthor(dto.getAuthor());
 		donationEntity.setYear(dto.getYear());
 		donationEntity.setDescription(dto.getDescription());
+		donationEntity.setCategoryEntity(categoryEntity);
 		donationRepository.save(donationEntity);
 		return donationEntity;
 	}
