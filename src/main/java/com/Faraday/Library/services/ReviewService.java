@@ -7,7 +7,7 @@ import com.Faraday.Library.entity.ReviewEntity;
 
 public interface ReviewService {
 	List<ReviewEntity> getAll();
-	List<ReviewEntity> getByBookCode(String bookCode);
+	List<ReviewEntity> getByBookDetailCode(String bookDetailCode);
 	ReviewEntity post(ReviewDto dto);
 	
 }
