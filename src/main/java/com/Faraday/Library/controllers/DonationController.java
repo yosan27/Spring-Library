@@ -19,7 +19,7 @@ import com.Faraday.Library.dto.StatusMessageDto;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class DonationController {
 	@Autowired
 	private DonationServiceImpl donation;
@@ -78,6 +78,33 @@ public class DonationController {
 			}
 			result.setStatus(200);
             result.setMessage("deleted");
+            result.setData(donationEntity);
+
+            return ResponseEntity.status(200).body(result);
+			
+		}catch(Exception e) {
+			@SuppressWarnings("rawtypes")
+            StatusMessageDto error = new StatusMessageDto(500,e.getMessage(), null);
+            return ResponseEntity.status(500).body(error);
+		}
+	}
+    
+    @SuppressWarnings("unchecked")
+	@PutMapping("/acc-donation/{id}")
+	public ResponseEntity<?> accept(@PathVariable Integer id){
+		try {
+			DonationEntity donationEntity = donation.accept(id);
+			
+			if( donationEntity == null) {
+				result.setStatus(400);
+                result.setMessage("Data not found");
+                result.setData(donationEntity);
+
+                return ResponseEntity.status(400).body(result);
+				
+			}
+			result.setStatus(200);
+            result.setMessage("Accepted");
             result.setData(donationEntity);
 
             return ResponseEntity.status(200).body(result);

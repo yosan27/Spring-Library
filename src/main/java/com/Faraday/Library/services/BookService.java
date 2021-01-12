@@ -14,6 +14,8 @@ public interface BookService {
     BookEntity getBookDetails(Integer id);
 
     BookEntity getBook(String bookCode);
+
+    List<BookEntity> getPopular(String categoryCode);
     
     BookEntity post(BookDto dto);
 

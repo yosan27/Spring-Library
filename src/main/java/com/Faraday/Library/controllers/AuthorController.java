@@ -13,7 +13,7 @@ import com.Faraday.Library.services.AuthorServiceImplement;
 import com.Faraday.Library.dto.AuthorDto;
 import com.Faraday.Library.entity.AuthorEntity;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RestController
 @RequestMapping("/api")
 public class AuthorController {
