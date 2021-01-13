@@ -1,22 +1,13 @@
 package com.Faraday.Library.services;
 
 import com.Faraday.Library.dto.BookDetailsDto;
-import com.Faraday.Library.dto.StatusMessageDto;
 import com.Faraday.Library.entity.BookDetailsEntity;
 import com.Faraday.Library.repository.BookDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
-import java.util.Base64;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Transactional

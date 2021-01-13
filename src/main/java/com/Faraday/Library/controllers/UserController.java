@@ -165,7 +165,7 @@ public class UserController {
 		}
 	}
 	
-	@PostMapping("/admin")
+	@PostMapping("/users/admin")
 	public ResponseEntity<?> insertAdmin(@RequestBody UserDto dto){
 		StatusMessageDto response = new StatusMessageDto();
 		if(dto.getFullName().equals("") || dto.getEmail().equals("") || dto.getPassword().equals("")) {
