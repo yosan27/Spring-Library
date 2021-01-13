@@ -4,9 +4,12 @@ import com.Faraday.Library.dto.BookDetailsDto;
 import com.Faraday.Library.dto.StatusMessageDto;
 import com.Faraday.Library.entity.BookDetailsEntity;
 import com.Faraday.Library.repository.BookDetailsRepository;
+<<<<<<< HEAD
 import com.cloudinary.Singleton;
 import com.cloudinary.taglib.CloudinaryJsConfigTag;
 import com.cloudinary.utils.ObjectUtils;
+=======
+>>>>>>> 3b3702aa43f63b5c0e0a473e326f836afbe33b59
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -22,4 +22,6 @@ public interface BookDetailsRepository extends JpaRepository<BookDetailsEntity, 
 
     @Query(value = "select book_detail_code from publisher_entity where=?", nativeQuery = true)
     BookDetailsEntity findLastCodeBookDetail(String bookDetailCode);
+    
+    BookDetailsEntity findByBookDetailCode(String bookDetailCode);
 }
