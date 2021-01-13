@@ -190,7 +190,21 @@ public class UserServiceImplement implements UserService {
 		userRepository.save(userEntity);
 		return userEntity;
 	}
+	
+	@Override
+	public UserEntity updateUserUnsuspend(Integer id, UserDto dto) {
+		// TODO Auto-generated method stub
+		LocalDate today = LocalDate.now();
+		Date date = Date.valueOf(today);
+		UserEntity userEntity = userRepository.findById(id).get();
+		userEntity.setUnsuspendDate(null);
+		userEntity.setStatus(1);
+		userRepository.save(userEntity);
+		return userEntity;
+	}
 
+
+	
 	public UserEntity converToUserEntity(Integer role, UserDto dto) {
 
 		List<UserEntity> userEntities = userRepository.findAll();
@@ -259,6 +273,7 @@ public class UserServiceImplement implements UserService {
 		return userEntity;
 	}
 
+	
 	
 	
 

@@ -220,6 +220,13 @@ public class UserController {
 		}
 	}
 	
+	@PutMapping("/user/unsuspendate/{id}")
+	public ResponseEntity<?> updateUserUnsuspend(@PathVariable Integer id, @RequestBody UserDto dto){
+			UserEntity userEntity = service.updateUserUnsuspend(id, dto);
+			return ResponseEntity.ok(userEntity);
+		
+	}
+	
 	@DeleteMapping("/user/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable Integer id){
 		List<UserEntity> userEntities = service.getAll();
