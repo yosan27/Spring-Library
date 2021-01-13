@@ -67,15 +67,36 @@ public class ReviewServiceImplement implements ReviewService {
 	}
 
 	@Override
+	public ReviewEntity update(Integer id, ReviewDto dto) {
+		// TODO Auto-generated method stub
+		LocalDate today = LocalDate.now();
+		Date date = Date.valueOf(today);
+		ReviewEntity reviewEntity = reviewRepository.findById(id).get();
+		reviewEntity.setRate(dto.getRate());
+		reviewEntity.setReview(dto.getReview());
+		reviewEntity.setDate(date);
+		reviewRepository.save(reviewEntity);
+		return reviewEntity;
+	}
+
+	@Override
+	public ReviewEntity getById(Integer id) {
+		// TODO Auto-generated method stub
+		return reviewRepository.findReviewById(id);
+	}
+
 	public List<ReviewEntity> getRate(String bookCode) {
 		List<ReviewEntity> reviewEntity = reviewRepository.findRate(bookCode);
 		return reviewEntity;
 	}
+<<<<<<< HEAD
 
 	@Override
 	public List<ReviewEntity> getRateByBookDetail(String code) {
 		List<ReviewEntity> reviewEntity = reviewRepository.findRateByBookDetail(code);
 		return reviewEntity;
 	}
+=======
+>>>>>>> 73dc6c8f487f4e8c57b6af77e8a1a5fd716ee4b9
 	
 }
