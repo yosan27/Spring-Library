@@ -46,6 +46,29 @@ public class BookDetailsController {
     }
 
     @SuppressWarnings("unchecked")
+    @GetMapping("/lastbookdetail")
+    public ResponseEntity<?> getLastBookDetail() {
+        try {
+            List<BookDetailsEntity> books = service.getLastBookDetail();
+            if (books.size() == 0) {
+                result.setStatus(HttpStatus.BAD_REQUEST.value());
+                result.setMessage("Data not found");
+                result.setData(null);
+                return ResponseEntity.badRequest().body(result);
+            } else {
+                result.setStatus(200);
+                result.setMessage("Success");
+                result.setData(books);
+                return ResponseEntity.ok(result);
+            }
+        } catch (Exception e) {
+            @SuppressWarnings("rawtypes")
+            StatusMessageDto error = new StatusMessageDto(500, e.getMessage(), null);
+            return ResponseEntity.status(500).body(error);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
 	@GetMapping("/bookdetails/{bookDetailCode}")
     public ResponseEntity<?> getDetailBook(@PathVariable String bookDetailCode) {
         try {

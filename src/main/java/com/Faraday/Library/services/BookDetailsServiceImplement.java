@@ -14,8 +14,6 @@ import java.util.List;
 public class BookDetailsServiceImplement implements BookDetailsService{
 
     @Autowired
-    private CloudinaryConfig cloudinary;
-    @Autowired
     private BookDetailsRepository bookDetailRepository;
 
     @Override
@@ -27,6 +25,16 @@ public class BookDetailsServiceImplement implements BookDetailsService{
     @Override
     public BookDetailsEntity getDetailBooks(String bookDetailCode) {
         BookDetailsEntity books = bookDetailRepository.findByBookDetailCodeIgnoreCase(bookDetailCode);
+        if (books == null) {
+            books = null;
+            return books;
+        }
+        return books;
+    }
+
+    @Override
+    public List<BookDetailsEntity> getLastBookDetail() {
+        List<BookDetailsEntity> books = bookDetailRepository.getLastBookDetail();
         if (books == null) {
             books = null;
             return books;
