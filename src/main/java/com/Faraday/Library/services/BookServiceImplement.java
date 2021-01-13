@@ -50,6 +50,12 @@ public class BookServiceImplement implements BookService{
         List<BookEntity> books = bookRepository.findCatalog();
         return books;
     }
+
+    @Override
+    public List<BookEntity> getPopular(String categoryCode){
+        List<BookEntity> books = bookRepository.findPopular(categoryCode);
+        return books;
+    }
     
     @Override
 	public BookEntity getBookDetails(Integer id) {
@@ -251,11 +257,18 @@ public class BookServiceImplement implements BookService{
         return bookEntity;
     }
 
-
 	@Override
 	public BookEntity getBookByBookDetailCode(String bookDetailCode) {
 		// TODO Auto-generated method stub
 		BookEntity bookEntity = bookRepository.findAllActiveByBookDetailCode(bookDetailCode);
+		return bookEntity;
+	}
+	
+	@Override
+	public BookEntity updateStatus(String bookCode, BookDto dto) {
+		BookEntity bookEntity = bookRepository.findByBookCodeIgnoreCase(bookCode);
+		bookEntity.setStatus(dto.getStatus());
+		bookRepository.save(bookEntity);
 		return bookEntity;
 	}
 }

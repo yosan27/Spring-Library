@@ -39,6 +39,29 @@ public class BookDetailsServiceImplement implements BookDetailsService{
         books.setBookTitle(dto.getBookTitle());
         books.setBookSubtitle(dto.getBookSubtitle());
         books.setDescription(dto.getDescription());
+
+//        try {
+//
+//            Long unixTime = Instant.now().getEpochSecond();
+//            System.out.println(unixTime);
+//            byte[] bookImage = Base64.getMimeDecoder().decode(dto.getCover());
+//            System.out.println(dto.getCover());
+//
+////            Map uploadResult=cloudinary.upload("../../../../../../../Todidewantoro/Downloads/image.png", ObjectUtils.emptyMap());
+////            System.out.println(uploadResult);
+//
+//            Map uploadResult = cloudinary.upload(bookImage,
+//                    ObjectUtils.asMap(
+//                            "publicId", "Book",
+//                            "timestamp", unixTime.toString()));
+//
+//            books.setCover(uploadResult.get("url").toString());
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+
         books.setCover(dto.getCover());
         books.setNumberOfPages(dto.getNumberOfPages());
         books.setLanguage(dto.getLanguage());

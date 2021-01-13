@@ -128,7 +128,7 @@ public class UserServiceImplement implements UserService {
 	public UserEntity updateUser(Integer id, UserDto dto) {
 		// TODO Auto-generated method stub
 		UserEntity userEntity = userRepository.findById(id).get();
-		userEntity.setProfilePict(userEntity.getUserCode()+"_profile_"+dto.getProfilePict());
+		userEntity.setProfilePict(dto.getProfilePict());
 		userEntity.setPhone(dto.getPhone());
 		userEntity.setAddress(dto.getAddress());
 		userRepository.save(userEntity);
@@ -266,7 +266,7 @@ public class UserServiceImplement implements UserService {
 		userEntity.setFullName(dto.getFullName());
 		userEntity.setPhone(dto.getPhone());
 		userEntity.setAddress(dto.getAddress());
-		userEntity.setProfilePict(code+""+userCode+"_profile_"+dto.getProfilePict());
+		userEntity.setProfilePict("user.png");
 		userEntity.setBalance(0);
 		userEntity.setRole(role);
 		userEntity.setStatus(1);

@@ -25,6 +25,47 @@ public class ReviewDto {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	public String getUserCode() {
+		return userCode;
+	}
+
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+
+	public String getBookDetailCode() {
+		return bookDetailCode;
+	}
+
+	public void setBookDetailCode(String bookDetailCode) {
+		this.bookDetailCode = bookDetailCode;
+	}
+
+	public Integer getRate() {
+		return rate;
+	}
+
+	public void setRate(Integer rate) {
+		this.rate = rate;
+	}
+
+	public String getReview() {
+		return review;
+	}
+
+	public void setReview(String review) {
+		this.review = review;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
 	
 	
 

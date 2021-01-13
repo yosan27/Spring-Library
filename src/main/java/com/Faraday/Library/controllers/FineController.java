@@ -49,7 +49,7 @@ public class FineController {
 	}
 	
 	@GetMapping("/fine/id/{id}")
-	FineEntity getByCode(@PathVariable Integer id) throws ResourceNotFoundException {
+	FineEntity getById(@PathVariable Integer id) throws ResourceNotFoundException {
 		try {
 			return service.getById(id);
 		}catch(Exception e) {

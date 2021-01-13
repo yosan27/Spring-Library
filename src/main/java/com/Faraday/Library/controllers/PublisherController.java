@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import com.Faraday.Library.dto.PublisherDto;
 import com.Faraday.Library.services.PublisherServiceImplement;
 
-@CrossOrigin(origins = "localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class PublisherController {
