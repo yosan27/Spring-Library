@@ -28,4 +28,6 @@ public interface BookService {
     BookEntity getBookByBookDetailCode(String bookDetailCode);
     
     BookEntity updateStatus(String bookCode, BookDto dto);
+    
+    List<BookEntity> getNewBooks();
 }

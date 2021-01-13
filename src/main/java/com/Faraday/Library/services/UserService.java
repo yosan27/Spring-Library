@@ -25,5 +25,6 @@ public interface UserService {
 	public UserEntity deleteUser(Integer id);
 	public UserEntity updateUserBalance(Integer id, UserDto dto);
 	public UserEntity updateUserSuspend(Integer id, UserDto dto);
+	public UserEntity updateUserUnsuspend(Integer id, UserDto dto);
 
 }

@@ -5,6 +5,7 @@ import com.Faraday.Library.dto.BookDto;
 import com.Faraday.Library.dto.FineDto;
 import com.Faraday.Library.dto.StatusMessageDto;
 import com.Faraday.Library.entity.*;
+import com.Faraday.Library.exception.APIException;
 import com.Faraday.Library.exception.ResourceNotFoundException;
 import com.Faraday.Library.services.BookServiceImplement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -263,5 +264,14 @@ public class BookController {
             StatusMessageDto error = new StatusMessageDto(500,e.getMessage(), null);
             return ResponseEntity.status(500).body(error);
         }
+    }
+    
+    @GetMapping("books/new")
+    public List<BookEntity> getNewBooks() throws APIException{
+    	try {
+    		return service.getNewBooks();
+    	}catch (Exception e) {
+    		throw new APIException ("Sorry! Cannot Connect To Database Server");
+		}
     }
 }

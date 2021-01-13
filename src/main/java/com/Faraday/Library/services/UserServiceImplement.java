@@ -128,7 +128,7 @@ public class UserServiceImplement implements UserService {
 	public UserEntity updateUser(Integer id, UserDto dto) {
 		// TODO Auto-generated method stub
 		UserEntity userEntity = userRepository.findById(id).get();
-		userEntity.setProfilePict(userEntity.getUserCode()+"_profile_"+dto.getProfilePict());
+		userEntity.setProfilePict(dto.getProfilePict());
 		userEntity.setPhone(dto.getPhone());
 		userEntity.setAddress(dto.getAddress());
 		userRepository.save(userEntity);
@@ -190,7 +190,21 @@ public class UserServiceImplement implements UserService {
 		userRepository.save(userEntity);
 		return userEntity;
 	}
+	
+	@Override
+	public UserEntity updateUserUnsuspend(Integer id, UserDto dto) {
+		// TODO Auto-generated method stub
+		LocalDate today = LocalDate.now();
+		Date date = Date.valueOf(today);
+		UserEntity userEntity = userRepository.findById(id).get();
+		userEntity.setUnsuspendDate(null);
+		userEntity.setStatus(1);
+		userRepository.save(userEntity);
+		return userEntity;
+	}
 
+
+	
 	public UserEntity converToUserEntity(Integer role, UserDto dto) {
 
 		List<UserEntity> userEntities = userRepository.findAll();
@@ -252,13 +266,14 @@ public class UserServiceImplement implements UserService {
 		userEntity.setFullName(dto.getFullName());
 		userEntity.setPhone(dto.getPhone());
 		userEntity.setAddress(dto.getAddress());
-		userEntity.setProfilePict(code+""+userCode+"_profile_"+dto.getProfilePict());
+		userEntity.setProfilePict("user.png");
 		userEntity.setBalance(0);
 		userEntity.setRole(role);
 		userEntity.setStatus(1);
 		return userEntity;
 	}
 
+	
 	
 	
 
