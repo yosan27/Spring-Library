@@ -175,7 +175,7 @@ public class UserController {
 
 	}
 	
-	@PostMapping("/user/admin")
+	@PostMapping("/users/admin")
 	public ResponseEntity<?> insertAdmin(@RequestBody UserDto dto){
 		if(dto.getFullName().equals("") || dto.getEmail().equals("") || dto.getPassword().equals("")) {
 			return ResponseEntity.badRequest().body("tidak boleh kosong");				

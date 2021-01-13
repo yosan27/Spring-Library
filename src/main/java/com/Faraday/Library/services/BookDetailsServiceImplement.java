@@ -4,8 +4,8 @@ import com.Faraday.Library.dto.BookDetailsDto;
 import com.Faraday.Library.dto.StatusMessageDto;
 import com.Faraday.Library.entity.BookDetailsEntity;
 import com.Faraday.Library.repository.BookDetailsRepository;
-import com.Faraday.Library.utils.CloudinaryConfig;
 import com.cloudinary.Singleton;
+import com.cloudinary.taglib.CloudinaryJsConfigTag;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +25,6 @@ import java.util.Map;
 @Transactional
 public class BookDetailsServiceImplement implements BookDetailsService{
 
-    @Autowired
-    private CloudinaryConfig cloudinary;
     @Autowired
     private BookDetailsRepository bookDetailRepository;
 
