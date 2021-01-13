@@ -1,7 +1,6 @@
 package com.Faraday.Library.services;
 
 import com.Faraday.Library.dto.BookDetailsDto;
-import com.Faraday.Library.dto.StatusMessageDto;
 import com.Faraday.Library.entity.BookDetailsEntity;
 import com.Faraday.Library.repository.BookDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,8 @@ import java.util.List;
 @Transactional
 public class BookDetailsServiceImplement implements BookDetailsService{
 
-
+    @Autowired
+    private CloudinaryConfig cloudinary;
     @Autowired
     private BookDetailsRepository bookDetailRepository;
 
