@@ -28,4 +28,7 @@ public interface BookRepository extends JpaRepository<BookEntity, Integer> {
     BookEntity findBookDetails(Integer id);
     
    BookEntity findByBookCode(String bookCode);
+   
+   @Query(value = "SELECT * FROM book_entity ORDER BY published_date DESC LIMIT 12", nativeQuery = true)
+   List<BookEntity> findNewBooks();
 }
