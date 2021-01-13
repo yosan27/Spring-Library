@@ -21,7 +21,7 @@ import com.Faraday.Library.services.RentServiceImplement;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class RentController {
 	
 	@Autowired

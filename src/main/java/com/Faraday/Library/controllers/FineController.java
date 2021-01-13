@@ -24,7 +24,7 @@ import com.Faraday.Library.services.FineServiceImplement;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class FineController {
 	
 	@Autowired

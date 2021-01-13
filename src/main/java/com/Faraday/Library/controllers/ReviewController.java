@@ -22,7 +22,7 @@ import com.Faraday.Library.services.ReviewServiceImplement;
 import lombok.Data;
 
 @Data
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api")
 public class ReviewController {
