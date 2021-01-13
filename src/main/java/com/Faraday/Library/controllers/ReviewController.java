@@ -1,5 +1,7 @@
 package com.Faraday.Library.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Faraday.Library.dto.ReviewDto;
 import com.Faraday.Library.dto.StatusMessageDto;
+import com.Faraday.Library.entity.ReviewEntity;
 import com.Faraday.Library.security.jwt.JwtUtils;
 import com.Faraday.Library.services.ReviewServiceImplement;
 
@@ -45,6 +48,11 @@ public class ReviewController {
 	@GetMapping("/review/rate/{bookCode}")
 	public ResponseEntity<?> getRateByBookCode(@PathVariable String bookCode) {
 		return ResponseEntity.ok(service.getRate(bookCode));
+	}
+	
+	@GetMapping("/review/rate-by/{bookDetailCode}")
+	public List<ReviewEntity> getRateByBookDetailCode(@PathVariable String bookDetailCode) {
+		return service.getRateByBookDetail(bookDetailCode);
 	}
 	
 	

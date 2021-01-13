@@ -271,4 +271,10 @@ public class BookServiceImplement implements BookService{
 		bookRepository.save(bookEntity);
 		return bookEntity;
 	}
+
+	@Override
+	public List<BookEntity> getNewBooks() {
+		List<BookEntity> bookEntity = bookRepository.findNewBooks();
+		return bookEntity;
+	}
 }

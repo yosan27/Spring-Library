@@ -71,7 +71,11 @@ public class ReviewServiceImplement implements ReviewService {
 		List<ReviewEntity> reviewEntity = reviewRepository.findRate(bookCode);
 		return reviewEntity;
 	}
-	
-	
+
+	@Override
+	public List<ReviewEntity> getRateByBookDetail(String code) {
+		List<ReviewEntity> reviewEntity = reviewRepository.findRateByBookDetail(code);
+		return reviewEntity;
+	}
 	
 }

@@ -10,4 +10,5 @@ public interface ReviewService {
 	List<ReviewEntity> getByBookDetailCode(String bookDetailCode);
 	ReviewEntity post(ReviewDto dto);
 	List<ReviewEntity> getRate(String bookCode);
+	List<ReviewEntity> getRateByBookDetail(String code);
 }
