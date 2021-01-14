@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface BookDetailsRepository extends JpaRepository<BookDetailsEntity, Integer> {
 
-    BookDetailsEntity findByBookDetailCodeIgnoreCase(String bookDetailCode);
+//    BookDetailsEntity findByBookDetailCode(String bookDetailCode);
 
     @Query(value = "SELECT * FROM book_detail_entity WHERE is_active = 1", nativeQuery = true)
     List<BookDetailsEntity> findAllActive();
