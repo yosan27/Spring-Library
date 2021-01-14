@@ -12,6 +12,7 @@ public interface ReviewService {
 	ReviewEntity getById(Integer id);
 	ReviewEntity post(ReviewDto dto);
 	ReviewEntity update(Integer id, ReviewDto dto);
+	ReviewEntity delete(Integer id);
 	
 	List<ReviewEntity> getRate(String bookCode);
 	List<ReviewEntity> getRateByBookDetail(String code);
