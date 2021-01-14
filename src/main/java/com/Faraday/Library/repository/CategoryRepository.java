@@ -12,7 +12,7 @@ import com.Faraday.Library.entity.CategoryEntity;
 @Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Integer> {
 
-	CategoryEntity findByCategoryCodeIgnoreCase(String categoryCode);
+	CategoryEntity findByCategoryCode(String categoryCode);
 
 	@Query(value = "select * from category_entity where status = 1", nativeQuery = true)
 	List<CategoryEntity> findId();
