@@ -38,7 +38,7 @@ public class AuthorServiceImplement implements AuthorService{
 	@Override
 	public AuthorEntity post(AuthorDto dto) {
 		AuthorEntity author = new AuthorEntity();
-		author.setAuthorCode("NULL");
+		author.setAuthorCode("");
 		author.setAuthorName(dto.getAuthorName());
 		author.setStatus(1);
 		authorRepository.save(author);
