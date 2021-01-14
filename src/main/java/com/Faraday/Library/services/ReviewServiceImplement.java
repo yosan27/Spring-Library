@@ -96,4 +96,12 @@ public class ReviewServiceImplement implements ReviewService {
 		return reviewEntity;
 	}
 	
+	@Override
+	public ReviewEntity delete(Integer id) {
+		ReviewEntity reviewEntity = reviewRepository.findById(id).get();
+		reviewEntity.setStatus(0);
+		reviewRepository.save(reviewEntity);
+		return reviewEntity;
+	}
+	
 }
