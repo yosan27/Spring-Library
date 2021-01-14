@@ -71,6 +71,15 @@ public class BookServiceImplement implements BookService{
         books.setIsbn(dto.getIsbn());
         books.setPublishedDate(dto.getPublishedDate());
         books.setStatus(1);
+        bookRepository.save(books);
+        
+        String kodeBuku = "";
+        Integer bookId = books.getId();
+        if(bookId.toString().length() == 1) kodeBuku = "B00" + bookId.toString();
+        else if (bookId.toString().length() == 2) kodeBuku = "B0" + bookId.toString();
+        else if (bookId.toString().length() == 3) kodeBuku = "B" + bookId.toString();
+
+        books.setBookCode(kodeBuku);
 
         //masukkan kode kategori, publisher, author, bookDetail
         CategoryEntity categoryEntity = categoryRepository.findByCategoryCodeIgnoreCase(dto.getCategoryCode());
@@ -82,15 +91,7 @@ public class BookServiceImplement implements BookService{
         books.setPublisherEntity(publisherEntity);
         books.setAuthorEntity(authorEntity);
         books.setBookDetailsEntity(bookDetailsEntity);
-        bookRepository.save(books);
-
-        String kodeBuku = "";
-        Integer bookId = books.getId();
-        if(bookId.toString().length() == 1) kodeBuku = "B00" + bookId.toString();
-        else if (bookId.toString().length() == 2) kodeBuku = "B0" + bookId.toString();
-        else if (bookId.toString().length() == 3) kodeBuku = "B" + bookId.toString();
-
-        books.setBookCode(kodeBuku);
+        
         bookRepository.save(books);
         return books;
     }
