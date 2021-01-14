@@ -33,6 +33,16 @@ public class BookDetailsServiceImplement implements BookDetailsService{
     }
 
     @Override
+    public List<BookDetailsEntity> getLastBookDetail() {
+        List<BookDetailsEntity> books = bookDetailRepository.getLastBookDetail();
+        if (books == null) {
+            books = null;
+            return books;
+        }
+        return books;
+    }
+
+    @Override
     public BookDetailsEntity post(BookDetailsDto dto) {
         BookDetailsEntity books = new BookDetailsEntity();
         books.setBookDetailCode("BD");

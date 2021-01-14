@@ -9,6 +9,8 @@ public interface BookDetailsService {
 
     List<BookDetailsEntity> getAllDetailBooks();
 
+    List<BookDetailsEntity> getLastBookDetail();
+
     BookDetailsEntity getDetailBooks(String bookDetailCode);
 
     BookDetailsEntity post(BookDetailsDto dto);
