@@ -90,7 +90,7 @@ public class BookServiceImplement implements BookService{
         else if (bookId.toString().length() == 2) kodeBuku = "B0" + bookId.toString();
         else if (bookId.toString().length() == 3) kodeBuku = "B" + bookId.toString();
 
-        books.setBookCode(kodeBuku);
+        books.setBookCode("B026");
         bookRepository.save(books);
         return books;
     }
