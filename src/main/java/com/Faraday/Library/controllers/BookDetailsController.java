@@ -96,7 +96,7 @@ public class BookDetailsController {
     public ResponseEntity<?> post(@RequestBody BookDetailsDto dto){
         try {
 
-            BookDetailsEntity books = service.post(dto);
+            
 
             if (dto.getBookTitle() == null) {
                 result.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -104,6 +104,7 @@ public class BookDetailsController {
                 result.setData(null);
                 return ResponseEntity.badRequest().body(result);
             } else {
+            	BookDetailsEntity books = service.post(dto);
                 result.setStatus(200);
                 result.setMessage("Success");
                 result.setData(books);
