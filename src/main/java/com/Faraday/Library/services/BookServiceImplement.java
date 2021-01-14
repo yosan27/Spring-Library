@@ -73,10 +73,10 @@ public class BookServiceImplement implements BookService{
         books.setStatus(1);
 
         //masukkan kode kategori, publisher, author, bookDetail
-        CategoryEntity categoryEntity = categoryRepository.findByCategoryCode(dto.getCategoryCode());
+        CategoryEntity categoryEntity = categoryRepository.findByCategoryCodeIgnoreCase(dto.getCategoryCode());
         PublisherEntity publisherEntity = publisherRepository.findByPublisherCode(dto.getPublisherCode());
-        AuthorEntity authorEntity = authorRepository.findByAuthorCode(dto.getAuthorCode());
-        BookDetailsEntity bookDetailsEntity = bookDetailsRepository.findByBookDetailCode(dto.getBookDetailCode());
+        AuthorEntity authorEntity = authorRepository.findByAuthorCodeIgnoreCase(dto.getAuthorCode());
+        BookDetailsEntity bookDetailsEntity = bookDetailsRepository.findByBookDetailCodeIgnoreCase(dto.getBookDetailCode());
 
         books.setCategoryEntity(categoryEntity);
         books.setPublisherEntity(publisherEntity);
@@ -90,7 +90,7 @@ public class BookServiceImplement implements BookService{
         else if (bookId.toString().length() == 2) kodeBuku = "B0" + bookId.toString();
         else if (bookId.toString().length() == 3) kodeBuku = "B" + bookId.toString();
 
-        books.setBookCode("B026");
+        books.setBookCode(kodeBuku);
         bookRepository.save(books);
         return books;
     }
@@ -98,10 +98,10 @@ public class BookServiceImplement implements BookService{
     @Override
     public BookEntity put(String bookCode, BookDto dto) {
         BookEntity books = bookRepository.findByBookCodeIgnoreCase(bookCode);
-        CategoryEntity category = categoryRepository.findByCategoryCode(dto.getCategoryCode());
+        CategoryEntity category = categoryRepository.findByCategoryCodeIgnoreCase(dto.getCategoryCode());
         PublisherEntity publisher = publisherRepository.findByPublisherCode(dto.getPublisherCode());
-        AuthorEntity author = authorRepository.findByAuthorCode(dto.getAuthorCode());
-        BookDetailsEntity bookdetail = bookDetailsRepository.findByBookDetailCode(dto.getBookDetailCode());
+        AuthorEntity author = authorRepository.findByAuthorCodeIgnoreCase(dto.getAuthorCode());
+        BookDetailsEntity bookdetail = bookDetailsRepository.findByBookDetailCodeIgnoreCase(dto.getBookDetailCode());
 
         if (books == null) {
             books = null;
