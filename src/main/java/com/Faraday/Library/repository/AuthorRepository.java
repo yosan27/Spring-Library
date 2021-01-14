@@ -11,7 +11,7 @@ import com.Faraday.Library.entity.AuthorEntity;
 @Repository
 public interface AuthorRepository extends JpaRepository<AuthorEntity, Integer>{
 
-    AuthorEntity findByAuthorCode(String authorCode);
+    AuthorEntity findByAuthorCodeIgnoreCase(String authorCode);
     
     @Query(value = "select * from author_entity where status = 1", nativeQuery = true)
     List<AuthorEntity> findActiveId();
