@@ -55,7 +55,7 @@ public class AuthorController {
 	@PostMapping("/author")
 	public ResponseEntity<?> post(@RequestBody AuthorDto dto){
 		try {
-			if (dto.getAuthorName().equals("")) {
+			if (dto.getAuthorName() == null) {
 				result.setStatus(HttpStatus.BAD_REQUEST.value());
 				result.setMessage("Author Name Is Blank!");
 				result.setData(null);
