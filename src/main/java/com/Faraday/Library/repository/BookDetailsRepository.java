@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface BookDetailsRepository extends JpaRepository<BookDetailsEntity, Integer> {
 
-//    BookDetailsEntity findByBookDetailCode(String bookDetailCode);
+    BookDetailsEntity findByBookDetailCodeIgnoreCase(String bookDetailCode);
 
     @Query(value = "SELECT * FROM book_detail_entity WHERE is_active = 1", nativeQuery = true)
     List<BookDetailsEntity> findAllActive();
@@ -23,7 +23,7 @@ public interface BookDetailsRepository extends JpaRepository<BookDetailsEntity, 
     @Query(value = "select book_detail_code from publisher_entity where=?", nativeQuery = true)
     BookDetailsEntity findLastCodeBookDetail(String bookDetailCode);
     
-    BookDetailsEntity findByBookDetailCodeIgnoreCase(String bookDetailCode);
+    BookDetailsEntity findByBookDetailCode(String bookDetailCode);
 
     //get last book detail
     @Query(value = "select * from book_detail_entity order by id desc limit 1", nativeQuery = true)
