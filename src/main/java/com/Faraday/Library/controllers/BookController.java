@@ -153,8 +153,6 @@ public class BookController {
     public ResponseEntity<?> post(@RequestBody BookDto dto){
         try {
 
-            
-
             if (dto.getBookDetailCode() == null) {
                 result.setStatus(HttpStatus.BAD_REQUEST.value());
                 result.setMessage("Kode detail buku tidak boleh kosong");
@@ -180,15 +178,13 @@ public class BookController {
     public ResponseEntity<?> postNew(@RequestBody AddBookDto dto){
 
         try {
-
-            BookEntity books = service.postNew(dto);
-
             if (dto.getBookTitle() == null) {
                 result.setStatus(HttpStatus.BAD_REQUEST.value());
                 result.setMessage("Judul buku tidak boleh kosong");
                 result.setData(null);
                 return ResponseEntity.badRequest().body(result);
             } else {
+            	BookEntity books = service.postNew(dto);
                 result.setStatus(200);
                 result.setMessage("Success");
                 result.setData(books);
