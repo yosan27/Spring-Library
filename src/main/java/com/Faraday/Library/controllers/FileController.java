@@ -17,7 +17,7 @@ import java.nio.file.*;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class FileController {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);
 

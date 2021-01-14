@@ -23,7 +23,7 @@ import com.Faraday.Library.services.WishlistServiceImplement;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class WishlistController {
 	
 	@Autowired
